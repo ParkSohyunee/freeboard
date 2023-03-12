@@ -1,5 +1,7 @@
 import {Wrapper, PageTitle, WriterInfo, Item, InputBox, SubTitle, 
-    InputBoxTitle, TitleInfo, ContentsInfo, TextBoxContents, Address, Zip, ZipCode} from '../../../styles/emotion'
+    InputBoxTitle, TitleInfo, ContentsInfo, TextBoxContents, Address, Zip, 
+    ZipCode, ZipCodeSearch, Img, ImgAttach, MainSet, Label, 
+    RadioButton, Submit, SubmitBtn} from '../../../styles/emotion'
 
 export default function Board() {
 
@@ -22,15 +24,13 @@ export default function Board() {
             </TitleInfo>
             <ContentsInfo>
                 <SubTitle>내용</SubTitle>
-                {/* <InputBoxContents type="text" placeholder='내용을 작성해주세요.'></InputBoxContents> */}
                 <TextBoxContents placeholder='내용을 작성해주세요.'></TextBoxContents>
             </ContentsInfo>
             <Address>
                 <SubTitle>주소</SubTitle>
                 <Zip>
                     <ZipCode type="number"></ZipCode>
-                    <ZipCode type="number"></ZipCode>
-                    {/* <Search></Search> */}
+                    <ZipCodeSearch>우편번호 검색</ZipCodeSearch>
                 </Zip>
                 <InputBoxTitle type="text"></InputBoxTitle>
                 <InputBoxTitle type="text"></InputBoxTitle>
@@ -39,6 +39,30 @@ export default function Board() {
                 <SubTitle>유튜브</SubTitle>
                 <InputBoxTitle type="text" placeholder='링크를 복사해주세요.'></InputBoxTitle>
             </TitleInfo>
+            <TitleInfo>
+                <SubTitle>사진 첨부</SubTitle>
+                <Img>
+                    <ImgAttach></ImgAttach>
+                    <ImgAttach></ImgAttach>
+                    <ImgAttach></ImgAttach>
+                </Img>
+            </TitleInfo>
+            <TitleInfo>
+                <SubTitle>메인 설정</SubTitle>
+                <MainSet>
+                    <Label for='youtube'>
+                        <RadioButton type="radio" name="main" value="youtube" id='youtube' />
+                        유튜브
+                    </Label>
+                    <Label for='img'>
+                        <RadioButton type='radio' name='main' value='img' id='img'/>
+                        사진
+                    </Label>
+                </MainSet>
+            </TitleInfo>
+            <Submit>
+                <SubmitBtn>등록하기</SubmitBtn>
+            </Submit>
         </Wrapper>
     )
 }

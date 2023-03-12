@@ -1,11 +1,13 @@
 import styled from '@emotion/styled'
 
+// Making a styled components with emotion and tagged template literals
 export const Wrapper = styled.div`
     box-sizing: border-box;
     width: 1200px;
     padding: 60px 100px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 `
+// 게시물 등록 타이틀
 export const PageTitle = styled.div`
     width: 100%;
     padding-bottom: 80px;
@@ -14,6 +16,7 @@ export const PageTitle = styled.div`
     line-height: 53px;
     text-align: center;
 `
+// 작성자 & 비밀번호
 export const WriterInfo = styled.div`
     width: 100%;
     padding-bottom: 40px;
@@ -25,10 +28,9 @@ export const Item = styled.div`
     width: 486px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
 `
 export const SubTitle = styled.div`
-    padding-bottom: 16px;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -47,29 +49,22 @@ export const InputBoxTitle = styled.input`
     line-height: 24px;
     border: 1px solid #BDBDBD;
 `
+// 제목
 export const TitleInfo = styled.div`
     width: 100%;
     padding-bottom: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
 `
+// 내용
 export const ContentsInfo = styled.div`
     width: 100%;
     padding-bottom: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
 `
-// export const InputBoxContents = styled.input`
-//     text-align: left;
-//     height: 466px;
-//     padding: 14px;
-//     font-weight: 400;
-//     font-size: 16px;
-//     line-height: 24px;
-//     border: 1px solid #BDBDBD;
-// `
 export const TextBoxContents = styled.textarea`
     height: 466px;
     padding: 14px;
@@ -79,19 +74,17 @@ export const TextBoxContents = styled.textarea`
     border: 1px solid #BDBDBD;
     resize: none;
 `
-// export const AddressInfo = styled.div`
-//     width: 100%;
-//     padding-bottom: 37px;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-// `
+// 주소
 export const Address = styled.div`
     width: 100%;
     padding-bottom: 37px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
+`
+export const Zip = styled.div`
+    display: flex;
+    gap: 16px;
 `
 export const ZipCode = styled.input`
     width: 72px;
@@ -99,10 +92,52 @@ export const ZipCode = styled.input`
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
+    border: 1px solid #BDBDBD;
 `
-export const Zip = styled.div`
-    width: 220px;
-    padding-bottom: 16px;
+export const ZipCodeSearch = styled.div`
+    width: 124px;
+    padding: 14px 16px;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    background: #000000;
+`
+// 사진첨부
+export const Img = styled.div`
     display: flex;
-    justify-content: space-between;
+    gap: 24px;
+`
+export const ImgAttach = styled.div`
+    width: 78px;
+    height: 78px;
+    background: #BDBDBD;
+`
+// 메인설정
+export const MainSet = styled.div`
+    display: flex;
+    gap: 22px;
+`
+export const Label = styled.div`
+    display: flex;
+    align-items: center;
+`
+export const RadioButton = styled.input`
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+`
+// 등록하기
+export const Submit = styled.div`
+    display: flex;
+    justify-content: center;
+`
+export const SubmitBtn = styled.button`
+    background: #FFD600;
+    width: 179px;
+    height: 52px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
 `
