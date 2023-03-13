@@ -1,10 +1,19 @@
+import { gql, useMutation } from '@apollo/client'
 import { useState } from 'react'
 import {Wrapper, PageTitle, WriterInfo, Item, InputBox, ErrorMessage, SubTitle, 
     InputBoxTitle, TitleInfo, ContentsInfo, TextBoxContents, Address, Zip, 
     ZipCode, ZipCodeSearch, Img, ImgAttach, MainSet, Label, 
     RadioButton, Submit, SubmitBtn} from '../../../styles/emotion'
 
+const CREATE_BOARD = gql`
+    mutation createBoard($createBoardInput: CreateBoardInput!){
+        createBoard(createBoardInput: $createBoardInput){
+            writer, title, contents
+        }
+    }
+` 
 export default function Board() {
+    const [MyComponent] = useMutation(CREATE_BOARD)
 
     const [ writer, setWriter] = useState("")
     const [ password, setPassword] = useState("")
@@ -21,8 +30,8 @@ export default function Board() {
     const onChangeTitle = (event) => setTitle(event.target.value)
     const onChangeContents = (event) => setContents(event.target.value)
 
-    const onClickValidation = () => {
-        console.log(writer);
+    const onClickValidation = async () => {
+        // console.log(writer);
     
         if (!writer) { 
             setWriterError("작성자를 입력해주세요.") 
@@ -45,7 +54,18 @@ export default function Board() {
             setContentsError("")
         }
         if (writer && password && title && contents){
-            alert("게시물 등록이 완료되었습니다.")
+            const result = await MyComponent({
+                variables: {
+                    createBoardInput: {
+                        writer: writer, // shorthand-property
+                        password: password,
+                        title: title,
+                        contents: contents
+                    }
+                }
+            })
+            console.log(result);
+            console.log(result.data.createBoard);
         }
     }
 
