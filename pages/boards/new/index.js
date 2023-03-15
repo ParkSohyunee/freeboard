@@ -1,4 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import {Wrapper, PageTitle, WriterInfo, Item, InputBox, ErrorMessage, SubTitle, 
     InputBoxTitle, TitleInfo, ContentsInfo, TextBoxContents, Address, Zip, 
@@ -8,11 +9,13 @@ import {Wrapper, PageTitle, WriterInfo, Item, InputBox, ErrorMessage, SubTitle,
 const CREATE_BOARD = gql`
     mutation createBoard($createBoardInput: CreateBoardInput!){
         createBoard(createBoardInput: $createBoardInput){
-            writer, title, contents
+            _id, writer, title, contents, createdAt
         }
     }
 ` 
 export default function Board() {
+    const router = useRouter()
+
     const [MyComponent] = useMutation(CREATE_BOARD)
 
     const [ writer, setWriter] = useState("")
@@ -54,18 +57,25 @@ export default function Board() {
             setContentsError("")
         }
         if (writer && password && title && contents){
-            const result = await MyComponent({
-                variables: {
-                    createBoardInput: {
-                        writer: writer, // shorthand-property
-                        password: password,
-                        title: title,
-                        contents: contents
+            try {
+                const result = await MyComponent({
+                    variables: {
+                        createBoardInput: {
+                            writer: writer, // shorthand-property
+                            password: password,
+                            title: title,
+                            contents: contents
+                        }
                     }
-                }
-            })
-            console.log(result);
-            console.log(result.data.createBoard);
+                })
+                // console.log(result);
+                // console.log(result.data.createBoard);
+                router.push(`/boards/${result.data.createBoard._id}`)
+            }
+            catch(error) {
+                alert(error.message)
+                console.log(error.message);
+            }
         }
     }
 
