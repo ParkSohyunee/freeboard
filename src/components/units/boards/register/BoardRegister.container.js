@@ -10,6 +10,8 @@ export default function BoardRegister() {
 
     const [MyComponent] = useMutation(CREATE_BOARD)
 
+    const [isActive, setIsActive] = useState(false)
+
     const [ writer, setWriter] = useState("")
     const [ password, setPassword] = useState("")
     const [ title, setTitle] = useState("")
@@ -20,13 +22,29 @@ export default function BoardRegister() {
     const [ titleError, setTitleError] = useState("")
     const [ contentsError, setContentsError] = useState("")
 
-    const onChangeWriter = (event) => setWriter(event.target.value)
-    const onChangePassword = (event) => setPassword(event.target.value)
-    const onChangeTitle = (event) => setTitle(event.target.value)
-    const onChangeContents = (event) => setContents(event.target.value)
+    const onChangeWriter = (event) => {
+        setWriter(event.target.value)
+        if (event.target.value && password && title && contents) (setIsActive(true))
+        else (setIsActive(false))
+    }
+    const onChangePassword = (event) => {
+        setPassword(event.target.value)
+        if (writer && event.target.value && title && contents) (setIsActive(true))
+        else (setIsActive(false))
+    }
+    const onChangeTitle = (event) => {
+        setTitle(event.target.value)
+        if (writer && password && event.target.value && contents) (setIsActive(true))
+        else (setIsActive(false))
+    }
+    const onChangeContents = (event) => {
+        setContents(event.target.value)
+        if (writer && password && title && event.target.value) (setIsActive(true))
+        else (setIsActive(false))
+    }
+    console.log(writer, password, title, contents);
 
     const onClickValidation = async () => {
-        // console.log(writer);
     
         if (!writer) { 
             setWriterError("작성자를 입력해주세요.") 
@@ -53,10 +71,10 @@ export default function BoardRegister() {
                 const result = await MyComponent({
                     variables: {
                         createBoardInput: {
-                            writer: writer, // shorthand-property
-                            password: password,
-                            title: title,
-                            contents: contents
+                            writer,
+                            password,
+                            title,
+                            contents
                         }
                     }
                 })
@@ -82,7 +100,8 @@ export default function BoardRegister() {
             onChangePassword={onChangePassword}
             onChangeTitle={onChangeTitle}
             onChangeContents={onChangeContents}
-            onClickValidation={onClickValidation} />
+            onClickValidation={onClickValidation}
+            isActive={isActive} />
         </>
     )
 }

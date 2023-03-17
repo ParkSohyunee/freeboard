@@ -138,12 +138,15 @@ export const Submit = styled.div`
     justify-content: center;
 `
 export const SubmitBtn = styled.button`
+    background-color: ${(props) => 
+        (props.isActive ? "#FFD600" : "none")
+    };
     cursor: pointer;
-    background: #FFD600;
     width: 179px;
     height: 52px;
     border: none;
     font-size: 16px;
+    font-weight: 500;
     line-height: 24px;
 `
 // 에러메세지

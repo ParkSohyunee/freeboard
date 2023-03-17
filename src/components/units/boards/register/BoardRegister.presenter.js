@@ -63,7 +63,10 @@ export default function BoardRegisterUI(props){
                     </S.MainSet>
                 </S.TitleInfo>
                 <S.Submit>
-                    <S.SubmitBtn onClick={props.onClickValidation}>등록하기</S.SubmitBtn>
+                    <S.SubmitBtn 
+                        onClick={props.onClickValidation}
+                        isActive={props.isActive}>등록하기
+                    </S.SubmitBtn>
                 </S.Submit>
             </S.Wrapper>
         </>
