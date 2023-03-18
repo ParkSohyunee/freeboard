@@ -1,26 +1,15 @@
-import { gql, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { FETCH_BOARDS } from "../list/BoardList.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
+import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
 
-const FETCH_BOARD = gql`
-    query fetchBoard($boardId: ID!){
-        fetchBoard(boardId: $boardId){
-        _id
-        writer
-        title
-        contents
-        createdAt
-        }
-    }
-`
+
 export default function BoardDetail() {
     const router = useRouter() 
 
-    console.log("====================");
     console.log(router); // 객체
-    console.log("====================");
     console.log(router.query);  // {boardId: '...'}
-    console.log("====================");
     console.log(router.query.boardId); // ... 즉, boardId 반환            
 
     const {data} = useQuery(FETCH_BOARD, {
@@ -29,9 +18,22 @@ export default function BoardDetail() {
     })
 
     console.log(data); // undefined
-    console.log(data ? data.fetchBoard.writer : "loading..."); // 삼향연산자
-    console.log(data && data.fetchBoard.writer); // AND 연산자
     console.log(data?.fetchBoard.writer); // 옵셔널 체이닝
 
-    return <BoardDetailUI data={data}/>
+    const [deleteBoard] = useMutation(DELETE_BOARD)
+    const onClickDelete = async () => {
+        await deleteBoard({
+            variables: {
+                boardId: router.query.boardId
+            },
+            refetchQueries: [{
+                query: FETCH_BOARDS
+            }]
+        })
+        alert("게시물이 정상적으로 삭제되었습니다.")
+        router.push("/boards/")
+    } 
+    return <BoardDetailUI 
+            data={data}
+            onClickDelete={onClickDelete}/>
 }

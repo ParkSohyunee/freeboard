@@ -14,7 +14,7 @@ export default function BoardsUI(props){
                 </S.HeaderRow>
 
                 {props.data?.fetchBoards.map(board => (
-                    <S.BodyRow>
+                    <S.BodyRow key={board._id}>
                         <S.ColumnID>{board._id}</S.ColumnID> 
                         <S.ColumnTitle>{board.title}</S.ColumnTitle> 
                         <S.ColumnWriter>{board.writer}</S.ColumnWriter>
