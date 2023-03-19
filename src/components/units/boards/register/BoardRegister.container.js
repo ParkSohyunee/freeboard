@@ -43,7 +43,7 @@ export default function BoardRegister(props) {
         if (writer && password && title && event.target.value) (setIsActive(true))
         else (setIsActive(false))
     }
-    console.log(writer, password, title, contents);
+    // console.log(writer, password, title, contents);
 
     const onClickValidation = async () => {
     
@@ -91,22 +91,35 @@ export default function BoardRegister(props) {
     }
 
     const onClickUpdate = async () => {
+        if (!password) {
+            alert("비밀번호를 입력해주세요.")
+            return;
+        }
+        // console.log(title); // ""
+
+        if (!title && !contents) {
+            alert("수정한 내용이 없습니다.")
+            return;
+        }
+
+        const variables = {
+            boardId: router.query.boardId,
+            password,
+            updateBoardInput: {}
+        }
+        if (title) (variables.updateBoardInput.title = title)
+        if (contents) (variables.updateBoardInput.contents = contents)
+
         try {
             const result = await MyComponentUpdate({
-                variables: {
-                    updateBoardInput: {
-                        title,
-                        contents
-                    },
-                    password,
-                    boardId: router.query.boardId
-                }
+                variables: variables
             }) 
-            console.log(result);
+            // console.log(result);
             router.push(`/boards/${result.data.updateBoard._id}`)
         } 
         catch(error) {
             alert(error.message)
+            console.log(error.message);
         }
     } 
 
@@ -124,7 +137,8 @@ export default function BoardRegister(props) {
             onClickValidation={onClickValidation}
             onClickUpdate={onClickUpdate}
             isActive={isActive} 
-            isEdit={props.isEdit}/>
+            isEdit={props.isEdit}
+            data={props.data}/>
         </>
     )
 }

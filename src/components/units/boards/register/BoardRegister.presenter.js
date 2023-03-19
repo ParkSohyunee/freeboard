@@ -9,23 +9,23 @@ export default function BoardRegisterUI(props){
                 <S.WriterInfo>
                     <S.Item>
                         <S.SubTitle>작성자</S.SubTitle>
-                        <S.InputBox type="text" placeholder='이름을 적어주세요.' onChange={props.onChangeWriter}></S.InputBox>
+                        <S.InputBox type="text" placeholder='이름을 적어주세요.' onChange={props.onChangeWriter} defaultValue={props.data?.fetchBoard.writer}></S.InputBox>
                         <S.ErrorMessage>{props.writerError}</S.ErrorMessage>
                     </S.Item>
                     <S.Item>
                         <S.SubTitle>비밀번호</S.SubTitle>
-                        <S.InputBox type="password" placeholder='비밀번호를 입력해주세요.' onChange={props.onChangePassword}></S.InputBox>
+                        <S.InputBox type="password" placeholder='비밀번호를 입력해주세요.' onChange={props.onChangePassword} defaultValue={props.data?.fetchBoard.password}></S.InputBox>
                         <S.ErrorMessage>{props.pwdError}</S.ErrorMessage>
                     </S.Item>
                 </S.WriterInfo>
                 <S.TitleInfo>
                     <S.SubTitle>제목</S.SubTitle>
-                    <S.InputBoxTitle type="text" placeholder='제목을 작성해주세요.' onChange={props.onChangeTitle}></S.InputBoxTitle>
+                    <S.InputBoxTitle type="text" placeholder='제목을 작성해주세요.' onChange={props.onChangeTitle} defaultValue={props.data?.fetchBoard.title}></S.InputBoxTitle>
                     <S.ErrorMessage>{props.titleError}</S.ErrorMessage>
                 </S.TitleInfo>
                 <S.ContentsInfo>
                     <S.SubTitle>내용</S.SubTitle>
-                    <S.TextBoxContents placeholder='내용을 작성해주세요.' onChange={props.onChangeContents}></S.TextBoxContents>
+                    <S.TextBoxContents placeholder='내용을 작성해주세요.' onChange={props.onChangeContents} defaultValue={props.data?.fetchBoard.contents}></S.TextBoxContents>
                     <S.ErrorMessage>{props.contentsError}</S.ErrorMessage>
                 </S.ContentsInfo>
                 <S.Address>
