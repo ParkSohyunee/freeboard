@@ -2,13 +2,14 @@ import { useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import BoardRegisterUI from "./BoardRegister.presenter"
-import { CREATE_BOARD } from "./BoardRegister.queries"
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries"
 
-export default function BoardRegister() {
+export default function BoardRegister(props) {
 
     const router = useRouter()
 
     const [MyComponent] = useMutation(CREATE_BOARD)
+    const [MyComponentUpdate] = useMutation(UPDATE_BOARD)
 
     const [isActive, setIsActive] = useState(false)
 
@@ -89,6 +90,26 @@ export default function BoardRegister() {
         }
     }
 
+    const onClickUpdate = async () => {
+        try {
+            const result = await MyComponentUpdate({
+                variables: {
+                    updateBoardInput: {
+                        title,
+                        contents
+                    },
+                    password,
+                    boardId: router.query.boardId
+                }
+            }) 
+            console.log(result);
+            router.push(`/boards/${result.data.updateBoard._id}`)
+        } 
+        catch(error) {
+            alert(error.message)
+        }
+    } 
+
     return (
         <>
             <BoardRegisterUI
@@ -101,7 +122,9 @@ export default function BoardRegister() {
             onChangeTitle={onChangeTitle}
             onChangeContents={onChangeContents}
             onClickValidation={onClickValidation}
-            isActive={isActive} />
+            onClickUpdate={onClickUpdate}
+            isActive={isActive} 
+            isEdit={props.isEdit}/>
         </>
     )
 }

@@ -5,7 +5,7 @@ export default function BoardRegisterUI(props){
     return (
         <>
             <S.Wrapper>
-                <S.PageTitle>게시물 등록</S.PageTitle>
+                <S.PageTitle>게시물 {props.isEdit ? "수정" : "등록"}</S.PageTitle>
                 <S.WriterInfo>
                     <S.Item>
                         <S.SubTitle>작성자</S.SubTitle>
@@ -64,8 +64,9 @@ export default function BoardRegisterUI(props){
                 </S.TitleInfo>
                 <S.Submit>
                     <S.SubmitBtn 
-                        onClick={props.onClickValidation}
-                        isActive={props.isActive}>등록하기
+                        onClick={props.isEdit ? props.onClickUpdate : props.onClickValidation}
+                        isActive={props.isEdit ? true : props.isActive}>
+                        {props.isEdit ? "수정하기" : "등록하기"}
                     </S.SubmitBtn>
                 </S.Submit>
             </S.Wrapper>

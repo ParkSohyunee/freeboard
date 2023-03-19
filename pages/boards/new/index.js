@@ -4,7 +4,7 @@ export default function Board() {
 
     return (
         <>
-            <BoardRegister/>
+            <BoardRegister isEdit={false}/>
         </>
     )
 }

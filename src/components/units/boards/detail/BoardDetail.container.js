@@ -33,7 +33,14 @@ export default function BoardDetail() {
         alert("게시물이 정상적으로 삭제되었습니다.")
         router.push("/boards/")
     } 
-    return <BoardDetailUI 
+
+    const onClickMoveToEdit = () => {
+        router.push(`/boards/${router.query.boardId}/edit`)
+    }
+
+    return ( <BoardDetailUI 
             data={data}
-            onClickDelete={onClickDelete}/>
+            onClickDelete={onClickDelete}
+            onClickMoveToEdit={onClickMoveToEdit}/>
+    )
 }
