@@ -1,27 +1,26 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { IMutation, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs } from "../../../../commons/types/generated/types";
 import { FETCH_BOARDS } from "../list/BoardList.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
 
-
 export default function BoardDetail() {
     const router = useRouter() 
 
-    console.log(router); // 객체
-    console.log(router.query);  // {boardId: '...'}
-    console.log(router.query.boardId); // ... 즉, boardId 반환            
+    // console.log(router.query.boardId); // ... 즉, boardId 반환            
 
-    const {data} = useQuery(FETCH_BOARD, {
+    const {data} = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(FETCH_BOARD, {
         variables: {
-            boardId: router.query.boardId}
+            boardId: String(router.query.boardId)}
     })
 
-    console.log(data); // undefined
-    console.log(data?.fetchBoard.writer); // 옵셔널 체이닝
+    // console.log(data); // undefined
+    // console.log(data?.fetchBoard.writer); // 옵셔널 체이닝
 
-    const [deleteBoard] = useMutation(DELETE_BOARD)
+    const [deleteBoard] = useMutation<Pick<IMutation, "deleteBoard">, IMutationDeleteBoardArgs>(DELETE_BOARD)
     const onClickDelete = async () => {
+        if (typeof router.query.boardId !== "string") return;
         await deleteBoard({
             variables: {
                 boardId: router.query.boardId

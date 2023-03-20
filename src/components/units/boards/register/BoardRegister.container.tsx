@@ -1,15 +1,17 @@
 import { useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types"
 import BoardRegisterUI from "./BoardRegister.presenter"
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries"
+import { IBoardRegisterProps, IVariables } from "./BoardRegister.types"
 
-export default function BoardRegister(props) {
-
+export default function BoardRegister(props: IBoardRegisterProps) {
+    
     const router = useRouter()
 
-    const [MyComponent] = useMutation(CREATE_BOARD)
-    const [MyComponentUpdate] = useMutation(UPDATE_BOARD)
+    const [MyComponent] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD) // IMutationCreateBoardArgs: 인자타입 
+    const [MyComponentUpdate] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD)
 
     const [isActive, setIsActive] = useState(false)
 
@@ -23,22 +25,22 @@ export default function BoardRegister(props) {
     const [ titleError, setTitleError] = useState("")
     const [ contentsError, setContentsError] = useState("")
 
-    const onChangeWriter = (event) => {
+    const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
         setWriter(event.target.value)
         if (event.target.value && password && title && contents) (setIsActive(true))
         else (setIsActive(false))
     }
-    const onChangePassword = (event) => {
+    const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value)
         if (writer && event.target.value && title && contents) (setIsActive(true))
         else (setIsActive(false))
     }
-    const onChangeTitle = (event) => {
+    const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value)
         if (writer && password && event.target.value && contents) (setIsActive(true))
         else (setIsActive(false))
     }
-    const onChangeContents = (event) => {
+    const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setContents(event.target.value)
         if (writer && password && title && event.target.value) (setIsActive(true))
         else (setIsActive(false))
@@ -81,11 +83,11 @@ export default function BoardRegister(props) {
                 })
                 // console.log(result);
                 // console.log(result.data.createBoard);
-                router.push(`/boards/${result.data.createBoard._id}`)
+                router.push(`/boards/${result.data?.createBoard?._id}`)
             }
             catch(error) {
-                alert(error.message)
-                console.log(error.message);
+                alert(error)
+                console.log(error);
             }
         }
     }
@@ -102,24 +104,27 @@ export default function BoardRegister(props) {
             return;
         }
 
-        const variables = {
-            boardId: router.query.boardId,
-            password,
-            updateBoardInput: {}
-        }
-        if (title) (variables.updateBoardInput.title = title)
-        if (contents) (variables.updateBoardInput.contents = contents)
+        const updateBoardInput: IVariables = {}
+        if (title) (updateBoardInput.title = title)
+        if (contents) (updateBoardInput.contents = contents)
 
         try {
+            if (typeof router.query.boardId !== "string") return;
             const result = await MyComponentUpdate({
-                variables: variables
-            }) 
+                variables: {
+                    boardId: router.query.boardId,
+                    password,
+                    updateBoardInput
+                }
+            })
             // console.log(result);
-            router.push(`/boards/${result.data.updateBoard._id}`)
+            router.push(`/boards/${result.data?.updateBoard._id}`)
         } 
         catch(error) {
-            alert(error.message)
-            console.log(error.message);
+            if (error instanceof Error){
+                alert(error.message)
+            }
+            console.log(error);
         }
     } 
 

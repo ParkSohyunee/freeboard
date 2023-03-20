@@ -1,6 +1,7 @@
+import { IBoardDetailProps } from "./BoardDetail.types";
 import * as S from "./BoardDetailStyles";
 
-export default function BoardDetailUI(props){
+export default function BoardDetailUI(props: IBoardDetailProps){
 
     return (
         <>

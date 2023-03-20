@@ -1,7 +1,8 @@
 import { Fragment } from "react";
+import { IBoardsUIProps } from "./BoardList.types";
 import * as S from "./BoardListStyles";
 
-export default function BoardsUI(props){
+export default function BoardsUI(props: IBoardsUIProps){
 
     return (
         <Fragment>

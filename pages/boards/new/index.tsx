@@ -4,7 +4,8 @@ export default function Board() {
 
     return (
         <>
-            <BoardRegister isEdit={false}/>
+            {BoardRegister({ isEdit: false })}
         </>
+            // <BoardRegister isEdit={false}/>
     )
 }

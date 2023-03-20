@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { ISubmitBtnProps } from "./BoardRegister.types"
 
 // 게시물 등록 페이지
 // Making a styled components with emotion and tagged template literals
@@ -138,7 +139,7 @@ export const Submit = styled.div`
     justify-content: center;
 `
 export const SubmitBtn = styled.button`
-    background-color: ${(props) => 
+    background-color: ${(props: ISubmitBtnProps) => 
         (props.isActive ? "#FFD600" : "none")
     };
     cursor: pointer;

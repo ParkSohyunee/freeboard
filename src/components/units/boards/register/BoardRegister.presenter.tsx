@@ -1,6 +1,7 @@
+import { IBoardRegisterUIProps } from "./BoardRegister.types";
 import * as S from "./BoardRegisterStyles";
 
-export default function BoardRegisterUI(props){
+export default function BoardRegisterUI(props: IBoardRegisterUIProps){
 
     return (
         <>
