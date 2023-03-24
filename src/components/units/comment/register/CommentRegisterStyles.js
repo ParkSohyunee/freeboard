@@ -67,10 +67,13 @@ export const ContentsLength = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 91px;
+  width: 15%;
   height: 51px;
   padding: 14px 16px;
-  background-color: black;
-  color: white;
-  cursor: pointer;
+  border: none;
+  background-color: ${(props) => {
+    return props.isActive ? "black" : "default";
+  }};
+  color: ${(props) => (props.isActive ? "white" : "black")};
+  cursor: ${(props) => (props.isActive ? "pointer" : "default")};
 `;
