@@ -1,4 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardCommentUI from "./CommentRegister.presenter";
@@ -16,6 +16,18 @@ const CREATE_BOARD_COMMENT = gql`
       writer
       contents
       rating
+    }
+  }
+`;
+
+const FETCH_BOARD_COMMENTS = gql`
+  query fetchBoardComments($boardId: ID!) {
+    fetchBoardComments(boardId: $boardId) {
+      _id
+      writer
+      contents
+      rating
+      createdAt
     }
   }
 `;
@@ -68,6 +80,12 @@ export default function BoardCommentRegister() {
             },
             boardId: router.query.boardId,
           },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: router.query.boardId },
+            },
+          ],
         });
         console.log(result);
       } catch (error) {
