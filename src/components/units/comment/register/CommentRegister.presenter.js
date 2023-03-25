@@ -27,7 +27,7 @@ export default function BoardCommentUI(props) {
         ></S.Contents>
       </S.ContentsWrapper>
       <S.BottomWrapper>
-        <S.ContentsLength>0/100</S.ContentsLength>
+        <S.ContentsLength>{props.contents.length} / 100</S.ContentsLength>
         <S.Button onClick={props.onClickSubmit} isActive={props.isActive}>
           등록하기
         </S.Button>
