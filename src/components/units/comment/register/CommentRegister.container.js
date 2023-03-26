@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardCommentUI from "./CommentRegister.presenter";
@@ -43,6 +43,8 @@ export default function BoardCommentRegister() {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
+  const [star, setStar] = useState(3);
+  const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
   const onChangeWriter = (event) => {
     // console.log(event.target.value);
@@ -64,10 +66,18 @@ export default function BoardCommentRegister() {
   };
   // console.log(writer, password, contents);
 
+  const onChangeStar = (star) => {
+    setStar(star);
+    if (writer && password && contents && star) setIsActive(true);
+    else setIsActive(false);
+  };
+  console.log(star);
+
   const onClickSubmit = async () => {
     if (!writer) alert("작성자를 입력해주세요.");
     if (!password) alert("비밀번호를 입력해주세요.");
     if (!contents) alert("내용을 입력해주세요.");
+    if (!star) alert("별점을 눌러주세요.");
     if (writer && password && contents) {
       try {
         const result = await commentRegister({
@@ -76,7 +86,7 @@ export default function BoardCommentRegister() {
               writer: writer,
               password: password,
               contents: contents,
-              rating: 5,
+              rating: star,
             },
             boardId: router.query.boardId,
           },
@@ -105,6 +115,9 @@ export default function BoardCommentRegister() {
         password={password}
         contents={contents}
         isActive={isActive}
+        onChangeStar={onChangeStar}
+        star={star}
+        desc={desc}
       />
     </>
   );

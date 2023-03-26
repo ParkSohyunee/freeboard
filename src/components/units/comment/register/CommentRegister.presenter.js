@@ -1,3 +1,4 @@
+import { Rate } from "antd";
 import * as S from "./CommentRegisterStyles";
 
 export default function BoardCommentUI(props) {
@@ -6,6 +7,11 @@ export default function BoardCommentUI(props) {
       <S.Headers>
         <S.PencilIcon src="/yellow-pencil-img.png" />
         <S.HeadersTitle>댓글</S.HeadersTitle>
+        <Rate
+          tooltips={props.desc}
+          onChange={props.onChangeStar}
+          value={props.star}
+        />
       </S.Headers>
       <S.InputWrapper>
         <S.Input

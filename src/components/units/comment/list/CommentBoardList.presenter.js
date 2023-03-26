@@ -1,3 +1,4 @@
+import { Rate } from "antd";
 import * as S from "./CommentBoardListStyles";
 
 export default function BoardCommentListUI(props) {
@@ -10,6 +11,7 @@ export default function BoardCommentListUI(props) {
             <S.MainWrapper>
               <S.WriterWrapper>
                 <S.Writer>{el.writer}</S.Writer>
+                <Rate disabled defaultValue={el.rating} />
               </S.WriterWrapper>
               <S.ContentsBox>{el.contents}</S.ContentsBox>
             </S.MainWrapper>

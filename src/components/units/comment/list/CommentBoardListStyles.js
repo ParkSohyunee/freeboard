@@ -24,6 +24,7 @@ export const MainWrapper = styled.div`
 export const WriterWrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 20px;
 `;
 export const Writer = styled.div`
   font-size: 20px;
