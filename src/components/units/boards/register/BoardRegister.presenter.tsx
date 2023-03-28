@@ -81,11 +81,13 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           ></S.InputBoxTitle>
           <S.InputBoxTitle
             type="text"
+            placeholder="상세주소를 입력해주세요."
             onChange={props.onChangeAddressDetail}
             defaultValue={
               props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
             }
           ></S.InputBoxTitle>
+          <S.ErrorMessage>{props.addressError}</S.ErrorMessage>
         </S.Address>
         <S.TitleInfo>
           <S.SubTitle>유튜브</S.SubTitle>

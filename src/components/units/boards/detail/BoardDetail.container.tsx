@@ -54,6 +54,10 @@ export default function BoardDetail() {
     router.push("/boards/");
   };
 
+  const onClickMoveToList = () => {
+    router.push("/boards/");
+  };
+
   const onClickMoveToEdit = () => {
     router.push(`/boards/${router.query.boardId}/edit`);
   };
@@ -89,6 +93,7 @@ export default function BoardDetail() {
       data={data}
       onClickDelete={onClickDelete}
       onClickMoveToEdit={onClickMoveToEdit}
+      onClickMoveToList={onClickMoveToList}
       onClickLikeCount={onClickLikeCount}
       onClickDislikeCount={onClickDislikeCount}
     />

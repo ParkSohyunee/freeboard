@@ -25,6 +25,8 @@ const FETCH_BOARD = gql`
 `;
 export default function BoardEditPage() {
   const router = useRouter();
+  console.log("==================");
+  console.log(router.query.boardId);
 
   // string이 아니면
   if (typeof router.query.boardId !== "string") {

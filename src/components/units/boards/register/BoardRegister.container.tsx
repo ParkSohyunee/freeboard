@@ -37,6 +37,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [pwdError, setPwdError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
+  const [addressError, setAddressError] = useState("");
   const [youtubeUrlError, setYoutubeUrlError] = useState("");
 
   const [zipcode, setZipcode] = useState("");
@@ -45,30 +46,66 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
-    if (event.target.value && password && title && contents) setIsActive(true);
-    else setIsActive(false);
+    if (event.target.value !== "") {
+      setWriterError("");
+    }
+    if (event.target.value && password && title && contents && youtubeUrl) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-    if (writer && event.target.value && title && contents) setIsActive(true);
-    else setIsActive(false);
+    if (event.target.value !== "") {
+      setPwdError("");
+    }
+    if (writer && event.target.value && title && contents && youtubeUrl) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
   const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
-    if (writer && password && event.target.value && contents) setIsActive(true);
+    if (event.target.value !== "") {
+      setTitleError("");
+    }
+    if (writer && password && event.target.value && contents && youtubeUrl)
+      setIsActive(true);
     else setIsActive(false);
   };
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
-    if (writer && password && title && event.target.value) setIsActive(true);
+    if (event.target.value !== "") {
+      setContentsError("");
+    }
+    if (writer && password && title && event.target.value && youtubeUrl)
+      setIsActive(true);
     else setIsActive(false);
   };
   // console.log(writer, password, title, contents);
   const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
+    if (event.target.value !== "") {
+      setAddressError("");
+    }
+    if (
+      writer &&
+      password &&
+      title &&
+      contents &&
+      event.target.value &&
+      youtubeUrl
+    )
+      setIsActive(true);
+    else setIsActive(false);
   };
   const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(event.target.value);
+    if (event.target.value !== "") {
+      setYoutubeUrlError("");
+    }
     if (writer && password && title && contents && event.target.value)
       setIsActive(true);
     else setIsActive(false);
@@ -86,15 +123,11 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
   const onClickValidation = async () => {
     if (!writer) setWriterError("작성자를 입력해주세요.");
-    else setWriterError("");
     if (!password) setPwdError("비밀번호를 입력해주세요.");
-    else setPwdError("");
     if (!title) setTitleError("제목을 입력해주세요.");
-    else setTitleError("");
     if (!contents) setContentsError("내용을 입력해주세요.");
-    else setContentsError("");
+    if (!addressDetail) setAddressError("상세주소를 입력해주세요.");
     if (!youtubeUrl) setYoutubeUrlError("유튜브 주소를 입력해주세요.");
-    else setYoutubeUrlError("");
 
     if (writer && password && title && contents && youtubeUrl) {
       try {
@@ -125,8 +158,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   };
 
   const onClickUpdate = async () => {
-    if (!password) alert("비밀번호를 입력해주세요.");
-    else return;
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    } // return이 대괄호 밖에 쓰이면 아래 실행문을 실행하지 않음 (주의!)
     // console.log(title); // ""
 
     if (
@@ -136,9 +171,10 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       !address &&
       !addressDetail &&
       !youtubeUrl
-    )
+    ) {
       alert("수정한 내용이 없습니다.");
-    else return;
+      return;
+    }
 
     const updateBoardInput: IVariables = {};
     if (title) updateBoardInput.title = title;
@@ -160,7 +196,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
           updateBoardInput,
         },
       });
-      // console.log(result);
+      console.log(result);
       router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) {
@@ -177,6 +213,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         pwdError={pwdError}
         titleError={titleError}
         contentsError={contentsError}
+        addressError={addressError}
         youtubeUrlError={youtubeUrlError}
         onChangeWriter={onChangeWriter}
         onChangePassword={onChangePassword}

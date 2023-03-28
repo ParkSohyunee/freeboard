@@ -24,6 +24,7 @@ export interface IBoardRegisterUIProps {
   titleError: string;
   contentsError: string;
   youtubeUrlError: string;
+  addressError: string;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;

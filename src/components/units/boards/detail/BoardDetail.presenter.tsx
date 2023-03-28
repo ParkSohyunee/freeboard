@@ -42,7 +42,7 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
           </S.Reaction>
         </S.WrapperTop>
         <S.BoardBtn>
-          <S.BtnStyle>목록보기</S.BtnStyle>
+          <S.BtnStyle onClick={props.onClickMoveToList}>목록보기</S.BtnStyle>
           <S.BtnStyle onClick={props.onClickMoveToEdit}>수정하기</S.BtnStyle>
           <S.BtnStyle onClick={props.onClickDelete}>삭제하기</S.BtnStyle>
         </S.BoardBtn>

@@ -117,6 +117,7 @@ export const BoardBtn = styled.div`
   gap: 24px;
 `;
 export const BtnStyle = styled.button`
+  cursor: pointer;
   padding: 14px 60px;
   background: #ffffff;
   border: 1px solid #bdbdbd;
@@ -124,4 +125,9 @@ export const BtnStyle = styled.button`
   font-size: 16px;
   line-height: 24px;
   text-align: center;
+
+  // &: hover
+  {BtnStyle}:hover {
+    background-color: #FFD600;
+  }
 `;
