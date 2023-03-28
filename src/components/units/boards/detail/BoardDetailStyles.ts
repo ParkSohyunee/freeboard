@@ -63,13 +63,14 @@ export const BoardContent = styled.div`
   font-size: 16px;
   line-height: 24px;
   background-color: #f2f2f2;
-  margin-bottom: 120px;
+  margin-bottom: 60px;
 `;
-export const Video = styled.div`
-  width: 486px;
-  height: 240px;
-  border: 1px solid;
-  margin: 0px 250px 100px 250px;
+export const PlayerWrapper = styled.div`
+  margin: auto;
+  margin-bottom: 40px;
+  width: 640px;
+  height: 360px;
+  // position: relative;
 `;
 export const Reaction = styled.div`
   display: flex;

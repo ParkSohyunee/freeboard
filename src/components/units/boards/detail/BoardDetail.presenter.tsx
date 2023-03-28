@@ -1,3 +1,4 @@
+import ReactPlayer from "react-player";
 import { IBoardDetailProps } from "./BoardDetail.types";
 import * as S from "./BoardDetailStyles";
 
@@ -17,7 +18,16 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
           <S.BoardTitle>{props.data?.fetchBoard.title}</S.BoardTitle>
           <S.ImgBox></S.ImgBox>
           <S.BoardContent>{props.data?.fetchBoard.contents}</S.BoardContent>
-          <S.Video>비디오재생</S.Video>
+          <S.PlayerWrapper>
+            <ReactPlayer
+              url={props.data?.fetchBoard.youtubeUrl ?? ""}
+              muted={true}
+              controls={true}
+              playing={true}
+              width="100%"
+              height="100%"
+            />
+          </S.PlayerWrapper>
           <S.Reaction>
             <S.ReactionBox onClick={props.onClickLikeCount}>
               <S.LikeIcon />

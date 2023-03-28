@@ -31,11 +31,13 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [pwdError, setPwdError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
+  const [youtubeUrlError, setYoutubeUrlError] = useState("");
 
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
@@ -65,6 +67,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
   };
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(event.target.value);
+    if (writer && password && title && contents && event.target.value)
+      setIsActive(true);
+    else setIsActive(false);
+  };
 
   const onToggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -77,27 +85,18 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   };
 
   const onClickValidation = async () => {
-    if (!writer) {
-      setWriterError("작성자를 입력해주세요.");
-    } else {
-      setWriterError("");
-    }
-    if (!password) {
-      setPwdError("비밀번호를 입력해주세요.");
-    } else {
-      setPwdError("");
-    }
-    if (!title) {
-      setTitleError("제목을 입력해주세요.");
-    } else {
-      setTitleError("");
-    }
-    if (!contents) {
-      setContentsError("내용을 입력해주세요.");
-    } else {
-      setContentsError("");
-    }
-    if (writer && password && title && contents) {
+    if (!writer) setWriterError("작성자를 입력해주세요.");
+    else setWriterError("");
+    if (!password) setPwdError("비밀번호를 입력해주세요.");
+    else setPwdError("");
+    if (!title) setTitleError("제목을 입력해주세요.");
+    else setTitleError("");
+    if (!contents) setContentsError("내용을 입력해주세요.");
+    else setContentsError("");
+    if (!youtubeUrl) setYoutubeUrlError("유튜브 주소를 입력해주세요.");
+    else setYoutubeUrlError("");
+
+    if (writer && password && title && contents && youtubeUrl) {
       try {
         const result = await MyComponent({
           variables: {
@@ -106,6 +105,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
               password,
               title,
               contents,
+              youtubeUrl,
               boardAddress: {
                 zipcode,
                 address,
@@ -125,20 +125,25 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   };
 
   const onClickUpdate = async () => {
-    if (!password) {
-      alert("비밀번호를 입력해주세요.");
-      return;
-    }
+    if (!password) alert("비밀번호를 입력해주세요.");
+    else return;
     // console.log(title); // ""
 
-    if (!title && !contents && !zipcode && !address && !addressDetail) {
+    if (
+      !title &&
+      !contents &&
+      !zipcode &&
+      !address &&
+      !addressDetail &&
+      !youtubeUrl
+    )
       alert("수정한 내용이 없습니다.");
-      return;
-    }
+    else return;
 
     const updateBoardInput: IVariables = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
+    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
     if (address || zipcode || addressDetail) {
       updateBoardInput.boardAddress = {};
       if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
@@ -172,10 +177,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         pwdError={pwdError}
         titleError={titleError}
         contentsError={contentsError}
+        youtubeUrlError={youtubeUrlError}
         onChangeWriter={onChangeWriter}
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
+        onChangeYoutubeUrl={onChangeYoutubeUrl}
         onClickValidation={onClickValidation}
         onClickUpdate={onClickUpdate}
         isActive={isActive}

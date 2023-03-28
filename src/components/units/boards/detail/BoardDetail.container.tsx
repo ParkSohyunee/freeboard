@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import {
   IMutation,
   IMutationDeleteBoardArgs,
@@ -24,11 +23,7 @@ export default function BoardDetail() {
 
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
-    {
-      variables: {
-        boardId: String(router.query.boardId),
-      },
-    }
+    { variables: { boardId: String(router.query.boardId) } }
   );
 
   console.log(data); // undefined

@@ -10,6 +10,7 @@ export interface IBoardRegisterProps {
 export interface IVariables {
   title?: string;
   contents?: string;
+  youtubeUrl?: string;
   boardAddress?: {
     address?: string;
     addressDetail?: string;
@@ -22,11 +23,13 @@ export interface IBoardRegisterUIProps {
   pwdError: string;
   titleError: string;
   contentsError: string;
+  youtubeUrlError: string;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickValidation: () => void;
   onClickUpdate: () => void;
   handleComplete: (data: Address) => void;

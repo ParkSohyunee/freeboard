@@ -92,7 +92,10 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           <S.InputBoxTitle
             type="text"
             placeholder="링크를 복사해주세요."
+            onChange={props.onChangeYoutubeUrl}
+            defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
           ></S.InputBoxTitle>
+          <S.ErrorMessage>{props.youtubeUrlError}</S.ErrorMessage>
         </S.TitleInfo>
         <S.TitleInfo>
           <S.SubTitle>사진 첨부</S.SubTitle>
