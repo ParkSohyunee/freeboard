@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Pagination01 from "../../../commons/pagination/01/pagination01.container";
 import { IBoardsUIProps } from "./BoardList.types";
 import * as S from "./BoardListStyles";
 
@@ -22,22 +23,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
         ))}
         <S.WrapperFooter>
           <S.PagesWrapper>
-            <S.PagesBtn onClick={props.onClickPrevPage}>{`< `}</S.PagesBtn>
-            {new Array(10).fill(1).map(
-              (_, index) =>
-                index + props.startPage <= props.lastPage && (
-                  <S.Pages
-                    key={index + props.startPage}
-                    id={String(index + props.startPage)}
-                    onClick={props.onclickPage}
-                    isActive={index + props.startPage === props.currentPage}
-                  >
-                    {index + props.startPage}
-                  </S.Pages>
-                )
-            )}
-            {/* id={page} -> Type 'number' is not assignable to type 'string'.ts(2322) HTML은 id="" */}
-            <S.PagesBtn onClick={props.onClickNextPage}>{` >`}</S.PagesBtn>
+            <Pagination01 refetch={props.refetch} count={props.count} />
           </S.PagesWrapper>
           <S.RegisterBtn>
             <S.PencilImg src="./pencil-image.png"></S.PencilImg>
