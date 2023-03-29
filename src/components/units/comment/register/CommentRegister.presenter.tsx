@@ -1,7 +1,8 @@
 import { Rate } from "antd";
 import * as S from "./CommentRegisterStyles";
+import { IBoardCommentRegisterProps } from "./CommnetRegister.types";
 
-export default function BoardCommentUI(props) {
+export default function BoardCommentUI(props: IBoardCommentRegisterProps) {
   return (
     <S.Wrapper>
       <S.Headers>

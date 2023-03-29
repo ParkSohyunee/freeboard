@@ -1,7 +1,8 @@
 import { Rate } from "antd";
+import { IBoardCommentListProps } from "./CommentBoardList.types";
 import * as S from "./CommentBoardListStyles";
 
-export default function BoardCommentListUI(props) {
+export default function BoardCommentListUI(props: IBoardCommentListProps) {
   return (
     <>
       {props.data?.fetchBoardComments.map((el) => (

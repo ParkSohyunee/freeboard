@@ -1,36 +1,14 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardCommentUI from "./CommentRegister.presenter";
-
-const CREATE_BOARD_COMMENT = gql`
-  mutation createBoardComment(
-    $createBoardCommentInput: CreateBoardCommentInput!
-    $boardId: ID!
-  ) {
-    createBoardComment(
-      createBoardCommentInput: $createBoardCommentInput
-      boardId: $boardId
-    ) {
-      _id
-      writer
-      contents
-      rating
-    }
-  }
-`;
-
-const FETCH_BOARD_COMMENTS = gql`
-  query fetchBoardComments($boardId: ID!) {
-    fetchBoardComments(boardId: $boardId) {
-      _id
-      writer
-      contents
-      rating
-      createdAt
-    }
-  }
-`;
+import { CREATE_BOARD_COMMENT } from "./CommentRegister.queries";
+import { ChangeEvent } from "react";
+import { FETCH_BOARD_COMMENTS } from "./CommentRegister.queries";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardCommentRegister() {
   const router = useRouter();
@@ -38,7 +16,10 @@ export default function BoardCommentRegister() {
 
   const [isActive, setIsActive] = useState(false);
 
-  const [commentRegister] = useMutation(CREATE_BOARD_COMMENT);
+  const [commentRegister] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -46,27 +27,27 @@ export default function BoardCommentRegister() {
   const [star, setStar] = useState(3);
   const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target.value);
     setWriter(event.target.value);
     if (event.target.value && password && contents) setIsActive(true);
     else setIsActive(false);
   };
 
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (writer && event.target.value && contents) setIsActive(true);
     else setIsActive(false);
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
     if (writer && password && event.target.value) setIsActive(true);
     else setIsActive(false);
   };
   // console.log(writer, password, contents);
 
-  const onChangeStar = (star) => {
+  const onChangeStar = (star: number) => {
     setStar(star);
     if (writer && password && contents && star) setIsActive(true);
     else setIsActive(false);
@@ -88,7 +69,7 @@ export default function BoardCommentRegister() {
               contents: contents,
               rating: star,
             },
-            boardId: router.query.boardId,
+            boardId: String(router.query.boardId),
           },
           refetchQueries: [
             {

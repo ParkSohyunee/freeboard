@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IButtonProps } from "./CommnetRegister.types";
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -71,9 +72,9 @@ export const Button = styled.button`
   height: 51px;
   padding: 14px 16px;
   border: none;
-  background-color: ${(props) => {
+  background-color: ${(props: IButtonProps) => {
     return props.isActive ? "black" : "default";
   }};
-  color: ${(props) => (props.isActive ? "white" : "black")};
-  cursor: ${(props) => (props.isActive ? "pointer" : "default")};
+  color: ${(props: IButtonProps) => (props.isActive ? "white" : "black")};
+  cursor: ${(props: IButtonProps) => (props.isActive ? "pointer" : "default")};
 `;
