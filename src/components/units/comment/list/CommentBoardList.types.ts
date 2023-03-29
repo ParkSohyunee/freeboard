@@ -8,4 +8,5 @@ export interface IBoardCommentListProps {
   onClickDeleteCommentModal: (event: MouseEvent<HTMLImageElement>) => void;
   onChangeDeletePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onToggleModal: () => void;
+  onLoadMore: () => void;
 }

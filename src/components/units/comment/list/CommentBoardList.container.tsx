@@ -22,15 +22,16 @@ export default function BoardCommentList() {
   const router = useRouter();
   // console.log(router);
 
-  const { data } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  // console.log(data); // {fetchBoardComments: Array(10)}
-  // console.log(data?.fetchBoardComments); // [{…}, {…}, ..., {…}]
+  console.log(data); // {fetchBoardComments: Array(10)}
+  console.log(data?.fetchBoardComments); // [{…}, {…}, ..., {…}]
+  console.log(data?.fetchBoardComments.length);
 
   const [deleteBoardComment] = useMutation<
     Pick<IMutation, "deleteBoardComment">,
@@ -43,6 +44,8 @@ export default function BoardCommentList() {
     if (!(event.target instanceof HTMLElement)) return;
     // console.log(event.currentTarget.id);
     // console.log(event.target.id);
+    console.log("------------------------------");
+    console.log(myBoardCommentId);
 
     try {
       await deleteBoardComment({
@@ -73,7 +76,6 @@ export default function BoardCommentList() {
     // 이미지등은 event.target.id가 없을수도 있으므로 currentTarget으로 지정
 
     setMyBoardCommentId(event.currentTarget.id);
-
     // setIsOpenDeleteModal(true);
     onToggleModal();
   };
@@ -86,6 +88,36 @@ export default function BoardCommentList() {
     setIsOpenDeleteModal((prev) => !prev);
   };
 
+  const onLoadMore = () => {
+    // 만약 data가 없다면?
+    if (data === undefined) return;
+
+    fetchMore({
+      variables: {
+        boardId: router.query.boardId,
+        page: Math.ceil(data?.fetchBoardComments.length / 10) + 1,
+      },
+      // variables로 page만 넣었더니 댓글 무한양산 오류, FETCH_BOARD_COMMENTS에는 boardId가 반드시 변수로 들어가야 한다!
+
+      updateQuery: (prev, { fetchMoreResult }) => {
+        // fetchMoreResult.fetchBoards가 없다면(새로운 목록 없음!)
+        if (fetchMoreResult.fetchBoardComments === undefined) {
+          return {
+            fetchBoardComments: [...prev.fetchBoardComments],
+          };
+        }
+
+        // fetchMoreResult.fetchBoards가 있다면
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
+
   return (
     <>
       <BoardCommentListUI
@@ -95,6 +127,7 @@ export default function BoardCommentList() {
         onClickDeleteCommentModal={onClickDeleteCommentModal}
         onChangeDeletePassword={onChangeDeletePassword}
         onToggleModal={onToggleModal}
+        onLoadMore={onLoadMore}
       />
     </>
   );

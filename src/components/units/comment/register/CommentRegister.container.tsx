@@ -2,9 +2,11 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardCommentUI from "./CommentRegister.presenter";
-import { CREATE_BOARD_COMMENT } from "./CommentRegister.queries";
+import {
+  CREATE_BOARD_COMMENT,
+  FETCH_BOARD_COMMENTS,
+} from "./CommentRegister.queries";
 import { ChangeEvent } from "react";
-import { FETCH_BOARD_COMMENTS } from "./CommentRegister.queries";
 import {
   IMutation,
   IMutationCreateBoardCommentArgs,
@@ -55,6 +57,8 @@ export default function BoardCommentRegister() {
   console.log(star);
 
   const onClickSubmit = async () => {
+    if (typeof router.query.boardId !== "string") return;
+
     if (!writer) alert("작성자를 입력해주세요.");
     if (!password) alert("비밀번호를 입력해주세요.");
     if (!contents) alert("내용을 입력해주세요.");
@@ -69,7 +73,7 @@ export default function BoardCommentRegister() {
               contents: contents,
               rating: star,
             },
-            boardId: String(router.query.boardId),
+            boardId: router.query.boardId, // boardId: String(router.query.boardId),
           },
           refetchQueries: [
             {
