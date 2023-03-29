@@ -57,3 +57,8 @@ export const DateBox = styled.div`
   font-weight: 500;
   color: lightgray;
 `;
+
+export const PwdInput = styled.input`
+  width: 300px;
+  height: 30px;
+`;
