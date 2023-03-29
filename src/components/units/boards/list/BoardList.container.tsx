@@ -6,10 +6,11 @@ import {
   IQueryFetchBoardsArgs,
   IQueryFetchBoardsCountArgs,
 } from "../../../../commons/types/generated/types";
+import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 
 export default function Boards() {
-  // const [myColorPage, setMyColorPage] = useState(0);
-  // const [startPage, setStartPage] = useState(1);
+  const router = useRouter();
 
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
@@ -25,12 +26,21 @@ export default function Boards() {
 
   const count = dataBoardsCount ? dataBoardsCount.fetchBoardsCount : 0;
 
+  const onClickMoveToRegisterPage = () => {
+    router.push("/boards/new");
+  };
+  const onClickMoveToDetailPage = (event: MouseEvent<HTMLDivElement>) => {
+    router.push(`/boards/${event.currentTarget.id}`);
+  };
+
   return (
     <>
       <BoardsUI
         data={data}
         count={count} // count={dataBoardsCount?.fetchBoardsCount}
         refetch={refetch}
+        onClickMoveToRegisterPage={onClickMoveToRegisterPage}
+        onClickMoveToDetailPage={onClickMoveToDetailPage}
       />
     </>
   );

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ICurrentPage } from "./BoardList.types";
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
@@ -28,9 +27,17 @@ export const BodyRow = styled.div`
   line-height: 24px;
   color: #4f4f4f;
   text-align: center;
+
+  :hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 1px #ffd600;
+  }
+`;
+export const ColumnNumber = styled.div`
+  width: 10%;
 `;
 export const ColumnID = styled.div`
-  width: 25%;
+  width: 20%;
 `;
 export const ColumnTitle = styled.div`
   width: 30%;
@@ -39,7 +46,7 @@ export const ColumnWriter = styled.div`
   width: 20%;
 `;
 export const ColumnDate = styled.div`
-  width: 25%;
+  width: 20%;
 `;
 export const WrapperFooter = styled.div`
   padding-top: 40px;
@@ -48,13 +55,6 @@ export const WrapperFooter = styled.div`
 export const PagesWrapper = styled.div`
   display: flex;
   justify-content: center;
-`;
-export const Pages = styled.div`
-  font-weight: ${(props: ICurrentPage) => (props.isActive ? "700" : "400")};
-  font-size: 18px;
-  color: ${(props: ICurrentPage) => (props.isActive ? "#FFD600" : "black")};
-  padding: 14px;
-  cursor: pointer;
 `;
 export const PagesBtn = styled.button`
   font-size: 18px;
@@ -78,6 +78,10 @@ export const RegisterBtn = styled.button`
   font-size: 16px;
   line-height: 24px;
   cursor: pointer;
+
+  :hover {
+    background-color: #ffd600;
+  }
 `;
 export const PencilImg = styled.img`
   width: 18px;
