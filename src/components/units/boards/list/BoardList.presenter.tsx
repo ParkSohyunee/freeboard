@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { getDate } from "../../../../commons/utils/date";
 import Pagination01 from "../../../commons/pagination/01/pagination01.container";
 import { IBoardsUIProps } from "./BoardList.types";
 import * as S from "./BoardListStyles";
@@ -24,7 +25,7 @@ export default function BoardsUI(props: IBoardsUIProps) {
             <S.ColumnID>{board._id.slice(-6).toUpperCase()}</S.ColumnID>
             <S.ColumnTitle>{board.title}</S.ColumnTitle>
             <S.ColumnWriter>{board.writer}</S.ColumnWriter>
-            <S.ColumnDate>{board.createdAt}</S.ColumnDate>
+            <S.ColumnDate>{getDate(board.createdAt)}</S.ColumnDate>
           </S.BodyRow>
         ))}
         <S.WrapperFooter>

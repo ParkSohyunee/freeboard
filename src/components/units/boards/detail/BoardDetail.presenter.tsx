@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import { getDate } from "../../../../commons/utils/date";
 import { IBoardDetailProps } from "./BoardDetail.types";
 import * as S from "./BoardDetailStyles";
 
@@ -11,7 +12,7 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
             <S.Avatar src="/ic_profile-56px.png"></S.Avatar>
             <S.Writer>
               <S.WriterName>{props.data?.fetchBoard.writer}</S.WriterName>
-              <S.Date>{props.data?.fetchBoard.createdAt}</S.Date>
+              <S.Date>{getDate(props.data?.fetchBoard.createdAt)}</S.Date>
             </S.Writer>
           </S.LeftHead>
           <S.Line></S.Line>
