@@ -114,11 +114,11 @@ export const Img = styled.div`
   display: flex;
   gap: 24px;
 `;
-export const ImgAttach = styled.div`
-  width: 78px;
-  height: 78px;
-  background: #bdbdbd;
-`;
+// export const ImgAttach = styled.div`
+//   width: 78px;
+//   height: 78px;
+//   background: #bdbdbd;
+// `;
 // 메인설정
 export const MainSet = styled.div`
   display: flex;

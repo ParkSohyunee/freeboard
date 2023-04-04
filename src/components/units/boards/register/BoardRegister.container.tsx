@@ -32,6 +32,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [writerError, setWriterError] = useState("");
   const [pwdError, setPwdError] = useState("");
@@ -109,6 +110,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     if (writer && password && title && contents && event.target.value)
       setIsActive(true);
     else setIsActive(false);
+  };
+
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls]; // ["", "", ""]
+    newFileUrls[index] = fileUrl; // 새로운 배열의 index번째에 fileUrl을 넣어줘
+    setFileUrls(newFileUrls); // ex) ["", "", "강아지.jpg"]
   };
 
   const onToggleModal = () => {
@@ -220,6 +227,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
         onChangeYoutubeUrl={onChangeYoutubeUrl}
+        onChangeFileUrls={onChangeFileUrls}
         onClickValidation={onClickValidation}
         onClickUpdate={onClickUpdate}
         isActive={isActive}
@@ -232,6 +240,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         address={address}
         addressDetail={addressDetail}
         onChangeAddressDetail={onChangeAddressDetail}
+        fileUrls={fileUrls}
       />
     </>
   );

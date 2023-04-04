@@ -31,6 +31,7 @@ export interface IBoardRegisterUIProps {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
   onClickValidation: () => void;
   onClickUpdate: () => void;
   handleComplete: (data: Address) => void;
@@ -42,6 +43,7 @@ export interface IBoardRegisterUIProps {
   zipcode: string;
   address: string;
   addressDetail: string;
+  fileUrls: string[];
 }
 
 export interface ISubmitBtnProps {

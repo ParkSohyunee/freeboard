@@ -2,6 +2,7 @@ import { Modal } from "antd";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { IBoardRegisterUIProps } from "./BoardRegister.types";
 import * as S from "./BoardRegisterStyles";
+import UploadFile from "../../../commons/upload/Upload.container";
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
@@ -102,9 +103,13 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <S.TitleInfo>
           <S.SubTitle>사진 첨부</S.SubTitle>
           <S.Img>
-            <S.ImgAttach></S.ImgAttach>
-            <S.ImgAttach></S.ImgAttach>
-            <S.ImgAttach></S.ImgAttach>
+            {props.fileUrls.map((el, index) => (
+              <UploadFile
+                fileUrl={el} // ex) 강아지.jpg
+                index={index}
+                onChangeFileUrls={props.onChangeFileUrls}
+              />
+            ))}
           </S.Img>
         </S.TitleInfo>
         <S.TitleInfo>
