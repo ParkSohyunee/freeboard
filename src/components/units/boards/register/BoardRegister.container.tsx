@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode/lib/loadPostcode";
 import {
   IMutation,
@@ -118,6 +118,19 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     setFileUrls(newFileUrls); // ex) ["", "", "강아지.jpg"]
   };
 
+  // 만약 이미지가 있다면 배열에 넣어줘
+  useEffect(() => {
+    if (props.data?.fetchBoard.images)
+      // props.data?.fetchBoard.images.length
+      // Type 'Maybe<string[]> | undefined' is not an array type.
+
+      // default value에 넣어줘
+      setFileUrls([...props.data?.fetchBoard.images]); // ["", "", "강아지.jpg"]
+
+    // props.data가 바뀔때 실행 -> 즉 수정페이지에서 fetchBoard로 데이터를 받아올때 useEffect 실행
+    // fileUrls state가 바뀌고 화면이 리렌더링 되면서 빈화면 -> 이미지 넣어진 화면으로 전환
+  }, [props.data]);
+
   const onToggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -166,6 +179,11 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   };
 
   const onClickUpdate = async () => {
+    // 이미지가 변경되었는지 비교 (배열을 문자열로 만들어서 비교, 주소가 다르므로)
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangeFiles = currentFiles !== defaultFiles; // true : 이미지 변경
+
     if (!password) {
       alert("비밀번호를 입력해주세요.");
       return;
@@ -178,7 +196,8 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       !zipcode &&
       !address &&
       !addressDetail &&
-      !youtubeUrl
+      !youtubeUrl &&
+      !isChangeFiles
     ) {
       alert("수정한 내용이 없습니다.");
       return;
@@ -195,6 +214,8 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       if (addressDetail)
         updateBoardInput.boardAddress.addressDetail = addressDetail;
     }
+    if (isChangeFiles) updateBoardInput.images = fileUrls;
+
     try {
       if (typeof router.query.boardId !== "string") return;
       const result = await MyComponentUpdate({

@@ -16,6 +16,7 @@ export interface IVariables {
     addressDetail?: string;
     zipcode?: string;
   };
+  images?: string[]; // ["", "", "강아지.jpg"]
 }
 
 export interface IBoardRegisterUIProps {

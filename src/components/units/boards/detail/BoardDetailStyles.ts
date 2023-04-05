@@ -51,14 +51,16 @@ export const BoardTitle = styled.div`
   padding-bottom: 40px;
 `;
 export const BoardImages = styled.div`
+  padding-left: 5px;
+  padding-right: 5px;
   width: 100%;
   height: 400px;
   margin-bottom: 40px;
   display: flex;
-  justify-content: space-between;
+  gap: 30px;
 `;
 export const ImgBox = styled.img`
-  width: 300px;
+  width: 330px;
   height: 100%;
 `;
 export const BoardContent = styled.div`

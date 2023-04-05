@@ -39,6 +39,7 @@ export const UPDATE_BOARD = gql`
         address
         addressDetail
       }
+      images
     }
   }
 `;

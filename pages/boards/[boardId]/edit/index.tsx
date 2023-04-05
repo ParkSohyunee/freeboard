@@ -20,6 +20,7 @@ const FETCH_BOARD = gql`
         addressDetail
       }
       createdAt
+      images
     }
   }
 `;
@@ -29,23 +30,24 @@ export default function BoardEditPage() {
   console.log(router.query.boardId);
 
   // string이 아니면
-  if (typeof router.query.boardId !== "string") {
-    router.push("/");
-    return <></>;
-  }
+  // if (typeof router.query.boardId !== "string") {
+  //   void router.push("/");
+  //   return <></>;
+  // }
+
   // string이면
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
       variables: {
-        boardId: router.query.boardId,
+        boardId: String(router.query.boardId),
         // boardId: String(router.query.boardId)
       },
     }
   );
 
   console.log(data);
-  console.log(data?.fetchBoard);
+  console.log(data?.fetchBoard.images?.length);
 
   return (
     <>{BoardRegister({ isEdit: true, data: data })}</>

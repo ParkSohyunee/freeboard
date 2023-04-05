@@ -3,6 +3,7 @@ import DaumPostcodeEmbed from "react-daum-postcode";
 import { IBoardRegisterUIProps } from "./BoardRegister.types";
 import * as S from "./BoardRegisterStyles";
 import UploadFile from "../../../commons/upload/Upload.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
   return (
@@ -105,6 +106,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           <S.Img>
             {props.fileUrls.map((el, index) => (
               <UploadFile
+                key={uuidv4()}
                 fileUrl={el} // ex) 강아지.jpg
                 index={index}
                 onChangeFileUrls={props.onChangeFileUrls}
