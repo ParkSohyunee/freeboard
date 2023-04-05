@@ -1,27 +1,14 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import UploadFileUI from "./Upload.presenter";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef } from "react";
 import {
   IMutation,
   IMutationUploadFileArgs,
 } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
 import UploadValidation from "./UploadValidation";
-
-const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      _id
-      url
-    }
-  }
-`;
-
-interface IUploadFileProps {
-  fileUrl: string;
-  index: number;
-  onChangeFileUrls: (fileUrl: string, index: number) => void;
-}
+import { UPLOAD_FILE } from "./Upload.queries";
+import { IUploadFileProps } from "./Upload.types";
 
 export default function UploadFile(props: IUploadFileProps) {
   //   const [fileUrl, setFileUrl] = useState("");

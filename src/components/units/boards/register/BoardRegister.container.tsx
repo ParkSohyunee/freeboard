@@ -151,6 +151,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
                 address,
                 addressDetail,
               },
+              images: fileUrls, // ["", "", "강아지.jpg"]
             },
           },
         });

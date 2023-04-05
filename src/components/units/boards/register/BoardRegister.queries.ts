@@ -14,6 +14,7 @@ export const CREATE_BOARD = gql`
         address
         addressDetail
       }
+      images
     }
   }
 `;

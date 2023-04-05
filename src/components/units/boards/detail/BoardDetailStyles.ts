@@ -50,11 +50,16 @@ export const BoardTitle = styled.div`
   line-height: 53px;
   padding-bottom: 40px;
 `;
-export const ImgBox = styled.div`
+export const BoardImages = styled.div`
   width: 100%;
-  height: 480px;
-  background-color: #f2f2f2;
+  height: 400px;
   margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+`;
+export const ImgBox = styled.img`
+  width: 300px;
+  height: 100%;
 `;
 export const BoardContent = styled.div`
   width: 100%;

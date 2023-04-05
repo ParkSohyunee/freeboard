@@ -17,7 +17,15 @@ export default function BoardDetailUI(props: IBoardDetailProps) {
           </S.LeftHead>
           <S.Line></S.Line>
           <S.BoardTitle>{props.data?.fetchBoard.title}</S.BoardTitle>
-          <S.ImgBox></S.ImgBox>
+          <S.BoardImages>
+            {props.data?.fetchBoard.images /* "images": ["강아지.jpg","",""] */
+              ?.filter((el) => el) /* el !== "" */
+              .map((el) => (
+                <S.ImgBox
+                  src={`https://storage.googleapis.com/${el}`} /* "images": ["강아지.jpg"] */
+                />
+              ))}
+          </S.BoardImages>
           <S.BoardContent>{props.data?.fetchBoard.contents}</S.BoardContent>
           <S.PlayerWrapper>
             <ReactPlayer
