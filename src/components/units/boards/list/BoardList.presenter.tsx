@@ -2,12 +2,19 @@ import { Fragment } from "react";
 import { getDate } from "../../../../commons/utils/date";
 import Pagination01 from "../../../commons/pagination/01/pagination01.container";
 import { IBoardsUIProps } from "./BoardList.types";
+import { v4 as uuidv4 } from "uuid";
 import * as S from "./BoardListStyles";
+import Searchbar from "../../../commons/searchbar/Searchbar.container";
 
 export default function BoardsUI(props: IBoardsUIProps) {
   return (
     <Fragment>
       <S.Wrapper>
+        <Searchbar
+          refetch={props.refetch}
+          onChangeKeyword={props.onChangeKeyword}
+          refetchBoardsCount={props.refetchBoardsCount}
+        />
         <S.HeaderRow>
           <S.ColumnNumber>No.</S.ColumnNumber>
           <S.ColumnID>아이디</S.ColumnID>
@@ -23,13 +30,26 @@ export default function BoardsUI(props: IBoardsUIProps) {
           >
             <S.ColumnNumber>{index + 1}</S.ColumnNumber>
             <S.ColumnID>{board._id.slice(-6).toUpperCase()}</S.ColumnID>
-            <S.ColumnTitle>{board.title}</S.ColumnTitle>
+            <S.ColumnTitle>
+              {board.title
+                .replaceAll(props.keyword, `@#$%${props.keyword}@#$%`)
+                .split("@#$%")
+                .map((el) => (
+                  <S.MatchedTitle
+                    key={uuidv4()}
+                    isMatched={el === props.keyword}
+                  >
+                    {el}
+                  </S.MatchedTitle>
+                ))}
+            </S.ColumnTitle>
             <S.ColumnWriter>{board.writer}</S.ColumnWriter>
             <S.ColumnDate>{getDate(board.createdAt)}</S.ColumnDate>
           </S.BodyRow>
         ))}
         <S.WrapperFooter>
           <S.PagesWrapper>
+            {/* fetchBoardsCount 가 렌더링되면서 자동계산됨  */}
             <Pagination01 refetch={props.refetch} count={props.count} />
           </S.PagesWrapper>
           <S.RegisterBtn onClick={props.onClickMoveToRegisterPage}>

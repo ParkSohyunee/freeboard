@@ -13,6 +13,7 @@ export default function Pagination01(props: IPagination01Props) {
     void props.refetch({ page: Number(event.currentTarget.id) }); // const currentPage = Number(event.currentTarget.id);
     setCurrentPage(Number(event.currentTarget.id));
   };
+  // 검색에서 refetch할 때, 사용한 search 검색어가 저장되어 있는 상태이므로 추가로 search변수를 포함하지 않아도됨
 
   const onClickPrevPage = () => {
     if (startPage === 1) return;

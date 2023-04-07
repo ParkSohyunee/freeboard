@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
+import { IMatchedProps } from "./BoardList.types";
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
   width: 1200px;
   border: none;
-  border-top: 2px solid black;
 `;
 export const HeaderRow = styled.div`
   width: 100%;
@@ -15,6 +15,7 @@ export const HeaderRow = styled.div`
   font-size: 18px;
   line-height: 24px;
   text-align: center;
+  border-top: 2px solid black;
 `;
 export const BodyRow = styled.div`
   width: 100%;
@@ -86,4 +87,7 @@ export const RegisterBtn = styled.button`
 export const PencilImg = styled.img`
   width: 18px;
   height: 18px;
+`;
+export const MatchedTitle = styled.span`
+  color: ${(props: IMatchedProps) => (props.isMatched ? "#FFD600" : "black")};
 `;

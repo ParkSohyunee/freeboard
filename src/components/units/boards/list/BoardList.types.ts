@@ -2,6 +2,7 @@ import { ApolloQueryResult } from "@apollo/client";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
+  IQueryFetchBoardsCountArgs,
 } from "../../../../commons/types/generated/types";
 import { MouseEvent } from "react";
 
@@ -13,4 +14,13 @@ export interface IBoardsUIProps {
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
   onClickMoveToRegisterPage: () => void;
   onClickMoveToDetailPage: (event: MouseEvent<HTMLDivElement>) => void;
+  onChangeKeyword: (value: string) => void;
+  keyword: string;
+  refetchBoardsCount: (
+    variables?: Partial<IQueryFetchBoardsCountArgs> | undefined
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardsCount">>>;
+}
+
+export interface IMatchedProps {
+  isMatched: boolean;
 }
