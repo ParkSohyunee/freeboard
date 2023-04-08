@@ -1,12 +1,13 @@
-import { IQuery } from "../../../../commons/types/generated/types";
-import { MouseEvent, ChangeEvent } from "react";
+import {
+  IBoardComment,
+  IQuery,
+} from "../../../../commons/types/generated/types";
+
+export interface ICommentBoardListItemsProps {
+  el: IBoardComment;
+}
 
 export interface IBoardCommentListProps {
   data?: Pick<IQuery, "fetchBoardComments">;
-  isOpenDeleteModal: boolean;
-  onClickDeleteComment: (event: MouseEvent<HTMLElement>) => void;
-  onClickDeleteCommentModal: (event: MouseEvent<HTMLImageElement>) => void;
-  onChangeDeletePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onToggleModal: () => void;
   onLoadMore: () => void;
 }
