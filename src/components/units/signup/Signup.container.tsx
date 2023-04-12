@@ -1,17 +1,50 @@
 import { useForm } from "react-hook-form";
 import * as S from "./SignupStyles";
-
-interface ISignupForm {
-  name: string;
-  email: string;
-  password: string;
-}
+import { useMutation } from "@apollo/client";
+import { CREATE_USER } from "./Signup.queries";
+import { useRouter } from "next/router";
+import { Modal } from "antd";
+import { ISignupForm } from "./Signup.types";
+import {
+  IMutation,
+  IMutationCreateUserArgs,
+} from "../../../commons/types/generated/types";
 
 export default function SignUp() {
+  const router = useRouter();
+
+  const [createUser] = useMutation<
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
+
   const { register, handleSubmit } = useForm<ISignupForm>();
 
   const onClickSignUp = (data: ISignupForm) => {
     console.log(data);
+    try {
+      createUser({
+        variables: {
+          createUserInput: {
+            email: data.email,
+            name: data.name,
+            password: data.password,
+          },
+        },
+      });
+      Modal.success({
+        content: (
+          <div>
+            <p>회원가입이 완료되었습니다.</p> <p>로그인 페이지로 이동합니다.</p>
+          </div>
+        ),
+      });
+      router.push("/login");
+    } catch (error) {
+      if (error instanceof Error) {
+        Modal.error({ content: error.message });
+      }
+    }
   };
 
   return (

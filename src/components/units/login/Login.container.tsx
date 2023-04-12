@@ -1,19 +1,39 @@
+import { useMutation } from "@apollo/client";
 import { useMoveToPage } from "../../commons/hooks/useMoveToPage";
+import { ILoginForm } from "./Login.types";
 import * as S from "./LoginStyles";
 import { useForm } from "react-hook-form";
-
-interface ISignupForm {
-  email: string;
-  password: string;
-}
+import { LOGIN_USER } from "./Login.queries";
+import { useRouter } from "next/router";
+import {
+  IMutation,
+  IMutationLoginUserArgs,
+} from "../../../commons/types/generated/types";
 
 export default function Login() {
+  const router = useRouter();
+
+  const [loginUser] = useMutation<
+    Pick<IMutation, "loginUser">,
+    IMutationLoginUserArgs
+  >(LOGIN_USER);
+
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { register, handleSubmit } = useForm<ISignupForm>();
-  const onClickLogin = (data: ISignupForm) => {
+  const { register, handleSubmit } = useForm<ILoginForm>();
+
+  const onClickLogin = (data: ILoginForm) => {
     console.log(data);
+
+    loginUser({
+      variables: {
+        email: data.email,
+        password: data.password,
+      },
+    });
+    router.push("/boards");
   };
+
   return (
     <>
       <S.Wrapper onSubmit={handleSubmit(onClickLogin)}>
