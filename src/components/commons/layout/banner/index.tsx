@@ -11,13 +11,13 @@ const BannerItem = styled.img`
 const Wrapper = styled.div`
   height: 400px;
 
-  .slick-arrow {
-    display: flex;
-    z-index: 20;
-    opacity: 1;
-    width: 40vw;
-    height: 40vw;
-  }
+  // .slick-arrow {
+  //   display: flex;
+  //   z-index: 20;
+  //   opacity: 1;
+  //   width: 40vw;
+  //   height: 40vw;
+  // }
 
   // .slick-prev:before {
   //   opaicty: 1; // 기존에 숨어있던 화살표 버튼이 보이게
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 export default function LayoutBanner() {
   const settings = {
     dots: true,
-    arrows: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
