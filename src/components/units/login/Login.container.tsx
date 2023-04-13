@@ -29,6 +29,7 @@ export default function Login() {
 
   const onClickLogin = async (data: ILoginForm) => {
     try {
+      // 1. 로그인해서 accessToken 받아오기
       const result = await loginUser({
         variables: {
           email: data.email,
@@ -36,19 +37,21 @@ export default function Login() {
         },
       });
       console.log(result); // {data: {…}}
-
-      router.push("/boards");
-
       const accessToken = result.data?.loginUser.accessToken;
+
+      // 2. accessToken을 globalState에 저장하기
       if (!accessToken) {
         Modal.error({
           content: "로그인에 실패하였습니다. 다시 시도해 주세요.",
         });
         return;
       }
-      setAccessToken(accessToken);
-
+      setAccessToken(accessToken); // global state
+      localStorage.setItem("accessToken", accessToken);
       console.log(accessToken);
+
+      // 3. 로그인 성공 페이지로 이동하기
+      router.push("/login/mypage");
     } catch (error) {
       if (error instanceof Error) {
         Modal.error({ content: error.message });
