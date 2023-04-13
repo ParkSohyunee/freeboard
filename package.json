@@ -27,6 +27,7 @@
     "react-infinite-scroller": "^1.2.6",
     "react-player": "^2.12.0",
     "react-slick": "^0.29.0",
+    "recoil": "^0.7.7",
     "slick-carousel": "^1.8.1",
     "uuid": "^9.0.0"
   },

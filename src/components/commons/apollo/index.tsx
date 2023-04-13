@@ -17,7 +17,7 @@ export default function ApolloSettingPage(props: IApolloSettingProps) {
 
   const client = new ApolloClient({
     // uri: "http://backendonline.codebootcamp.co.kr/graphql",
-    link: ApolloLink.from([uploadLink]),
+    link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
     cache: new InMemoryCache(),
   });
 

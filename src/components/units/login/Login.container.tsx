@@ -9,6 +9,9 @@ import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../../commons/types/generated/types";
+import { Modal } from "antd";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../commons/store";
 
 export default function Login() {
   const router = useRouter();
@@ -22,16 +25,35 @@ export default function Login() {
 
   const { register, handleSubmit } = useForm<ILoginForm>();
 
-  const onClickLogin = (data: ILoginForm) => {
-    console.log(data);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
-    loginUser({
-      variables: {
-        email: data.email,
-        password: data.password,
-      },
-    });
-    router.push("/boards");
+  const onClickLogin = async (data: ILoginForm) => {
+    try {
+      const result = await loginUser({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
+      });
+      console.log(result); // {data: {…}}
+
+      router.push("/boards");
+
+      const accessToken = result.data?.loginUser.accessToken;
+      if (!accessToken) {
+        Modal.error({
+          content: "로그인에 실패하였습니다. 다시 시도해 주세요.",
+        });
+        return;
+      }
+      setAccessToken(accessToken);
+
+      console.log(accessToken);
+    } catch (error) {
+      if (error instanceof Error) {
+        Modal.error({ content: error.message });
+      }
+    }
   };
 
   return (
