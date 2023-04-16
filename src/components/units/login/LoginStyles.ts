@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Checkbox } from "antd";
+import { ILoginUIProps } from "./Login.types";
 
 export const Wrapper = styled.form`
   width: 540px;
@@ -25,7 +26,6 @@ export const InputInfo = styled.input`
   font-size: 0.9rem;
   padding: 1rem;
   border: 1px solid darkgray;
-  margin-bottom: 0.8rem;
 `;
 
 export const IdCheckbox = styled(Checkbox)`
@@ -38,6 +38,11 @@ export const LoginWithEmail = styled.button`
   border: none;
   font-size: 0.9rem;
   padding: 1rem;
+
+  color: ${(props: ILoginUIProps) => (props.isValid ? "white" : "default")};
+  background: ${(props: ILoginUIProps) =>
+    props.isValid ? "#ffd600" : "default"};
+  font-weight: ${(props: ILoginUIProps) => (props.isValid ? 600 : "default")};
 `;
 
 export const LoginOption = styled.div`
@@ -49,6 +54,11 @@ export const LoginOption = styled.div`
 
 export const OptionBtn = styled.div`
   cursor: pointer;
+`;
+
+export const ErrorMessage = styled.p`
+  color: orangered;
+  padding: 0.5rem;
 `;
 
 // export const LoginWithKakao = styled.button`

@@ -29,10 +29,9 @@ export const InnerPasswordWrapper = styled.div`
 `;
 export const SubTitle = styled.h3`
   width: 20%;
-  padding: auto;
   padding: 1rem;
 `;
-export const InputTitle = styled.input`
+export const InputName = styled.input`
   border: 1px solid lightgray;
   width: 40%;
   font-size: 1.2rem;
@@ -52,6 +51,9 @@ export const InputPassword = styled.input`
 export const InputNotice = styled.div`
   padding-top: 0.8rem;
 `;
+export const InputPasswordWrapper = styled.div`
+  display: flex;
+`;
 export const ButtonSignUP = styled.button`
   padding: 1.5rem;
   font-size: 1.2rem;
@@ -63,4 +65,8 @@ export const ButtonSignUP = styled.button`
   border: none;
   background: black;
   color: white;
+`;
+export const ErrorMessage = styled.p`
+  color: orangered;
+  padding: 1rem;
 `;

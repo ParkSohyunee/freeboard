@@ -3,6 +3,8 @@ import { useMoveToPage } from "../../commons/hooks/useMoveToPage";
 import { ILoginForm } from "./Login.types";
 import * as S from "./LoginStyles";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { LOGIN_USER } from "./Login.queries";
 import { useRouter } from "next/router";
 import {
@@ -12,6 +14,14 @@ import {
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../commons/store";
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email("이메일 형식으로 입력해 주세요.")
+    .required("이메일을 입력해 주세요."),
+  password: yup.string().required("비밀번호를 입력해 주세요."),
+});
 
 export default function Login() {
   const router = useRouter();
@@ -23,7 +33,14 @@ export default function Login() {
 
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { register, handleSubmit } = useForm<ILoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ILoginForm>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
@@ -71,13 +88,15 @@ export default function Login() {
           placeholder="아이디(이메일)"
           {...register("email")}
         />
+        <S.ErrorMessage>{errors.email?.message}</S.ErrorMessage>
         <S.InputInfo
           type="password"
           placeholder="비밀번호"
           {...register("password")}
         />
+        <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
         <S.IdCheckbox>아이디저장</S.IdCheckbox>
-        <S.LoginWithEmail>메일로 로그인</S.LoginWithEmail>
+        <S.LoginWithEmail isValid={isValid}>메일로 로그인</S.LoginWithEmail>
         <S.LoginOption>
           <S.OptionBtn>비회원 주문조회</S.OptionBtn>
           <S.OptionBtn onClick={onClickMoveToPage("/signup")}>
