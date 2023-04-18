@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IProductBtnProps } from "./ProductRegister.types";
 
 // 상품 등록 및 수정 페이지
 // Making a styled components with emotion and tagged template literals
@@ -135,6 +136,8 @@ export const Submit = styled.div`
   justify-content: center;
 `;
 export const SubmitBtn = styled.button`
+  background: ${(props: IProductBtnProps) =>
+    props.formState.isValid ? "#FFD600" : "default"};
   cursor: pointer;
   width: 179px;
   height: 52px;

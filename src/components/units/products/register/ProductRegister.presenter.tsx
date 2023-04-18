@@ -14,7 +14,9 @@ export default function ProductRegisterUI(props: IProductUIProps) {
             {...props.register("name")}
             //   defaultValue={props.data?.fetchBoard.writer ?? ""}
           ></S.InputBox>
-          <S.ErrorMessage></S.ErrorMessage>
+          <S.ErrorMessage>
+            {props.formState.errors.name?.message}
+          </S.ErrorMessage>
         </S.Item>
         <S.Item>
           <S.SubTitle>판매 가격</S.SubTitle>
@@ -23,7 +25,9 @@ export default function ProductRegisterUI(props: IProductUIProps) {
             placeholder="판매 가격을 입력해주세요."
             {...props.register("price")}
           ></S.InputBox>
-          <S.ErrorMessage></S.ErrorMessage>
+          <S.ErrorMessage>
+            {props.formState.errors.price?.message}
+          </S.ErrorMessage>
         </S.Item>
       </S.ProductInfo>
       <S.TitleInfo>
@@ -31,9 +35,12 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         <S.InputBoxTitle
           type="text"
           placeholder="상품을 한줄로 요약해주세요. 예시) 갤럭시 z플립3 (2021년 구매 / 256GB)"
+          {...props.register("remarks")}
           // defaultValue={props.data?.fetchBoard.title}
         ></S.InputBoxTitle>
-        <S.ErrorMessage></S.ErrorMessage>
+        <S.ErrorMessage>
+          {props.formState.errors.remarks?.message}
+        </S.ErrorMessage>
       </S.TitleInfo>
       <S.ContentsInfo>
         <S.SubTitle>상품설명</S.SubTitle>
@@ -42,7 +49,9 @@ export default function ProductRegisterUI(props: IProductUIProps) {
           {...props.register("contents")}
           // defaultValue={props.data?.fetchBoard.contents}
         ></S.TextBoxContents>
-        <S.ErrorMessage></S.ErrorMessage>
+        <S.ErrorMessage>
+          {props.formState.errors.contents?.message}
+        </S.ErrorMessage>
       </S.ContentsInfo>
       <S.Location>
         <S.kakaoMap>
@@ -90,7 +99,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         </S.MainSet>
       </S.TitleInfo>
       <S.Submit>
-        <S.SubmitBtn type="submit">
+        <S.SubmitBtn type="submit" formState={props.formState}>
           등록하기
           {/* {props.isEdit ? "수정하기" : "등록하기"} */}
         </S.SubmitBtn>

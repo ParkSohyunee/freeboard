@@ -26,7 +26,7 @@ export default function ApolloSettingPage(props: IApolloSettingProps) {
   }, []);
 
   const uploadLink = createUploadLink({
-    uri: "http://backendonline.codebootcamp.co.kr/graphql",
+    uri: "https://backend-practice.codebootcamp.co.kr/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
   });
 
