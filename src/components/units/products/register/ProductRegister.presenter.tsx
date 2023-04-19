@@ -1,5 +1,7 @@
+import UploadFile02 from "../../../commons/upload02/Upload02.container";
 import { IProductUIProps } from "./ProductRegister.types";
 import * as S from "./ProductStyles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProductRegisterUI(props: IProductUIProps) {
   return (
@@ -77,13 +79,23 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         <S.InputBoxTitle
           type="text"
           placeholder="#태그 #태그 #태그"
+          {...props.register("tags")}
           // defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
         ></S.InputBoxTitle>
         <S.ErrorMessage></S.ErrorMessage>
       </S.TitleInfo>
       <S.TitleInfo>
         <S.SubTitle>사진 첨부</S.SubTitle>
-        <S.Img></S.Img>
+        <S.Img>
+          {props.fileUrls.map((el, index) => (
+            <UploadFile02
+              key={uuidv4()}
+              fileUrl={el}
+              onChangeFileUrls={props.onChangeFileUrls}
+              index={index}
+            />
+          ))}
+        </S.Img>
       </S.TitleInfo>
       <S.TitleInfo>
         <S.SubTitle>메인 사진 설정</S.SubTitle>

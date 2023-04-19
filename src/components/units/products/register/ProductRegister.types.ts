@@ -9,9 +9,12 @@ export interface IProductForm {
   remarks: string;
   price: number;
   contents: string;
+  tags: string[];
 }
 
 export interface IProductUIProps {
+  fileUrls: string[];
+  onChangeFileUrls: (fileUrl: string, index: number, file: File) => void;
   onclickSubmit: (data: IProductForm) => void;
   handleSubmit: UseFormHandleSubmit<IProductForm>;
   register: UseFormRegister<IProductForm>;
