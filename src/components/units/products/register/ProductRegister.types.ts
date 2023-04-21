@@ -9,10 +9,16 @@ export interface IProductForm {
   remarks: string;
   price: number;
   contents: string;
-  tags: string[];
+  tags: string;
+  useditemAddress: {
+    address: string;
+    addressDetail: string;
+  };
 }
 
 export interface IProductUIProps {
+  lng: number;
+  lat: number;
   fileUrls: string[];
   onChangeFileUrls: (fileUrl: string, index: number, file: File) => void;
   onclickSubmit: (data: IProductForm) => void;

@@ -9,6 +9,13 @@ export const CREATE_USED_ITEM = gql`
       contents
       price
       tags
+      useditemAddress {
+        _id
+        address
+        addressDetail
+        lat
+        lng
+      }
       images
     }
   }

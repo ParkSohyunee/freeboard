@@ -91,6 +91,9 @@ export const kakaoMap = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+export const Map = styled.div`
+  height: 300px;
+`;
 export const LocationDetail = styled.div`
   width: 60%;
   display: flex;
@@ -103,9 +106,10 @@ export const LocationInput = styled.div`
   gap: 1rem;
 `;
 export const InputGPS = styled.input`
-  margin-right: 1.5rem;
-  width: 6rem;
+  margin: 0 1.5rem;
+  width: 8.5rem;
   padding: 14px;
+  text-align: center;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
