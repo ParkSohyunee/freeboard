@@ -63,21 +63,15 @@ export const TitleInfo = styled.div`
 // 상품설명
 export const ContentsInfo = styled.div`
   width: 100%;
-  // padding-bottom: 16px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  .ql-editor {
+    height: 180px;
+  }
 `;
-export const TextBoxContents = styled.textarea`
-  height: 320px;
-  padding: 14px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  border: 1px solid #bdbdbd;
-  resize: none;
-`;
-// 거래위치
 export const Location = styled.div`
   width: 100%;
   // padding-bottom: 37px;

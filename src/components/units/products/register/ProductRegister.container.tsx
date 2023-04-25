@@ -13,6 +13,8 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { CREATE_USED_ITEM, UPLOAD_FILE } from "./ProductRegister.queries";
 import { useEffect, useState } from "react";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
 
 const schema = yup.object({
   name: yup.string().required("상품명을 입력해주세요."),
@@ -32,6 +34,11 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
+// dynamic import => 빌드되는 시점에서 호출하지 않고 런타임 시점(이미 documnet 가 선언된 이후)에서 모듈을 호출
+const ReactQuill = dynamic(async () => await import("react-quill"), {
+  ssr: false,
+});
+
 export default function ProductRegister() {
   const [fileUrls, setFileUrls] = useState<string[]>(["", "", "", ""]);
   const [files, setFiles] = useState<File[]>([]);
@@ -40,10 +47,12 @@ export default function ProductRegister() {
 
   const router = useRouter();
 
-  const { register, handleSubmit, formState } = useForm<IProductForm>({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
+  // react-hook-form => setValue & trigger (onChange 값 저장)
+  //  prettier-ignore
+  const { register, handleSubmit, formState, setValue, trigger } = useForm<IProductForm>({
+      mode: "onChange",
+      resolver: yupResolver(schema),
+    });
 
   const [createUseditem] = useMutation<
     Pick<IMutation, "createUseditem">,
@@ -102,6 +111,15 @@ export default function ProductRegister() {
     setFiles(tempFiles);
   };
 
+  // ReactQuil의 onChange는 개발자가 만들어 놓은 커스텀 요소
+  const handleChange = (value: string) => {
+    // register로 등록하지 않고, 강제로 값을 넣어줌 => react-hook-form 으로
+    setValue("contents", value === "<p><br><p>" ? "" : value);
+
+    // onChange 여부 => react-hook-form 전달
+    trigger("contents");
+  };
+
   const onclickSubmit = async (data: IProductForm) => {
     console.log(data); // 로그
 
@@ -110,11 +128,9 @@ export default function ProductRegister() {
     );
     console.log(results); // [resultsFile0, resultsFile1 ...] // [{data: {…}}, {…}, {…}]
 
-    const resultUrls = results.map((el) => (el ? el.data?.uploadFile.url : "")); // [dog1.jpg, dog2.jpg, ...]
+    // prettier-ignore
+    const resultUrls = results.map((el) => (el ? String(el.data?.uploadFile.url) : "")); // [dog1.jpg, dog2.jpg, ...]
     console.log(resultUrls); // ['', 'codecamp-file-storage/2023/4/19/testimonior_image2.jpg']
-
-    // if (!resultUrls) return;
-    // if (typeof resultUrls !== "undefined") return;
 
     try {
       const result = await createUseditem({
@@ -146,9 +162,11 @@ export default function ProductRegister() {
   return (
     <>
       <ProductRegisterUI
+        ReactQuill={ReactQuill}
         lng={lng}
         lat={lat}
         fileUrls={fileUrls}
+        handleChange={handleChange}
         onChangeFileUrls={onChangeFileUrls}
         onclickSubmit={onclickSubmit}
         handleSubmit={handleSubmit}

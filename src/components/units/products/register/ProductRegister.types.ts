@@ -1,8 +1,10 @@
+import { ComponentType } from "react";
 import {
   UseFormRegister,
   UseFormHandleSubmit,
   FormState,
 } from "react-hook-form";
+import ReactQuill from "react-quill";
 
 export interface IProductForm {
   name: string;
@@ -17,9 +19,11 @@ export interface IProductForm {
 }
 
 export interface IProductUIProps {
+  ReactQuill: ComponentType<ReactQuill.ReactQuillProps>;
   lng: number;
   lat: number;
   fileUrls: string[];
+  handleChange: (value: string) => void;
   onChangeFileUrls: (fileUrl: string, index: number, file: File) => void;
   onclickSubmit: (data: IProductForm) => void;
   handleSubmit: UseFormHandleSubmit<IProductForm>;

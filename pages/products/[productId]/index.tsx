@@ -1,7 +1,9 @@
+import ProductDetail from "../../../src/components/units/products/detail/ProductDetail.container";
+
 export default function ProductDetailPage() {
   return (
     <>
-      <div>상품상세</div>
+      <ProductDetail />
     </>
   );
 }

@@ -1,4 +1,3 @@
-import Head from "next/head";
 import UploadFile02 from "../../../commons/upload02/Upload02.container";
 import { IProductUIProps } from "./ProductRegister.types";
 import * as S from "./ProductStyles";
@@ -48,11 +47,11 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         </S.TitleInfo>
         <S.ContentsInfo>
           <S.SubTitle>상품설명</S.SubTitle>
-          <S.TextBoxContents
+          <props.ReactQuill
+            theme="snow"
+            onChange={props.handleChange}
             placeholder="내용을 작성해주세요."
-            {...props.register("contents")}
-            // defaultValue={props.data?.fetchBoard.contents}
-          ></S.TextBoxContents>
+          />
           <S.ErrorMessage>
             {props.formState.errors.contents?.message}
           </S.ErrorMessage>
