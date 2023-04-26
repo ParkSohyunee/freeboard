@@ -1,4 +1,5 @@
 import { ComponentType } from "react";
+import { Address } from "react-daum-postcode";
 import {
   UseFormRegister,
   UseFormHandleSubmit,
@@ -19,12 +20,16 @@ export interface IProductForm {
 }
 
 export interface IProductUIProps {
+  address: string;
+  isModalOpen: boolean;
+  onToggleModal: () => void;
   ReactQuill: ComponentType<ReactQuill.ReactQuillProps>;
   lng: number;
   lat: number;
   fileUrls: string[];
   handleChange: (value: string) => void;
-  onChangeFileUrls: (fileUrl: string, index: number, file: File) => void;
+  handleComplete: (value: Address) => void;
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
   onclickSubmit: (data: IProductForm) => void;
   handleSubmit: UseFormHandleSubmit<IProductForm>;
   register: UseFormRegister<IProductForm>;

@@ -1,7 +1,9 @@
-import UploadFile02 from "../../../commons/upload02/Upload02.container";
+import { Modal } from "antd";
+import UploadFile from "../../../commons/upload/Upload.container";
 import { IProductUIProps } from "./ProductRegister.types";
 import * as S from "./ProductStyles";
 import { v4 as uuidv4 } from "uuid";
+import DaumPostcodeEmbed from "react-daum-postcode";
 
 export default function ProductRegisterUI(props: IProductUIProps) {
   return (
@@ -72,11 +74,23 @@ export default function ProductRegisterUI(props: IProductUIProps) {
               </div>
             </S.LocationInput>
             <S.LocationInput>
-              <S.SubTitle>주소</S.SubTitle>
+              <S.AddressSearch type="button" onClick={props.onToggleModal}>
+                주소검색
+              </S.AddressSearch>
+              <Modal
+                open={props.isModalOpen}
+                onOk={props.onToggleModal}
+                onCancel={props.onToggleModal}
+                destroyOnClose={true}
+                okText="확인"
+                cancelText="취소"
+              >
+                <DaumPostcodeEmbed onComplete={props.handleComplete} />
+              </Modal>
               <S.InputBoxTitle
-                type="text"
-                placeholder="거래주소를 입력해주세요."
-                {...props.register("useditemAddress.address")}
+                readOnly
+                placeholder="주소를 검색해주세요."
+                value={props.address}
               />
               <S.InputBoxTitle
                 type="text"
@@ -100,7 +114,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
           <S.SubTitle>사진 첨부</S.SubTitle>
           <S.Img>
             {props.fileUrls.map((el, index) => (
-              <UploadFile02
+              <UploadFile
                 key={uuidv4()}
                 fileUrl={el}
                 onChangeFileUrls={props.onChangeFileUrls}

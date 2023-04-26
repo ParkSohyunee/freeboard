@@ -39,6 +39,18 @@ export const SubTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
 `;
+export const AddressSearch = styled.button`
+  width: 120px;
+  padding: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #5da490;
+  color: white;
+  line-height: 1.5rem;
+  cursor: pointer;
+`;
 export const InputBox = styled.input`
   padding: 14px;
   font-weight: 400;

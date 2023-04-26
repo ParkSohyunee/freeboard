@@ -7,6 +7,14 @@ export const GlobalStyles = css`
   }
 
   :root {
+    /* color */
+    --font-color-lightLeaf: #C6DC96
+    --font-color-lightBeen: #8CC293
+    --font-color-Grass: #5DA490
+    --font-color-DeepBlue: #336673
+    --font-color-Navy: #2F4858
+    --font-color-lightPeach: #FFCC95
+
     /* font-size */
     --font-size-regular: 1.5rem;
 
