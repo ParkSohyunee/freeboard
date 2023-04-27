@@ -121,7 +121,7 @@ export default function ProductDetail(props: IPropsDetail) {
         refetchQueries: [{ query: FETCH_USEDITEM }],
       });
       message.success({ content: "상품이 삭제되었습니다." });
-      router.push("/");
+      router.push("/products");
     } catch (error) {
       if (error instanceof Error) message.error({ content: error.message });
     }
