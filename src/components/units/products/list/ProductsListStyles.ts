@@ -23,7 +23,7 @@ export const BestItemCards = styled.div`
   justify-content: space-between;
   gap: 1.5rem;
 `;
-export const BestImg = styled.div`
+export const BestImg = styled.img`
   width: 100%;
   height: 242px;
   background-color: var(--font-color-lightPeach);
@@ -46,8 +46,9 @@ export const BestDescription = styled.div`
   justify-content: space-between;
 `;
 export const BestName = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   width: 100%;
+  height: 3.5rem;
   padding: 1rem;
 `;
 export const LeftSide = styled.div`

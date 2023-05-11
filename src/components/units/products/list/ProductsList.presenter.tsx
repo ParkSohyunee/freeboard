@@ -1,4 +1,3 @@
-import { HeartFilled } from "@ant-design/icons";
 import * as S from "./ProductsListStyles";
 import { getDate } from "../../../../commons/utils/date";
 import InfiniteScroll from "react-infinite-scroller";
@@ -16,12 +15,10 @@ export default function ProductsListUI(props: IProductsUIProps) {
                 key={el._id}
                 onClick={props.onClickMoveToPage(`/products/${el._id}`)}
               >
-                <S.BestImg></S.BestImg>
-                {/* <img
-                  src={`https://storage.googleapis.com/${
-                    el.images?.filter((el) => el !== "")[0]
-                  }`}
-                /> */}
+                <S.BestImg
+                  src={`https://storage.googleapis.com/${el.images?.[0]}`}
+                  onError={props.ImageError}
+                />
                 <S.BestName>{el.name}</S.BestName>
                 <S.BestDescription>
                   <S.LeftSide>
@@ -50,17 +47,8 @@ export default function ProductsListUI(props: IProductsUIProps) {
                 onClick={props.onClickMoveToPage(`/products/${el._id}`)}
               >
                 <S.ItemImg
-                  src={
-                    el.images?.filter((el) => el !== "")
-                      ? `https://storage.googleapis.com/${el.images[0]}`
-                      : ""
-                  }
-
-                  //   src={
-                  //     el.images
-                  //       ? `https://storage.googleapis.com/${el.images}`
-                  //       : ""
-                  //   }
+                  src={`https://storage.googleapis.com/${el.images?.[0]}`}
+                  onError={props.ImageError}
                 />
                 <S.ItemInfo>
                   <S.TitleWrapper>

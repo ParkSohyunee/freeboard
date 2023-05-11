@@ -9,6 +9,7 @@ import {
   FETCH_USEDITEMS,
   FETCH_USEDITEMS_OFTHEBEST,
 } from "./ProductsList.queries";
+import { ChangeEvent } from "react";
 
 export default function ProductsList() {
   const { onClickMoveToPage } = useMoveToPage();
@@ -18,25 +19,9 @@ export default function ProductsList() {
     IQueryFetchUseditemArgs
   >(FETCH_USEDITEMS);
 
-  console.log(data);
-
   const { data: dataBestItem } = useQuery<
     Pick<IQuery, "fetchUseditemsOfTheBest">
   >(FETCH_USEDITEMS_OFTHEBEST);
-
-  //   const BestItemArray = dataBestItem?.fetchUseditemsOfTheBest.map((el) => {
-  //     return el.images;
-  //   });
-  //   console.log(BestItemArray);
-
-  //   const [img, setImg] = useState("");
-  //   BestItemArray?.map((el) => {
-  //     if (el) {
-  //       return setImg(el[0]);
-  //     } else {
-  //       setImg("");
-  //     }
-  //   });
 
   const onLoadMore = () => {
     if (data === undefined) return;
@@ -62,14 +47,18 @@ export default function ProductsList() {
     });
   };
 
+  const ImageError = (event: ChangeEvent<HTMLImageElement>) => {
+    event.target.src = "/empty/empty_image.jpg";
+  };
+
   return (
     <>
       <ProductsListUI
         data={data}
         dataBestItem={dataBestItem}
-        // img={img}
         onClickMoveToPage={onClickMoveToPage}
         onLoadMore={onLoadMore}
+        ImageError={ImageError}
       />
     </>
   );
