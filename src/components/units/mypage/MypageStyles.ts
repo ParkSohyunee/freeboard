@@ -60,10 +60,18 @@ export const PasswordInput = styled.input`
 `;
 export const ButtonWrapper = styled.div`
   margin-left: auto;
-  padding: 0.8rem; ;
+  padding: 0.8rem;
 `;
 export const MypageButton = styled.button`
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 0.5rem;
+`;
+export const PaymentOption = styled.select`
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding: 0.9rem;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
 `;
