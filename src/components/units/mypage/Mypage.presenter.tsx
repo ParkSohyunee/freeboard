@@ -52,6 +52,7 @@ export default function MyPageUI(props: IMypageUIProps) {
             <S.PasswordInput
               type="password"
               placeholder="현재 비밀번호를 입력해 주세요."
+              onChange={props.onchangeMyPassword}
             />
           </S.InputWrapper>
           <S.InputWrapper>
@@ -59,6 +60,7 @@ export default function MyPageUI(props: IMypageUIProps) {
             <S.PasswordInput
               type="password"
               placeholder="새 비밀번호를 입력해 주세요."
+              onChange={props.onchangeNewPassword}
             />
           </S.InputWrapper>
           <S.InputWrapper>
@@ -66,10 +68,13 @@ export default function MyPageUI(props: IMypageUIProps) {
             <S.PasswordInput
               type="password"
               placeholder="새 비밀번호를 확인해 주세요."
+              onChange={props.onchangeConfirmPassword}
             />
           </S.InputWrapper>
           <S.ButtonWrapper>
-            <S.MypageButton>비밀번호 변경</S.MypageButton>
+            <S.MypageButton onClick={props.onClickResetPassword}>
+              비밀번호 변경
+            </S.MypageButton>
           </S.ButtonWrapper>
         </S.PasswordWrapper>
       </S.Wrapper>

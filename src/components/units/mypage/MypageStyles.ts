@@ -1,5 +1,6 @@
 import { UserOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
+import { Button } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -62,9 +63,7 @@ export const ButtonWrapper = styled.div`
   margin-left: auto;
   padding: 0.8rem;
 `;
-export const MypageButton = styled.button`
-  padding: 0.8rem 2rem;
-  border: none;
+export const MypageButton = styled(Button)`
   border-radius: 0.5rem;
 `;
 export const PaymentOption = styled.select`

@@ -3,31 +3,69 @@ import MyPageUI from "./Mypage.presenter";
 import {
   IMutation,
   IMutationCreatePointTransactionOfLoadingArgs,
+  IMutationResetUserPasswordArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
 import {
   CREATE_POINT_TRANSACTION_OF_LOADING,
   FETCH_USER_LOGGED_IN,
+  RESET_USER_PASSWORD,
 } from "./Mypage.queries";
 // import { useRouter } from "next/router";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 import { ChangeEvent, useState } from "react";
+import * as yup from "yup";
 
 declare const window: typeof globalThis & {
   IMP: any;
 };
 
+const schema = yup.object({
+  myPassword: yup.string().required("현재 비밀번호를 입력해 주세요."),
+  newPassword: yup
+    .string()
+    .required("새로운 비밀번호를 입력해 주세요.")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/,
+      "비밀번호는 영어대소문자, 숫자, 특수문자를 조합해 주세요. (6~12자)"
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("newPassword")], "비밀번호가 다릅니다.")
+    .required("비밀번호를 한번 더 입력해 주세요."),
+});
+
 export default function Mypage() {
   // const router = useRouter();
+  const [myPassword, setMyPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [point, setPoint] = useState(0);
 
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
+  const [resetUserPassword] = useMutation<
+    Pick<IMutation, "resetUserPassword">,
+    IMutationResetUserPasswordArgs
+  >(RESET_USER_PASSWORD);
+
   const [createPoint] = useMutation<
     Pick<IMutation, "createPointTransactionOfLoading">,
     IMutationCreatePointTransactionOfLoadingArgs
   >(CREATE_POINT_TRANSACTION_OF_LOADING);
+
+  const onchangeMyPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setMyPassword(event.target.value);
+  };
+
+  const onchangeNewPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(event.target.value);
+  };
+
+  const onchangeConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.target.value);
+  };
 
   const onChangePoint = (event: ChangeEvent<HTMLSelectElement>) => {
     setPoint(Number(event.target.value));
@@ -79,11 +117,39 @@ export default function Mypage() {
     );
   };
 
+  const onClickResetPassword = async () => {
+    // yup 으로 유효성검사 하는 방법
+    try {
+      await schema.validate({
+        myPassword,
+        newPassword,
+        confirmPassword,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        message.warning(error.message);
+        return;
+      }
+    }
+
+    const result = await resetUserPassword({
+      variables: { password: confirmPassword },
+    });
+
+    if (result.data?.resetUserPassword) {
+      message.success({ content: "비밀번호가 변경되었습니다." });
+    }
+  };
+
   return (
     <MyPageUI
       data={data}
+      onchangeMyPassword={onchangeMyPassword}
+      onchangeNewPassword={onchangeNewPassword}
+      onchangeConfirmPassword={onchangeConfirmPassword}
       onChangePoint={onChangePoint}
       onClickPayment={onClickPayment}
+      onClickResetPassword={onClickResetPassword}
     />
   );
 }
