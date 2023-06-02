@@ -27,11 +27,13 @@ export const GlobalStyles = css`
 
     /* font-weight */
     --font-weight-bold: 800;
+    --font-weight-medium: 700;
     --font-weight-semibold: 600;
     --font-weight-regular: 400;
 
     /* border-radius */
     --border-radius-regular: 0.8rem;
+    --border-radius-small: 0.5rem;
 
     /* --base-size: 10px; */
     --font-family: "Noto Sans KR", sans-serif;
