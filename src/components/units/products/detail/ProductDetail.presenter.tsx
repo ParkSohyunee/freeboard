@@ -3,6 +3,7 @@ import { IProductDetailUIProps } from "./ProductDetail.types";
 import DOMPurify from "dompurify";
 import * as S from "./ProductDetailStyles";
 import { HeartFilled } from "@ant-design/icons";
+import ProductsCommentRegister from "../../products_comment/question/register/ProductsCommentRegister.contatiner";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   return (
@@ -76,7 +77,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
         <S.RightWrapper>
           <S.CommentWrapper>
             <S.Title>댓글</S.Title>
-            <S.CommentWrite></S.CommentWrite>
+            <S.CommentWrite>
+              <ProductsCommentRegister></ProductsCommentRegister>
+            </S.CommentWrite>
             <S.CommentList></S.CommentList>
           </S.CommentWrapper>
         </S.RightWrapper>
