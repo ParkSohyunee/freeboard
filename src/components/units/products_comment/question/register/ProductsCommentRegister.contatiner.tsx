@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import * as S from "./ProductsCommentRegister.styles";
 import { ICommentForm } from "./ProductsCommentRegister.types";
 import { Button, Modal } from "antd";
+import { FETCH_USEDITEM_QUESTIONS } from "../list/ProductsCommentList.queries";
 
 export default function ProductsCommentRegister() {
   const router = useRouter();
@@ -28,6 +29,12 @@ export default function ProductsCommentRegister() {
         useditemId: String(router.query.productId),
         createUseditemQuestionInput: { contents: data.contents },
       },
+      refetchQueries: [
+        {
+          query: FETCH_USEDITEM_QUESTIONS,
+          variables: { useditemId: String(router.query.productId) },
+        },
+      ],
     });
     // console.log(result);
   };

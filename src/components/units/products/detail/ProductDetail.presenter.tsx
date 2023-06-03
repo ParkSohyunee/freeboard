@@ -4,6 +4,7 @@ import DOMPurify from "dompurify";
 import * as S from "./ProductDetailStyles";
 import { HeartFilled } from "@ant-design/icons";
 import ProductsCommentRegister from "../../products_comment/question/register/ProductsCommentRegister.contatiner";
+import ProductsCommentList from "../../products_comment/question/list/PdocuctsCommentList.container";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   return (
@@ -80,7 +81,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.CommentWrite>
               <ProductsCommentRegister></ProductsCommentRegister>
             </S.CommentWrite>
-            <S.CommentList></S.CommentList>
+            <S.CommentList>
+              <ProductsCommentList />
+            </S.CommentList>
           </S.CommentWrapper>
         </S.RightWrapper>
       </S.BottomWrapper>
