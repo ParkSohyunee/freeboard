@@ -79,7 +79,7 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
           <S.CommentWrapper>
             <S.Title>댓글</S.Title>
             <S.CommentWrite>
-              <ProductsCommentRegister></ProductsCommentRegister>
+              <ProductsCommentRegister isEdit={false}></ProductsCommentRegister>
             </S.CommentWrite>
             <S.CommentList>
               <ProductsCommentList />
