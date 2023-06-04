@@ -5,6 +5,7 @@ import * as S from "./ProductDetailStyles";
 import { HeartFilled } from "@ant-design/icons";
 import ProductsCommentRegister from "../../products_comment/question/register/ProductsCommentRegister.contatiner";
 import ProductsCommentList from "../../products_comment/question/list/PdocuctsCommentList.container";
+import Kakaomap from "../../../commons/kakaomap/kakaomap";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   return (
@@ -71,7 +72,13 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             )}
             <S.Location>
               <S.SubTitle>거래지역</S.SubTitle>
-              <S.kakaomap id="map">카카오지도</S.kakaomap>
+              <S.kakaomap>
+                <Kakaomap
+                  address={
+                    props.data?.fetchUseditem.useditemAddress?.address || ""
+                  }
+                />
+              </S.kakaomap>
             </S.Location>
           </S.ItemContents>
         </S.LeftWrapper>

@@ -13,8 +13,6 @@ export const CREATE_USED_ITEM = gql`
         _id
         address
         addressDetail
-        lat
-        lng
       }
       images
     }

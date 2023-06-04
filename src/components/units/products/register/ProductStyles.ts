@@ -104,22 +104,13 @@ export const LocationDetail = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2rem;
 `;
 export const LocationInput = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-export const InputGPS = styled.input`
-  margin: 0 1.5rem;
-  width: 8.5rem;
-  padding: 14px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  border: 1px solid #bdbdbd;
 `;
 // 사진첨부
 export const Img = styled.div`

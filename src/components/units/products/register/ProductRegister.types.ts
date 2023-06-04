@@ -20,12 +20,13 @@ export interface IProductForm {
 }
 
 export interface IProductUIProps {
+  // value: Address;
   address: string;
   isModalOpen: boolean;
   onToggleModal: () => void;
   ReactQuill: ComponentType<ReactQuill.ReactQuillProps>;
-  lng: number;
-  lat: number;
+  // lng: number;
+  // lat: number;
   fileUrls: string[];
   handleChange: (value: string) => void;
   handleComplete: (value: Address) => void;

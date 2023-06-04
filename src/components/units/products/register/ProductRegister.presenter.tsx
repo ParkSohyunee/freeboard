@@ -4,6 +4,7 @@ import { IProductUIProps } from "./ProductRegister.types";
 import * as S from "./ProductStyles";
 import { v4 as uuidv4 } from "uuid";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import Kakaomap from "../../../commons/kakaomap/kakaomap";
 
 export default function ProductRegisterUI(props: IProductUIProps) {
   return (
@@ -61,18 +62,11 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         <S.Location>
           <S.kakaoMap>
             <S.SubTitle>거래위치</S.SubTitle>
-            <S.Map id="map"></S.Map>
+            <S.Map>
+              <Kakaomap address={props.address} />
+            </S.Map>
           </S.kakaoMap>
           <S.LocationDetail>
-            <S.LocationInput>
-              <S.SubTitle>GPS</S.SubTitle>
-              <div>
-                위도(LAT)
-                <S.InputGPS readOnly type="text" value={props.lat}></S.InputGPS>
-                경도(LNG)
-                <S.InputGPS readOnly type="text" value={props.lng}></S.InputGPS>
-              </div>
-            </S.LocationInput>
             <S.LocationInput>
               <S.AddressSearch type="button" onClick={props.onToggleModal}>
                 주소검색

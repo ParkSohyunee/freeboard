@@ -15,8 +15,6 @@ export const FETCH_USEDITEM = gql`
         _id
         address
         addressDetail
-        lat
-        lng
       }
       seller {
         name
