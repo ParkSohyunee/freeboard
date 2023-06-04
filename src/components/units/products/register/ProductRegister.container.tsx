@@ -1,16 +1,17 @@
 import ProductRegisterUI from "./ProductRegister.presenter";
 import { useForm } from "react-hook-form";
-import { IProductForm } from "./ProductRegister.types";
+import { IProductForm, IProductRegisterProps } from "./ProductRegister.types";
 import { useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateUseditemArgs,
+  IMutationUpdateUseditemArgs,
 } from "../../../../commons/types/generated/types";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { CREATE_USED_ITEM } from "./ProductRegister.queries";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductRegister.queries";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
@@ -34,17 +35,21 @@ const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
 
-export default function ProductRegister() {
+export default function ProductRegister(props: IProductRegisterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  // const [addressDetail, setAddressDetail] = useState("");
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
   // const [files, setFiles] = useState<File[]>([]);
-  // const [lng, setLng] = useState(0);
-  // const [lat, setLat] = useState(0);
 
   const router = useRouter();
+
+  // 만약 이미지가 있다면 배열에 넣어줘
+  useEffect(() => {
+    if (props.data?.fetchUseditem.images)
+      // defaultValue 에 이미지 넣기 => ["image1.jpg", "..", ".."]
+      setFileUrls([...props.data.fetchUseditem.images]);
+  }, [props.data]);
 
   // react-hook-form => setValue & trigger (onChange 값 저장)
   //  prettier-ignore
@@ -57,6 +62,11 @@ export default function ProductRegister() {
     Pick<IMutation, "createUseditem">,
     IMutationCreateUseditemArgs
   >(CREATE_USED_ITEM);
+
+  const [updateUsedutem] = useMutation<
+    Pick<IMutation, "updateUseditem">,
+    IMutationUpdateUseditemArgs
+  >(UPDATE_USED_ITEM);
 
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
@@ -100,16 +110,40 @@ export default function ProductRegister() {
             useditemAddress: {
               address: data.useditemAddress.address,
               addressDetail: data.useditemAddress.addressDetail,
-              // lat: lat,
-              // lng: lng,
             },
             images: fileUrls,
           },
         },
       });
-      console.log(result.data?.createUseditem); // 로그
+      // console.log(result.data?.createUseditem); // 로그
       //
       router.push(`/products/${result.data?.createUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) Modal.warning({ content: error.message });
+    }
+  };
+
+  const onClickUpdate = async (data: IProductForm) => {
+    try {
+      const result = await updateUsedutem({
+        variables: {
+          useditemId: String(router.query.productId),
+          updateUseditemInput: {
+            name: data.name,
+            remarks: data.remarks,
+            contents: data.contents,
+            price: Number(data.price),
+            tags: data.tags.split(" "),
+            useditemAddress: {
+              address: data.useditemAddress.address,
+              addressDetail: data.useditemAddress.addressDetail,
+            },
+            images: fileUrls,
+          },
+        },
+      });
+      // console.log(result);
+      router.push(`/products/${result.data?.updateUseditem._id}`);
     } catch (error) {
       if (error instanceof Error) Modal.warning({ content: error.message });
     }
@@ -122,16 +156,17 @@ export default function ProductRegister() {
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
         ReactQuill={ReactQuill}
-        // lng={lng}
-        // lat={lat}
         fileUrls={fileUrls}
         handleChange={handleChange}
         handleComplete={handleComplete}
         onChangeFileUrls={onChangeFileUrls}
         onclickSubmit={onclickSubmit}
+        onClickUpdate={onClickUpdate}
         handleSubmit={handleSubmit}
         register={register}
         formState={formState}
+        data={props.data}
+        isEdit={props.isEdit}
       />
     </>
   );

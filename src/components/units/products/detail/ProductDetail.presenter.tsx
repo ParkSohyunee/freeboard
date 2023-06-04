@@ -23,7 +23,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.ItemName>{props.data?.fetchUseditem.name}</S.ItemName>
             <div>
               <S.ButtonOption
-                onClick={props.onClickMoveToPage(`/home/${props.path}/edit`)}
+                onClick={props.onClickMoveToPage(
+                  `/products/${props.path}/edit`
+                )}
               >
                 <img src="/option/option_update_icon.png" />
               </S.ButtonOption>

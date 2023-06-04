@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { IQuery } from "../../../commons/types/generated/types";
 
 // 로벌 스코프에 위치한 kakao라는 객체의 타입 지정 => Cannot find name 'kakao'.ts(2304)
 declare const window: typeof globalThis & {
@@ -7,6 +8,7 @@ declare const window: typeof globalThis & {
 
 interface IKakaoProps {
   address: string;
+  data?: Pick<IQuery, "fetchUseditem">;
 }
 
 export default function Kakaomap(props: IKakaoProps) {
@@ -35,7 +37,9 @@ export default function Kakaomap(props: IKakaoProps) {
 
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
-          props.address,
+          props.address
+            ? props.address
+            : props.data?.fetchUseditem.useditemAddress?.address,
           function (result: any, status: any) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.kakao.maps.services.Status.OK) {
