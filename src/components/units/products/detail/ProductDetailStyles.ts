@@ -29,8 +29,7 @@ export const ItemInfo = styled.div`
   width: 820px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: space-evenly;
 `;
 export const ItemInfoWrapper = styled.div`
   display: flex;
@@ -58,16 +57,26 @@ export const PriceUnit = styled.span`
 `;
 export const ItemRemarks = styled.div`
   padding: 1rem 0;
-  height: 7rem;
+  /* height: 7rem; */
   font-size: 1.2rem;
 `;
+// 태그
 export const ItemTages = styled.div`
-  padding: 2rem 0;
-  border-bottom: 1px solid #c0c0c0;
+  padding: 1rem 0;
+`;
+export const TagWrapper = styled.span`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-medium-beige);
+  color: white;
+  line-height: 1.5rem;
+  cursor: pointer;
 `;
 export const ItemBuyOption = styled.div`
   width: 100%;
-  padding: 2.2rem 0;
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;

@@ -110,10 +110,15 @@ export default function ProductRegisterUI(props: IProductUIProps) {
           <S.SubTitle>태그입력</S.SubTitle>
           <S.InputBoxTitle
             type="text"
-            placeholder="#태그 #태그 #태그"
-            {...props.register("tags")}
+            placeholder="스페이스바(spacebar)로 태그를 넣어주세요."
+            onKeyUp={props.onKeyUp}
             defaultValue={props.data?.fetchUseditem.tags ?? ""}
-          ></S.InputBoxTitle>
+          />
+          <div>
+            {props.tagArr.map((el, index) => (
+              <S.TagWrapper key={index}>{el}</S.TagWrapper>
+            ))}
+          </div>
           <S.ErrorMessage></S.ErrorMessage>
         </S.TitleInfo>
         <S.TitleInfo>

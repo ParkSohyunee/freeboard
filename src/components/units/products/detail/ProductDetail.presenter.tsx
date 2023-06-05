@@ -39,7 +39,11 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <S.PriceUnit>원</S.PriceUnit>
           </S.ItemPrice>
           <S.ItemRemarks>{props.data?.fetchUseditem.remarks}</S.ItemRemarks>
-          <S.ItemTages>{props.data?.fetchUseditem.tags}</S.ItemTages>
+          <S.ItemTages>
+            {props.data?.fetchUseditem.tags?.map((el, index) => (
+              <S.TagWrapper key={index}>{el}</S.TagWrapper>
+            ))}
+          </S.ItemTages>
           <S.ItemBuyOption>
             <S.buttonToggle onClick={props.onClickItemPick}>
               <HeartFilled style={{ color: "pink", marginRight: "0.5rem" }} />

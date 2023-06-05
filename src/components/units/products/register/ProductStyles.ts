@@ -64,6 +64,7 @@ export const InputBoxTitle = styled.input`
   font-size: 16px;
   line-height: 24px;
   border: 1px solid #bdbdbd;
+  cursor: text;
 `;
 // 한줄요약
 export const TitleInfo = styled.div`
@@ -111,6 +112,18 @@ export const LocationInput = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+// 태그
+export const TagWrapper = styled.span`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-medium-beige);
+  color: white;
+  line-height: 1.5rem;
+  cursor: pointer;
 `;
 // 사진첨부
 export const Img = styled.div`

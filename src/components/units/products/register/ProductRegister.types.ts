@@ -30,6 +30,7 @@ export interface IProductUIProps {
   isEdit: boolean;
   // value: Address;
   address: string;
+  tagArr: string[];
   isModalOpen: boolean;
   onToggleModal: () => void;
   ReactQuill: ComponentType<ReactQuill.ReactQuillProps>;
@@ -38,6 +39,7 @@ export interface IProductUIProps {
   fileUrls: string[];
   handleChange: (value: string) => void;
   handleComplete: (value: Address) => void;
+  onKeyUp: (event: any) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
   onclickSubmit: (data: IProductForm) => void;
   onClickUpdate: (data: IProductForm) => void;

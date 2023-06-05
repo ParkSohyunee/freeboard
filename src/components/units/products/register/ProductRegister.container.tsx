@@ -41,6 +41,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
   const [address, setAddress] = useState("");
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
   // const [files, setFiles] = useState<File[]>([]);
+  const [tagArr, setTagArr] = useState<string[]>([]);
 
   const router = useRouter();
 
@@ -67,6 +68,18 @@ export default function ProductRegister(props: IProductRegisterProps) {
     Pick<IMutation, "updateUseditem">,
     IMutationUpdateUseditemArgs
   >(UPDATE_USED_ITEM);
+
+  const onKeyUp = (event: any) => {
+    // 스페이스바 입력시 태그 완성
+    if (event.key === " ") {
+      // 입력한 태그가 공백이 아닐 때
+      if (event.target.value !== " ") {
+        setTagArr([...tagArr, "#" + event.target.value.trim()]); // space로 인한 공백 제거 후 저장
+      }
+      // 등록후 input 초기화
+      event.target.value = "";
+    }
+  };
 
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
@@ -106,7 +119,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
             remarks: data.remarks,
             contents: data.contents,
             price: Number(data.price),
-            tags: data.tags.split(" "),
+            tags: tagArr,
             useditemAddress: {
               address: data.useditemAddress.address,
               addressDetail: data.useditemAddress.addressDetail,
@@ -133,7 +146,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
             remarks: data.remarks,
             contents: data.contents,
             price: Number(data.price),
-            tags: data.tags.split(" "),
+            tags: tagArr,
             useditemAddress: {
               address: data.useditemAddress.address,
               addressDetail: data.useditemAddress.addressDetail,
@@ -153,12 +166,14 @@ export default function ProductRegister(props: IProductRegisterProps) {
     <>
       <ProductRegisterUI
         address={address}
+        tagArr={tagArr}
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
         ReactQuill={ReactQuill}
         fileUrls={fileUrls}
         handleChange={handleChange}
         handleComplete={handleComplete}
+        onKeyUp={onKeyUp}
         onChangeFileUrls={onChangeFileUrls}
         onclickSubmit={onclickSubmit}
         onClickUpdate={onClickUpdate}
