@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { ComponentType, MouseEvent } from "react";
 import { Address } from "react-daum-postcode";
 import {
   UseFormRegister,
@@ -41,6 +41,7 @@ export interface IProductUIProps {
   handleComplete: (value: Address) => void;
   onKeyUp: (event: any) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
+  onClickDeleteTag: (event: MouseEvent<HTMLSpanElement>) => void;
   onclickSubmit: (data: IProductForm) => void;
   onClickUpdate: (data: IProductForm) => void;
   handleSubmit: UseFormHandleSubmit<IProductForm>;

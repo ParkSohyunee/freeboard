@@ -112,11 +112,16 @@ export default function ProductRegisterUI(props: IProductUIProps) {
             type="text"
             placeholder="스페이스바(spacebar)로 태그를 넣어주세요."
             onKeyUp={props.onKeyUp}
-            defaultValue={props.data?.fetchUseditem.tags ?? ""}
           />
           <div>
             {props.tagArr.map((el, index) => (
-              <S.TagWrapper key={index}>{el}</S.TagWrapper>
+              <S.TagWrapper
+                key={index}
+                id={el}
+                onClick={props.onClickDeleteTag}
+              >
+                {el} x
+              </S.TagWrapper>
             ))}
           </div>
           <S.ErrorMessage></S.ErrorMessage>

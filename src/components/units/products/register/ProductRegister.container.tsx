@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import ProductRegisterUI from "./ProductRegister.presenter";
 import { useForm } from "react-hook-form";
 import { IProductForm, IProductRegisterProps } from "./ProductRegister.types";
@@ -45,11 +46,14 @@ export default function ProductRegister(props: IProductRegisterProps) {
 
   const router = useRouter();
 
-  // 만약 이미지가 있다면 배열에 넣어줘
+  // 만약 이미지와 태그가 있다면 배열에 넣어줘
   useEffect(() => {
     if (props.data?.fetchUseditem.images)
       // defaultValue 에 이미지 넣기 => ["image1.jpg", "..", ".."]
       setFileUrls([...props.data.fetchUseditem.images]);
+
+    if (props.data?.fetchUseditem.tags)
+      setTagArr([...props.data.fetchUseditem.tags]);
   }, [props.data]);
 
   // react-hook-form => setValue & trigger (onChange 값 저장)
@@ -69,6 +73,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
     IMutationUpdateUseditemArgs
   >(UPDATE_USED_ITEM);
 
+  // 태그 추가
   const onKeyUp = (event: any) => {
     // 스페이스바 입력시 태그 완성
     if (event.key === " ") {
@@ -106,6 +111,12 @@ export default function ProductRegister(props: IProductRegisterProps) {
     trigger("useditemAddress.address");
     console.log(value.address); // [object] 인지 확인
     setAddress(value.address);
+  };
+
+  // 태그 삭제
+  const onClickDeleteTag = (event: MouseEvent<HTMLSpanElement>) => {
+    const result = tagArr.filter((tag) => tag !== event.currentTarget.id);
+    setTagArr(result);
   };
 
   const onclickSubmit = async (data: IProductForm) => {
@@ -175,6 +186,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
         handleComplete={handleComplete}
         onKeyUp={onKeyUp}
         onChangeFileUrls={onChangeFileUrls}
+        onClickDeleteTag={onClickDeleteTag}
         onclickSubmit={onclickSubmit}
         onClickUpdate={onClickUpdate}
         handleSubmit={handleSubmit}
