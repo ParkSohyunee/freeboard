@@ -5,11 +5,12 @@ import * as S from "./LoginStyles";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LOGIN_USER } from "./Login.queries";
+import { LOGIN_USER, LOGIN_USER_EXAMPLE } from "./Login.queries";
 import { useRouter } from "next/router";
 import {
   IMutation,
   IMutationLoginUserArgs,
+  IMutationLoginUserExampleArgs,
 } from "../../../commons/types/generated/types";
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
@@ -31,6 +32,11 @@ export default function Login() {
     IMutationLoginUserArgs
   >(LOGIN_USER);
 
+  const [loginUserExample] = useMutation<
+    Pick<IMutation, "loginUserExample">,
+    IMutationLoginUserExampleArgs
+  >(LOGIN_USER_EXAMPLE);
+
   const { onClickMoveToPage } = useMoveToPage();
 
   const {
@@ -47,14 +53,14 @@ export default function Login() {
   const onClickLogin = async (data: ILoginForm) => {
     try {
       // 1. 로그인해서 accessToken 받아오기
-      const result = await loginUser({
+      const result = await loginUserExample({
         variables: {
           email: data.email,
           password: data.password,
         },
       });
       console.log(result); // {data: {…}}
-      const accessToken = result.data?.loginUser.accessToken;
+      const accessToken = result.data?.loginUserExample.accessToken;
 
       // 2. accessToken을 globalState에 저장하기
       if (!accessToken) {
