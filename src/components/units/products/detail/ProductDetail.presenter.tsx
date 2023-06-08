@@ -50,7 +50,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
               {props.data?.fetchUseditem.pickedCount}
             </S.buttonToggle>
             <S.buttonbasket>장바구니</S.buttonbasket>
-            <S.buttonBuy>바로구매</S.buttonBuy>
+            <S.buttonBuy onClick={props.onClickBuyUseditem}>
+              구매하기
+            </S.buttonBuy>
           </S.ItemBuyOption>
         </S.ItemInfo>
       </S.TopWrapper>

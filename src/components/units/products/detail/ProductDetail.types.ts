@@ -6,6 +6,7 @@ export interface IProductDetailUIProps {
   onClickMoveToPage: (path: string) => () => void;
   onClickItemPick: () => void;
   onClickDeleteItem: () => void;
+  onClickBuyUseditem: () => void;
 }
 
 export interface IPropsDetail {

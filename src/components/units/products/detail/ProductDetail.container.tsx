@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import ProductDetailUI from "./ProductDetail.presenter";
 import {
   IMutation,
+  IMutationCreatePointTransactionOfBuyingAndSellingArgs,
   IMutationDeleteUseditemArgs,
   IMutationToggleUseditemPickArgs,
   IQuery,
@@ -9,6 +10,7 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import {
+  CREATE_TRANSACTION,
   DELETE_USEDITEM,
   FETCH_USEDITEM,
   ToggleUseditemPick,
@@ -36,6 +38,11 @@ export default function ProductDetail() {
     Pick<IMutation, "deleteUseditem">,
     IMutationDeleteUseditemArgs
   >(DELETE_USEDITEM);
+
+  const [createTransaction] = useMutation<
+    Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
+    IMutationCreatePointTransactionOfBuyingAndSellingArgs
+  >(CREATE_TRANSACTION);
 
   const onClickItemPick = async () => {
     const result = await toggleUseditemPick({
@@ -73,6 +80,20 @@ export default function ProductDetail() {
     }
   };
 
+  const onClickBuyUseditem = async () => {
+    if (typeof router.query.productId !== "string") return;
+    try {
+      const result = await createTransaction({
+        variables: { useritemId: router.query.productId },
+      });
+      console.log(result);
+      message.success({ content: "상품구매를 완료하였습니다." });
+      router.push("/products");
+    } catch (error) {
+      if (error instanceof Error) message.error({ content: error.message });
+    }
+  };
+
   return (
     <>
       <ProductDetailUI
@@ -80,6 +101,7 @@ export default function ProductDetail() {
         onClickMoveToPage={onClickMoveToPage}
         onClickItemPick={onClickItemPick}
         onClickDeleteItem={onClickDeleteItem}
+        onClickBuyUseditem={onClickBuyUseditem}
         path={String(router.query.productId)}
       />
     </>
