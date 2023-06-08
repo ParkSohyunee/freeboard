@@ -70,7 +70,7 @@ export default function Login() {
         return;
       }
       setAccessToken(accessToken); // global state
-      localStorage.setItem("accessToken", accessToken);
+      // localStorage.setItem("accessToken", accessToken); // refreshToken 사용으로 로컬스토리지 사용 x
       console.log(accessToken);
 
       // 3. 로그인 성공 페이지로 이동하기
