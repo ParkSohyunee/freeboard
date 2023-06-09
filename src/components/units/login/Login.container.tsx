@@ -74,7 +74,7 @@ export default function Login() {
       console.log(accessToken);
 
       // 3. 로그인 성공 페이지로 이동하기
-      router.push("/login/mypage");
+      router.push("/");
     } catch (error) {
       if (error instanceof Error) {
         Modal.error({ content: error.message });

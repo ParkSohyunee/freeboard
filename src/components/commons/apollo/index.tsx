@@ -6,8 +6,11 @@ import {
   fromPromise,
 } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
-import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/store";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import {
+  accessTokenState,
+  restoreAccessTokenLoadable,
+} from "../../../commons/store";
 import { useEffect } from "react";
 import { onError } from "@apollo/client/link/error";
 import { getAccessToken } from "../../../commons/libraries/getAccessToken";
@@ -20,12 +23,19 @@ interface IApolloSettingProps {
 
 export default function ApolloSettingPage(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const getNewAccessToken = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   // 프리랜더링 무시, 브라우저에서만 실행
   useEffect(() => {
+    // refreshToken 사용전 기존 로컬스토리지 저장 방식
     // 새로고침시 로컬스토리지에 토큰이 있다면, recoil 변수에 그 값을 저장헤서 마치 로그인이 유지되는 것처럼
-    const result = localStorage.getItem("accessToken");
-    if (result) setAccessToken(result);
+    // const result = localStorage.getItem("accessToken");
+
+    // 쿠키에 저장되어 있는 refreshToken을 document.cookie로 가져올 수 없음 => 왜? 보안이 강화되어 있음
+    // refreshToken 사용후 새로고침시 토큰 유지 방식
+    void getNewAccessToken.toPromise().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? "");
+    });
   }, []);
 
   // 에러링크 추가
