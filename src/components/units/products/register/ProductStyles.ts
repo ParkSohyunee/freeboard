@@ -64,6 +64,7 @@ export const InputBoxTitle = styled.input`
   font-size: 16px;
   line-height: 24px;
   border: 1px solid #bdbdbd;
+  cursor: text;
 `;
 // 한줄요약
 export const TitleInfo = styled.div`
@@ -104,6 +105,7 @@ export const LocationDetail = styled.div`
   width: 60%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2rem;
 `;
 export const LocationInput = styled.div`
@@ -111,15 +113,17 @@ export const LocationInput = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
-export const InputGPS = styled.input`
-  margin: 0 1.5rem;
-  width: 8.5rem;
-  padding: 14px;
-  text-align: center;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  border: 1px solid #bdbdbd;
+// 태그
+export const TagWrapper = styled.span`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-medium-beige);
+  color: white;
+  line-height: 1.5rem;
+  cursor: pointer;
 `;
 // 사진첨부
 export const Img = styled.div`

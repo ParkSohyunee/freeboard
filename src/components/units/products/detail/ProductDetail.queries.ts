@@ -15,8 +15,6 @@ export const FETCH_USEDITEM = gql`
         _id
         address
         addressDetail
-        lat
-        lng
       }
       seller {
         name
@@ -32,5 +30,12 @@ export const ToggleUseditemPick = gql`
 export const DELETE_USEDITEM = gql`
   mutation deleteUseditem($useditemId: ID!) {
     deleteUseditem(useditemId: $useditemId)
+  }
+`;
+export const CREATE_TRANSACTION = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
+    }
   }
 `;

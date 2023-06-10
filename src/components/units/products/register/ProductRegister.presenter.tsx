@@ -4,12 +4,17 @@ import { IProductUIProps } from "./ProductRegister.types";
 import * as S from "./ProductStyles";
 import { v4 as uuidv4 } from "uuid";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import Kakaomap from "../../../commons/kakaomap/kakaomap";
 
 export default function ProductRegisterUI(props: IProductUIProps) {
   return (
     <>
-      <S.Wrapper onSubmit={props.handleSubmit(props.onclickSubmit)}>
-        <S.PageTitle>상품 등록하기</S.PageTitle>
+      <S.Wrapper
+        onSubmit={props.handleSubmit(
+          props.isEdit ? props.onClickUpdate : props.onclickSubmit
+        )}
+      >
+        <S.PageTitle>상품 {props.isEdit ? "수정하기" : "등록하기"}</S.PageTitle>
         <S.ProductInfo>
           <S.Item>
             <S.SubTitle>상품명</S.SubTitle>
@@ -17,7 +22,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
               type="text"
               placeholder="상품명을 작성해주세요."
               {...props.register("name")}
-              //   defaultValue={props.data?.fetchBoard.writer ?? ""}
+              defaultValue={props.data?.fetchUseditem.name ?? ""}
             ></S.InputBox>
             <S.ErrorMessage>
               {props.formState.errors.name?.message}
@@ -29,6 +34,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
               type="text"
               placeholder="판매 가격을 입력해주세요."
               {...props.register("price")}
+              defaultValue={props.data?.fetchUseditem.price ?? ""}
             ></S.InputBox>
             <S.ErrorMessage>
               {props.formState.errors.price?.message}
@@ -41,7 +47,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
             type="text"
             placeholder="상품을 한줄로 요약해주세요. 예시) 갤럭시 z플립3 (2021년 구매 / 256GB)"
             {...props.register("remarks")}
-            // defaultValue={props.data?.fetchBoard.title}
+            defaultValue={props.data?.fetchUseditem.remarks ?? ""}
           ></S.InputBoxTitle>
           <S.ErrorMessage>
             {props.formState.errors.remarks?.message}
@@ -61,18 +67,11 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         <S.Location>
           <S.kakaoMap>
             <S.SubTitle>거래위치</S.SubTitle>
-            <S.Map id="map"></S.Map>
+            <S.Map>
+              <Kakaomap address={props.address} data={props.data} />
+            </S.Map>
           </S.kakaoMap>
           <S.LocationDetail>
-            <S.LocationInput>
-              <S.SubTitle>GPS</S.SubTitle>
-              <div>
-                위도(LAT)
-                <S.InputGPS readOnly type="text" value={props.lat}></S.InputGPS>
-                경도(LNG)
-                <S.InputGPS readOnly type="text" value={props.lng}></S.InputGPS>
-              </div>
-            </S.LocationInput>
             <S.LocationInput>
               <S.AddressSearch type="button" onClick={props.onToggleModal}>
                 주소검색
@@ -90,12 +89,19 @@ export default function ProductRegisterUI(props: IProductUIProps) {
               <S.InputBoxTitle
                 readOnly
                 placeholder="주소를 검색해주세요."
-                value={props.address}
+                value={
+                  (props.address ||
+                    props.data?.fetchUseditem.useditemAddress?.address) ??
+                  ""
+                }
               />
               <S.InputBoxTitle
                 type="text"
                 placeholder="상세주소를 입력해주세요."
                 {...props.register("useditemAddress.addressDetail")}
+                defaultValue={
+                  props.data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
+                }
               />
             </S.LocationInput>
           </S.LocationDetail>
@@ -104,10 +110,20 @@ export default function ProductRegisterUI(props: IProductUIProps) {
           <S.SubTitle>태그입력</S.SubTitle>
           <S.InputBoxTitle
             type="text"
-            placeholder="#태그 #태그 #태그"
-            {...props.register("tags")}
-            // defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
-          ></S.InputBoxTitle>
+            placeholder="스페이스바(spacebar)로 태그를 넣어주세요."
+            onKeyUp={props.onKeyUp}
+          />
+          <div>
+            {props.tagArr.map((el, index) => (
+              <S.TagWrapper
+                key={index}
+                id={el}
+                onClick={props.onClickDeleteTag}
+              >
+                {el} x
+              </S.TagWrapper>
+            ))}
+          </div>
           <S.ErrorMessage></S.ErrorMessage>
         </S.TitleInfo>
         <S.TitleInfo>
@@ -138,8 +154,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
         </S.TitleInfo>
         <S.Submit>
           <S.SubmitBtn type="submit" formState={props.formState}>
-            등록하기
-            {/* {props.isEdit ? "수정하기" : "등록하기"} */}
+            {props.isEdit ? "수정하기" : "등록하기"}
           </S.SubmitBtn>
         </S.Submit>
       </S.Wrapper>

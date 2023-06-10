@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 1200px;
-  /* overflow: auto; */
+  overflow: auto;
 `;
 export const BestItemWrapper = styled.div`
   width: 100%;
@@ -103,7 +103,7 @@ export const ItemInfo = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 `;
 export const ItemPrice = styled.div`
   width: 20%;
@@ -126,15 +126,28 @@ export const Remarks = styled.div`
   font-weight: 500;
   font-size: 1rem;
 `;
-export const Tags = styled.div`
+export const TagsWrapper = styled.div`
   color: #bdbdbd;
   font-weight: 500;
   font-size: 1rem;
+`;
+export const Tags = styled.span`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-medium-beige);
+  color: white;
+  line-height: 1.5rem;
 `;
 export const SellerWrapper = styled.div`
   display: flex;
   gap: 1rem;
   padding-top: 0.5rem;
+  align-items: center;
+`;
+export const Seller = styled.div`
+  display: flex;
   align-items: center;
 `;
 export const PickWrapper = styled.div`

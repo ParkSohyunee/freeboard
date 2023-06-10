@@ -1,16 +1,18 @@
+import { MouseEvent } from "react";
 import ProductRegisterUI from "./ProductRegister.presenter";
 import { useForm } from "react-hook-form";
-import { IProductForm } from "./ProductRegister.types";
+import { IProductForm, IProductRegisterProps } from "./ProductRegister.types";
 import { useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateUseditemArgs,
+  IMutationUpdateUseditemArgs,
 } from "../../../../commons/types/generated/types";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { CREATE_USED_ITEM } from "./ProductRegister.queries";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./ProductRegister.queries";
 import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
@@ -29,25 +31,30 @@ const schema = yup.object({
     ),
 });
 
-// 로벌 스코프에 위치한 kakao라는 객체의 타입 지정 => Cannot find name 'kakao'.ts(2304)
-declare const window: typeof globalThis & {
-  kakao: any;
-};
-
 // dynamic import => 빌드되는 시점에서 호출하지 않고 런타임 시점(이미 documnet 가 선언된 이후)에서 모듈을 호출
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
 
-export default function ProductRegister() {
+export default function ProductRegister(props: IProductRegisterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
   // const [files, setFiles] = useState<File[]>([]);
-  const [lng, setLng] = useState(0);
-  const [lat, setLat] = useState(0);
+  const [tagArr, setTagArr] = useState<string[]>([]);
 
   const router = useRouter();
+
+  // 만약 이미지와 태그가 있다면 배열에 넣어줘
+  useEffect(() => {
+    if (props.data?.fetchUseditem.images)
+      // defaultValue 에 이미지 넣기 => ["image1.jpg", "..", ".."]
+      setFileUrls([...props.data.fetchUseditem.images]);
+
+    if (props.data?.fetchUseditem.tags)
+      setTagArr([...props.data.fetchUseditem.tags]);
+  }, [props.data]);
 
   // react-hook-form => setValue & trigger (onChange 값 저장)
   //  prettier-ignore
@@ -61,76 +68,23 @@ export default function ProductRegister() {
     IMutationCreateUseditemArgs
   >(CREATE_USED_ITEM);
 
-  // 페이지가 마운트된 이후 document 객체가 생성된 이후 카카오맵 호출하기
-  useEffect(() => {
-    // Mount 될 때 실행 될 코드보다 먼저 선언되어야 할 스크립트 만들기
-    const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&libraries=services`;
-    document.head.appendChild(script);
+  const [updateUsedutem] = useMutation<
+    Pick<IMutation, "updateUseditem">,
+    IMutationUpdateUseditemArgs
+  >(UPDATE_USED_ITEM);
 
-    // script가 완료되고, kakao 로드가 완료되면 그때 실행해줘
-    script.onload = () => {
-      window.kakao.maps.load(() => {
-        const mapContainer = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
-        const mapOption = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-          level: 3,
-        };
-        const map = new window.kakao.maps.Map(mapContainer, mapOption); //지도 생성 및 객체 리턴
-
-        // 주소-좌표 변환 객체를 생성합니다
-        const geocoder = new window.kakao.maps.services.Geocoder();
-
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(
-          "제주특별자치도 제주시 첨단로 242",
-          function (result: any, status: any) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === window.kakao.maps.services.Status.OK) {
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
-              console.log(coords);
-
-              // 결과값으로 받은 위치를 마커로 표시합니다
-              const marker = new window.kakao.maps.Marker({
-                map: map,
-                position: coords,
-              });
-
-              // 인포윈도우로 장소에 대한 설명을 표시합니다
-              // var infowindow = new window.kakao.maps.InfoWindow({
-              //   content:
-              //     '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>',
-              // });
-              // infowindow.open(map, marker);
-
-              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-              map.setCenter(coords);
-            }
-          }
-        );
-
-        // // 지도를 클릭한 위치에 표출할 마커
-        // const marker = new window.kakao.maps.Marker({
-        //   position: map.getCenter(), // 지도 중심좌표에 마커를 생성
-        //   // image: markerImage, // 마커이미지 설정
-        // });
-        // marker.setMap(map); // 지도에 마커를 표시
-
-        // // 지도에 클릭 이벤트를 등록(지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출)
-        // window.kakao.maps.event.addListener(map, "click", (mouseEvent: any) => {
-        //   const latlng = mouseEvent.latLng; // 클릭한 위도, 경도 정보
-
-        //   marker.setPosition(latlng); // 마커 위치를 클릭한 위치로 옮기기
-
-        //   setLng(Math.round(latlng.getLng() * 1000000) / 1000000);
-        //   setLat(Math.round(latlng.getLat() * 1000000) / 1000000);
-        // });
-      });
-    };
-  }, []);
+  // 태그 추가
+  const onKeyUp = (event: any) => {
+    // 스페이스바 입력시 태그 완성
+    if (event.key === " ") {
+      // 입력한 태그가 공백이 아닐 때
+      if (event.target.value !== " ") {
+        setTagArr([...tagArr, "#" + event.target.value.trim()]); // space로 인한 공백 제거 후 저장
+      }
+      // 등록후 input 초기화
+      event.target.value = "";
+    }
+  };
 
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
@@ -159,6 +113,12 @@ export default function ProductRegister() {
     setAddress(value.address);
   };
 
+  // 태그 삭제
+  const onClickDeleteTag = (event: MouseEvent<HTMLSpanElement>) => {
+    const result = tagArr.filter((tag) => tag !== event.currentTarget.id);
+    setTagArr(result);
+  };
+
   const onclickSubmit = async (data: IProductForm) => {
     console.log(data); // 로그
 
@@ -170,20 +130,44 @@ export default function ProductRegister() {
             remarks: data.remarks,
             contents: data.contents,
             price: Number(data.price),
-            tags: data.tags.split(" "),
+            tags: tagArr,
             useditemAddress: {
               address: data.useditemAddress.address,
               addressDetail: data.useditemAddress.addressDetail,
-              lat: lat,
-              lng: lng,
             },
             images: fileUrls,
           },
         },
       });
-      console.log(result.data?.createUseditem); // 로그
+      // console.log(result.data?.createUseditem); // 로그
       //
       router.push(`/products/${result.data?.createUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) Modal.warning({ content: error.message });
+    }
+  };
+
+  const onClickUpdate = async (data: IProductForm) => {
+    try {
+      const result = await updateUsedutem({
+        variables: {
+          useditemId: String(router.query.productId),
+          updateUseditemInput: {
+            name: data.name,
+            remarks: data.remarks,
+            contents: data.contents,
+            price: Number(data.price),
+            tags: tagArr,
+            useditemAddress: {
+              address: data.useditemAddress.address,
+              addressDetail: data.useditemAddress.addressDetail,
+            },
+            images: fileUrls,
+          },
+        },
+      });
+      // console.log(result);
+      router.push(`/products/${result.data?.updateUseditem._id}`);
     } catch (error) {
       if (error instanceof Error) Modal.warning({ content: error.message });
     }
@@ -193,19 +177,23 @@ export default function ProductRegister() {
     <>
       <ProductRegisterUI
         address={address}
+        tagArr={tagArr}
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
         ReactQuill={ReactQuill}
-        lng={lng}
-        lat={lat}
         fileUrls={fileUrls}
         handleChange={handleChange}
         handleComplete={handleComplete}
+        onKeyUp={onKeyUp}
         onChangeFileUrls={onChangeFileUrls}
+        onClickDeleteTag={onClickDeleteTag}
         onclickSubmit={onclickSubmit}
+        onClickUpdate={onClickUpdate}
         handleSubmit={handleSubmit}
         register={register}
         formState={formState}
+        data={props.data}
+        isEdit={props.isEdit}
       />
     </>
   );
