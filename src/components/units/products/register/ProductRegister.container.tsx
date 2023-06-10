@@ -40,7 +40,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
   // const [files, setFiles] = useState<File[]>([]);
   const [tagArr, setTagArr] = useState<string[]>([]);
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Empty } from "antd";
 
 export const Wrapper = styled.div`
   /* width: 1200px; */
@@ -18,11 +19,7 @@ export const TopWrapper = styled.section`
 `;
 export const ItemImageWrapper = styled.div`
   width: 480px;
-`;
-export const ItemImage = styled.img`
-  width: 480px;
   height: 480px;
-  background-color: #e9e9e9;
 `;
 export const ItemInfo = styled.div`
   // width: 100%;

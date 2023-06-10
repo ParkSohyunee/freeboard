@@ -6,16 +6,24 @@ import { HeartFilled } from "@ant-design/icons";
 import ProductsCommentRegister from "../../products_comment/question/register/ProductsCommentRegister.contatiner";
 import ProductsCommentList from "../../products_comment/question/list/PdocuctsCommentList.container";
 import Kakaomap from "../../../commons/kakaomap/kakaomap";
+import { Empty } from "antd";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   return (
     <S.Wrapper>
       <S.TopWrapper>
-        <S.ItemImageWrapper style={{ width: 480 }}>
-          {props.data?.fetchUseditem.images ? (
+        <S.ItemImageWrapper>
+          {props.data?.fetchUseditem.images?.length !== 0 ? (
             <SimpleSlider el={props.data?.fetchUseditem.images} />
           ) : (
-            <S.ItemImage />
+            <Empty
+              description={<span>이미지가 없습니다.</span>}
+              imageStyle={{
+                height: "100%",
+                paddingTop: "6rem",
+              }}
+              style={{ fontSize: "1.5rem" }}
+            />
           )}
         </S.ItemImageWrapper>
         <S.ItemInfo>
@@ -35,7 +43,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             </div>
           </S.ItemInfoWrapper>
           <S.ItemPrice>
-            <S.price>{props.data?.fetchUseditem.price}</S.price>
+            <S.price>
+              {props.data?.fetchUseditem.price?.toLocaleString()}
+            </S.price>
             <S.PriceUnit>원</S.PriceUnit>
           </S.ItemPrice>
           <S.ItemRemarks>{props.data?.fetchUseditem.remarks}</S.ItemRemarks>
