@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 1200px;
-  /* overflow: auto; */
+  overflow: auto;
 `;
 export const BestItemWrapper = styled.div`
   width: 100%;

@@ -46,7 +46,7 @@ export default function ProductsListUI(props: IProductsUIProps) {
           pageStart={0}
           loadMore={props.onLoadMore}
           hasMore={true} // 다음페이지 여부 --> 있으면 loadMore 실행
-          useWindow={true}
+          useWindow={false}
         >
           <S.ItemcardWrapper>
             {props.data?.fetchUseditems.map((el) => (

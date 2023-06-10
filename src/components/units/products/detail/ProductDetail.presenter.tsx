@@ -6,7 +6,7 @@ import { HeartFilled } from "@ant-design/icons";
 import ProductsCommentRegister from "../../products_comment/question/register/ProductsCommentRegister.contatiner";
 import ProductsCommentList from "../../products_comment/question/list/PdocuctsCommentList.container";
 import Kakaomap from "../../../commons/kakaomap/kakaomap";
-import { Empty } from "antd";
+import { Empty, Popconfirm } from "antd";
 
 export default function ProductDetailUI(props: IProductDetailUIProps) {
   return (
@@ -37,9 +37,17 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
               >
                 <img src="/option/option_update_icon.png" />
               </S.ButtonOption>
-              <S.ButtonOption onClick={props.onClickDeleteItem}>
-                <img src="/option/option_delete_icon.png" />
-              </S.ButtonOption>
+              <Popconfirm
+                placement="topRight"
+                title="글을 삭제하시겠습니까?"
+                onConfirm={props.onClickDeleteItem}
+                okText="예"
+                cancelText="아니오"
+              >
+                <S.ButtonOption>
+                  <img src="/option/option_delete_icon.png" />
+                </S.ButtonOption>
+              </Popconfirm>
             </div>
           </S.ItemInfoWrapper>
           <S.ItemPrice>
