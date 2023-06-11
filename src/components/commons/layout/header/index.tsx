@@ -8,9 +8,10 @@ import { IMutation } from "../../../../commons/types/generated/types";
 import { UserOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Profile01 from "../../profile/Profile01.container";
+import { ButtonForMoveToPage } from "../../custom/customComponent.styles";
 
 const Wrapper = styled.div`
-  height: 152px;
+  height: 107px;
 `;
 export const InnerWrapper = styled.div`
   padding: 1.8rem;
@@ -36,16 +37,6 @@ const UserAvatar = styled(UserOutlined)`
   padding: 0.8rem;
   color: var(--font-color-DeepBlue);
   font-size: 1.5rem;
-`;
-const InnerButton = styled.span`
-  padding: 0.8rem 1.5rem;
-  border-radius: var(--border-radius-regular);
-  cursor: pointer;
-
-  :hover {
-    background: var(--font-color-DeepBlue);
-    color: white;
-  }
 `;
 
 const LOGOUT_USER = gql`
@@ -79,25 +70,27 @@ export default function LayoutHead() {
   return (
     <Wrapper>
       <InnerWrapper>
-        <InnerLogo>메인아이콘</InnerLogo>
+        <InnerLogo onClick={onClickMoveToPage("/")}>🍋 free market </InnerLogo>
         <RightNavbar>
           {accessToken ? (
             <>
               {isActive && <Profile01 />}
               <UserAvatar onClick={onClickActive} />
-              <InnerButton onClick={onclickLogout}>로그아웃</InnerButton>
-              <InnerButton onClick={onClickMoveToPage("/login/mypage")}>
+              <ButtonForMoveToPage onClick={onclickLogout}>
+                로그아웃
+              </ButtonForMoveToPage>
+              <ButtonForMoveToPage onClick={onClickMoveToPage("/login/mypage")}>
                 마이페이지
-              </InnerButton>
+              </ButtonForMoveToPage>
             </>
           ) : (
             <>
-              <InnerButton onClick={onClickMoveToPage("/login")}>
+              <ButtonForMoveToPage onClick={onClickMoveToPage("/login")}>
                 로그인
-              </InnerButton>
-              <InnerButton onClick={onClickMoveToPage("/signup")}>
+              </ButtonForMoveToPage>
+              <ButtonForMoveToPage onClick={onClickMoveToPage("/signup")}>
                 회원가입
-              </InnerButton>
+              </ButtonForMoveToPage>
             </>
           )}
         </RightNavbar>
