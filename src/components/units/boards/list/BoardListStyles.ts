@@ -66,24 +66,6 @@ export const PagesBtn = styled.button`
   border: none;
   background-color: white;
 `;
-export const RegisterBtn = styled.button`
-  margin-left: auto;
-  padding: 14px;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  background: #ffffff;
-  border: 1px solid #f2f2f2;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  cursor: pointer;
-
-  :hover {
-    background-color: #ffd600;
-  }
-`;
 export const PencilImg = styled.img`
   width: 18px;
   height: 18px;

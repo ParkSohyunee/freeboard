@@ -13,7 +13,8 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
     <S.Wrapper>
       <S.TopWrapper>
         <S.ItemImageWrapper>
-          {props.data?.fetchUseditem.images?.length !== 0 ? (
+          {props.data?.fetchUseditem.images?.length !== 0 &&
+          props.data?.fetchUseditem.images?.[0] !== "" ? (
             <SimpleSlider el={props.data?.fetchUseditem.images} />
           ) : (
             <Empty
@@ -64,10 +65,17 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
           </S.ItemTages>
           <S.ItemBuyOption>
             <S.buttonToggle onClick={props.onClickItemPick}>
-              <HeartFilled style={{ color: "pink", marginRight: "0.5rem" }} />
+              <HeartFilled
+                style={{
+                  color: "var(--color-dark-brown)",
+                  marginRight: "0.5rem",
+                }}
+              />
               {props.data?.fetchUseditem.pickedCount}
             </S.buttonToggle>
-            <S.buttonbasket>장바구니</S.buttonbasket>
+            <S.buttonList onClick={props.onClickMoveToPage("/products")}>
+              목록보기
+            </S.buttonList>
             <S.buttonBuy onClick={props.onClickBuyUseditem}>
               구매하기
             </S.buttonBuy>

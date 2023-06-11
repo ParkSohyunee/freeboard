@@ -76,6 +76,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           </S.Zip>
           <S.InputBoxTitle
             readOnly
+            placeholder="주소를 검색해 주세요."
             value={
               props.address ||
               (props.data?.fetchBoard.boardAddress?.address ?? "")

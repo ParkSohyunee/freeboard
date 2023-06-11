@@ -5,6 +5,7 @@ import { IBoardsUIProps } from "./BoardList.types";
 import { v4 as uuidv4 } from "uuid";
 import * as S from "./BoardListStyles";
 import Searchbar from "../../../commons/searchbar/Searchbar.container";
+import { ButtonForRegisterAction } from "../../../commons/custom/customComponent.styles";
 
 export default function BoardsUI(props: IBoardsUIProps) {
   return (
@@ -52,10 +53,10 @@ export default function BoardsUI(props: IBoardsUIProps) {
             {/* fetchBoardsCount 가 렌더링되면서 자동계산됨  */}
             <Pagination01 refetch={props.refetch} count={props.count} />
           </S.PagesWrapper>
-          <S.RegisterBtn onClick={props.onClickMoveToRegisterPage}>
+          <ButtonForRegisterAction onClick={props.onClickMoveToRegisterPage}>
             <S.PencilImg src="./pencil-image.png"></S.PencilImg>
             게시물 등록하기
-          </S.RegisterBtn>
+          </ButtonForRegisterAction>
         </S.WrapperFooter>
       </S.Wrapper>
     </Fragment>

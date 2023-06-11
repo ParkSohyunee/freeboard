@@ -126,7 +126,7 @@ export const BoardBtn = styled.div`
 export const BtnStyle = styled.button`
   cursor: pointer;
   padding: 14px 60px;
-  background: #ffffff;
+  background: var(--font-color-white);
   border: 1px solid #bdbdbd;
   font-weight: 500;
   font-size: 16px;

@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import { Avatar } from "antd";
 
 export const Wrapper = styled.div`
+  padding: 0.5rem 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -12,13 +14,13 @@ export const CommentBox = styled.div`
   gap: 20px;
 `;
 
-export const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
+export const UserAvatar = styled(Avatar)`
+  background-color: #eaf5cf;
+  color: var(--font-color-Grass);
 `;
 
 export const MainWrapper = styled.div`
-  width: 100%;
+  width: 70%;
 `;
 
 export const WriterWrapper = styled.div`
@@ -27,14 +29,13 @@ export const WriterWrapper = styled.div`
   gap: 20px;
 `;
 export const Writer = styled.div`
-  font-size: 20px;
-  font-weight: 500;
+  font-weight: var(--font-weight-semibold);
 `;
 
 export const ContentsBox = styled.div`
-  padding-top: 10px;
-  font-size: 18px;
-  font-weight: 500;
+  height: 2rem;
+  font-size: var(--font-size-small);
+  line-height: 2rem;
 `;
 
 export const IconBox = styled.div`
@@ -42,18 +43,18 @@ export const IconBox = styled.div`
   gap: 10px;
 `;
 export const UpdateIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 `;
 export const DeleteIcon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 `;
 
 export const DateBox = styled.div`
-  margin-left: 4rem;
-  font-weight: 500;
+  padding-left: 3.5rem;
+  font-size: var(--font-size-small);
   color: lightgray;
 `;

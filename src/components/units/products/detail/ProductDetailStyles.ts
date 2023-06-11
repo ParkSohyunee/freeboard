@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Empty } from "antd";
 
 export const Wrapper = styled.div`
-  /* width: 1200px; */
+  width: 1200px;
   padding: 60px 100px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -12,10 +12,9 @@ export const Wrapper = styled.div`
 export const TopWrapper = styled.section`
   width: 100%;
   height: 480px;
-  // padding: 1rem 0;
   display: flex;
   justify-content: space-between;
-  gap: 4rem;
+  gap: 2.5rem;
 `;
 export const ItemImageWrapper = styled.div`
   width: 480px;
@@ -42,35 +41,31 @@ export const ButtonOption = styled.button`
   cursor: pointer;
 `;
 export const ItemPrice = styled.div`
-  border-bottom: 3px solid #555555;
-  padding: 1.2rem 0;
+  border-bottom: 0.5px solid var(--font-color-darkGrey);
+  padding-bottom: 1rem;
 `;
 export const price = styled.span`
-  font-size: 2.5rem;
   margin-right: 0.5rem;
+  font-size: var(--font-size-regular);
+  font-weight: var(--font-weight-medium);
 `;
 export const PriceUnit = styled.span`
   font-size: 1.2rem;
 `;
 export const ItemRemarks = styled.div`
-  padding: 1rem 0;
-  /* height: 7rem; */
-  font-size: 1.2rem;
+  height: 5rem;
+  color: var(--font-color-darkGrey);
 `;
 // 태그
-export const ItemTages = styled.div`
-  padding: 1rem 0;
-`;
+export const ItemTages = styled.div``;
 export const TagWrapper = styled.span`
   margin-right: 0.5rem;
   padding: 0.5rem;
-  font-size: 1.5rem;
+  font-weight: var(--font-weight-semibold);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-small);
   background: var(--color-medium-beige);
   color: white;
-  line-height: 1.5rem;
-  cursor: pointer;
 `;
 export const ItemBuyOption = styled.div`
   width: 100%;
@@ -80,31 +75,31 @@ export const ItemBuyOption = styled.div`
 `;
 export const buttonToggle = styled.button`
   width: 20%;
-  font-size: 1.8rem;
-  padding: 2rem;
-  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 1rem;
+  background-color: var(--color-light-brown);
+  border-radius: var(--border-radius-small);
   cursor: pointer;
-  border: 1px solid lightgrey;
+  border: 1px solid var(--color-dark-brown);
+`;
 
-  :active {
-    background: black;
-    color: white;
-  }
-`;
-export const buttonbasket = styled.button`
+export const buttonList = styled.button`
   width: 40%;
-  font-size: 1.8rem;
-  padding: 1.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid lightgrey;
+  font-size: 1rem;
+  padding: 1rem;
+  background-color: var(--color-light-brown);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-dark-brown);
   cursor: pointer;
 `;
+
 export const buttonBuy = styled.button`
   width: 40%;
-  font-size: 1.8rem;
-  padding: 1.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid lightgrey;
+  font-size: 1rem;
+  padding: 1rem;
+  background-color: var(--color-light-brown);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-dark-brown);
   cursor: pointer;
 `;
 export const BottomWrapper = styled.section`
@@ -123,7 +118,7 @@ export const LeftWrapper = styled.div`
 `;
 export const Title = styled.h1`
   padding: 2rem 0;
-  border-bottom: 3px solid #555555;
+  border-bottom: 0.5px solid var(--font-color-darkGrey);
 `;
 export const ItemContents = styled.div`
   padding: 1rem;
@@ -162,6 +157,8 @@ export const SellerName = styled.span`
 
 export const CommentWrapper = styled.div``;
 
-export const CommentWrite = styled.div``;
+export const CommentWrite = styled.div`
+  padding: 1rem 0;
+`;
 
 export const CommentList = styled.div``;

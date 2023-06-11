@@ -139,19 +139,6 @@ export default function ProductRegisterUI(props: IProductUIProps) {
             ))}
           </S.Img>
         </S.TitleInfo>
-        <S.TitleInfo>
-          <S.SubTitle>메인 사진 설정</S.SubTitle>
-          <S.MainSet>
-            <S.Label>
-              <S.RadioButton type="radio" name="main" value="img1" id="img1" />
-              사진 1
-            </S.Label>
-            <S.Label>
-              <S.RadioButton type="radio" name="main" value="img2" id="img2" />
-              사진 2
-            </S.Label>
-          </S.MainSet>
-        </S.TitleInfo>
         <S.Submit>
           <S.SubmitBtn type="submit" formState={props.formState}>
             {props.isEdit ? "수정하기" : "등록하기"}

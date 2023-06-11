@@ -9,25 +9,15 @@ interface ISliderProps {
 
 const Wrapper = styled.div`
   height: 400px;
-
-  // .slick-dots slick-thumb li {
-  //   width: 20px;
-  //   height: 20px;
-  // }
 `;
+
 const ItemImage = styled.img`
   width: 480px;
   height: 480px;
+  border-radius: var(--border-radius-small);
 `;
-// const ItemNoneImage = styled.div`
-//   width: 480px;
-//   height: 480px;
-//   background-color: var(--font-color-lightPeach);
-// `;
 
 export default function SimpleSlider(props: ISliderProps) {
-  console.log(props.el);
-
   const settings = {
     dots: true,
     dotsClass: "slick-dots slick-thumb",
@@ -35,14 +25,8 @@ export default function SimpleSlider(props: ISliderProps) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // customPaging: (props.el) => {
-    //   return (
-    //     <a>
-    //       <img src={`${el}`} />
-    //     </a>
-    //   )
-    // }
   };
+
   return (
     <Wrapper>
       <Slider {...settings}>
@@ -58,5 +42,3 @@ export default function SimpleSlider(props: ISliderProps) {
     </Wrapper>
   );
 }
-
-/* <div> <ItemNoneImage /> </div> */

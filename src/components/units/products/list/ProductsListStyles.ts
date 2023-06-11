@@ -9,9 +9,9 @@ export const BestItemWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
   /* tem */
-  padding-bottom: 5rem;
+  padding-bottom: 2rem;
 `;
 export const BestItemTitle = styled.h1`
   text-align: center;
@@ -50,6 +50,14 @@ export const BestName = styled.div`
   width: 100%;
   height: 3.5rem;
   padding: 1rem;
+`;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const PencilImg = styled.img`
+  width: 18px;
+  height: 18px;
 `;
 export const LeftSide = styled.div`
   display: flex;

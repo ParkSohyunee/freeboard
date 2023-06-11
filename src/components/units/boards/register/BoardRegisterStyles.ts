@@ -24,7 +24,6 @@ export const PageTitle = styled.div`
 // 작성자 & 비밀번호
 export const WriterInfo = styled.div`
   width: 100%;
-  // padding-bottom: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +56,6 @@ export const InputBoxTitle = styled.input`
 // 제목
 export const TitleInfo = styled.div`
   width: 100%;
-  // padding-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -65,7 +63,6 @@ export const TitleInfo = styled.div`
 // 내용
 export const ContentsInfo = styled.div`
   width: 100%;
-  // padding-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -82,7 +79,6 @@ export const TextBoxContents = styled.textarea`
 // 주소
 export const Address = styled.div`
   width: 100%;
-  // padding-bottom: 37px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -100,14 +96,14 @@ export const ZipCode = styled.input`
   border: 1px solid #bdbdbd;
 `;
 export const ZipCodeSearch = styled.button`
-  //   width: 124px;
   padding: 14px 16px;
   text-align: center;
-  color: #ffffff;
+  color: var(--font-color-white);
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   background: #000000;
+  cursor: pointer;
 `;
 // 사진첨부
 export const Img = styled.div`

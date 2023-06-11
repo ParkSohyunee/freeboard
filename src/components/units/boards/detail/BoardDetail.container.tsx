@@ -16,6 +16,7 @@ import {
   FETCH_BOARD,
   LIKE_BOARD,
 } from "./BoardDetail.queries";
+import { message } from "antd";
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function BoardDetail() {
       variables: { boardId: router.query.boardId },
       refetchQueries: [{ query: FETCH_BOARDS }],
     });
-    alert("게시물이 정상적으로 삭제되었습니다.");
+    message.success({ content: "게시물이 정상적으로 삭제되었습니다." });
     router.push("/boards/");
   };
 

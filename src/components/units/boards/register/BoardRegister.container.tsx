@@ -10,6 +10,7 @@ import {
 import BoardRegisterUI from "./BoardRegister.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries";
 import { IBoardRegisterProps, IVariables } from "./BoardRegister.types";
+import { Modal, message } from "antd";
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const router = useRouter();
@@ -185,7 +186,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     const isChangeFiles = currentFiles !== defaultFiles; // true : 이미지 변경
 
     if (!password) {
-      alert("비밀번호를 입력해주세요.");
+      message.warning({ content: "비밀번호를 입력해주세요." });
       return;
     } // return이 대괄호 밖에 쓰이면 아래 실행문을 실행하지 않음 (주의!)
     // console.log(title); // ""
@@ -199,7 +200,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       !youtubeUrl &&
       !isChangeFiles
     ) {
-      alert("수정한 내용이 없습니다.");
+      message.info({ content: "수정한 내용이 없습니다." });
       return;
     }
 
@@ -229,7 +230,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
+        Modal.warning({ content: error.message });
       }
       console.log(error);
     }

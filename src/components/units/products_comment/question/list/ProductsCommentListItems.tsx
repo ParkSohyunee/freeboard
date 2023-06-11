@@ -54,7 +54,7 @@ export default function ProductsCommentListItems(
       {!isEdit && (
         <>
           <S.CommentBox>
-            <S.Avatar src="/BoardComment/avatar.png/" />
+            <S.UserAvatar size="large">U</S.UserAvatar>
             <S.MainWrapper>
               <S.WriterWrapper>
                 <S.Writer>{props.el.user.name}</S.Writer>

@@ -3,7 +3,10 @@ import { getDate } from "../../../../commons/utils/date";
 import InfiniteScroll from "react-infinite-scroller";
 import { IProductsUIProps } from "./ProductsList.types";
 import { Empty } from "antd";
-import { EmptyStateContainer } from "../../../commons/custom/customComponent.styles";
+import {
+  ButtonForRegisterAction,
+  EmptyStateContainer,
+} from "../../../commons/custom/customComponent.styles";
 
 export default function ProductsListUI(props: IProductsUIProps) {
   return (
@@ -41,6 +44,15 @@ export default function ProductsListUI(props: IProductsUIProps) {
               </S.BestItemCard>
             ))}
           </S.BestItemCards>
+          <S.ButtonWrapper>
+            <h2>판매중인 상품</h2>
+            <ButtonForRegisterAction
+              onClick={props.onClickMoveToPage("/products/new")}
+            >
+              <S.PencilImg src="./pencil-image.png"></S.PencilImg>
+              상품 등록하기
+            </ButtonForRegisterAction>
+          </S.ButtonWrapper>
         </S.BestItemWrapper>
         <InfiniteScroll
           pageStart={0}

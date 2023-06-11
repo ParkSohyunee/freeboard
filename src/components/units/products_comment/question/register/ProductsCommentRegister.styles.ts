@@ -4,6 +4,7 @@ export const ContentsInput = styled.textarea`
   padding: 0.5rem;
   width: 100%;
   height: 10rem;
+  border-radius: var(--border-radius-small);
   resize: none;
 `;
 
@@ -14,9 +15,11 @@ export const ContentsBottom = styled.div`
 `;
 
 export const SubmitBtn = styled.button`
-  cursor: pointer;
   padding: 0.8rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 0.5rem;
-  background: #ffd600;
+  color: white;
+  font-size: var(--font-size-semiregular);
+  border-radius: var(--border-radius-small);
+  background: var(--color-dark-brown);
+  border: none;
+  cursor: pointer;
 `;

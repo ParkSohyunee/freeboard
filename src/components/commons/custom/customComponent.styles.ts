@@ -19,3 +19,22 @@ export const ButtonForMoveToPage = styled.button`
     color: white;
   }
 `;
+
+export const ButtonForRegisterAction = styled.button`
+  margin-left: auto;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: none;
+  border: 1px solid #f2f2f2;
+  border-radius: var(--border-radius-regular);
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 24px;
+  cursor: pointer;
+
+  :hover {
+    background-color: var(--color-light-beige);
+  }
+`;
