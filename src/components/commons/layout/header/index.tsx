@@ -3,7 +3,7 @@ import { useMoveToPage } from "../../hooks/useMoveToPage";
 import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/store";
-import { message } from "antd";
+import { Avatar, message } from "antd";
 import { IMutation } from "../../../../commons/types/generated/types";
 import { UserOutlined } from "@ant-design/icons";
 import { useState } from "react";
@@ -33,10 +33,11 @@ const RightNavbar = styled.div`
   display: flex;
   align-items: center;
 `;
-const UserAvatar = styled(UserOutlined)`
-  padding: 0.8rem;
-  color: var(--font-color-DeepBlue);
-  font-size: 1.5rem;
+const UserAvatar = styled(Avatar)`
+  margin-right: 0.5rem;
+  background-color: #eaf5cf;
+  cursor: pointer;
+  color: var(--font-color-Grass);
 `;
 
 const LOGOUT_USER = gql`
@@ -75,7 +76,9 @@ export default function LayoutHead() {
           {accessToken ? (
             <>
               {isActive && <Profile01 />}
-              <UserAvatar onClick={onClickActive} />
+              <UserAvatar onClick={onClickActive} size="large">
+                U
+              </UserAvatar>
               <ButtonForMoveToPage onClick={onclickLogout}>
                 로그아웃
               </ButtonForMoveToPage>

@@ -3,3 +3,7 @@ export interface ISignupForm {
   email: string;
   password: string;
 }
+
+export interface ISignupUIProps {
+  isValid: boolean;
+}

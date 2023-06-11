@@ -1,27 +1,27 @@
 import styled from "@emotion/styled";
+import { ISignupUIProps } from "./Signup.types";
 
 export const Wrapper = styled.form`
-  width: 1200px;
-  padding: 60px 100px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  width: 840px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  justify-content: space-between;
 `;
 export const Title = styled.h2`
-  font-size: 2.5rem;
   text-align: center;
-  padding: 1rem;
+  padding-bottom: 1.5rem;
 `;
 export const InnerWrapper = styled.div`
-  border: 1px solid lightgray;
+  border-top: 1px solid lightgray;
   display: flex;
   align-items: center;
   width: 100%;
   height: 6rem;
 `;
 export const InnerPasswordWrapper = styled.div`
-  border: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
   display: flex;
   align-items: center;
   width: 100%;
@@ -31,21 +31,15 @@ export const SubTitle = styled.h3`
   width: 20%;
   padding: 1rem;
 `;
-export const InputName = styled.input`
+export const InputWrapper = styled.input`
   border: 1px solid lightgray;
+  border-radius: var(--border-radius-small);
   width: 40%;
-  font-size: 1.2rem;
-  padding: 1rem;
-`;
-export const InputEmail = styled.input`
-  border: 1px solid lightgray;
-  width: 40%;
-  font-size: 1.2rem;
   padding: 1rem;
 `;
 export const InputPassword = styled.input`
   border: 1px solid lightgray;
-  font-size: 1.2rem;
+  border-radius: var(--border-radius-small);
   padding: 1rem;
 `;
 export const InputNotice = styled.div`
@@ -55,16 +49,18 @@ export const InputPasswordWrapper = styled.div`
   display: flex;
 `;
 export const ButtonSignUP = styled.button`
-  padding: 1.5rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  width: 20%;
-  margin: auto;
   margin-top: 1.2rem;
-  border-radius: 0.5rem;
+  padding: 1.2rem;
+  width: 100%;
   border: none;
-  background: black;
-  color: white;
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-size-semiregular);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+
+  color: ${(props: ISignupUIProps) => (props.isValid ? "white" : "default")};
+  background: ${(props: ISignupUIProps) =>
+    props.isValid ? "var(--font-color-lightPeach)" : "default"};
 `;
 export const ErrorMessage = styled.p`
   color: orangered;

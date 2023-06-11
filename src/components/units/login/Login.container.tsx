@@ -86,9 +86,6 @@ export default function Login() {
     <>
       <S.Wrapper onSubmit={handleSubmit(onClickLogin)}>
         <S.Title>로그인</S.Title>
-        {/* <LoginWithKakao>카카오로 시작하기</LoginWithKakao>
-        <LoginWithNaver>네이버로 시작하기</LoginWithNaver> */}
-        {/* <UnderLine>또는</UnderLine> */}
         <S.InputInfo
           type="text"
           placeholder="아이디(이메일)"

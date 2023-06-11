@@ -14,13 +14,6 @@ export const Title = styled.h2`
   padding-bottom: 1.5rem;
 `;
 
-export const UnderLine = styled.div`
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.8rem;
-  color: darkgray;
-`;
-
 export const InputInfo = styled.input`
   border-radius: 0.4rem;
   font-size: 0.9rem;
@@ -36,12 +29,13 @@ export const IdCheckbox = styled(Checkbox)`
 export const LoginWithEmail = styled.button`
   border-radius: 0.4rem;
   border: none;
-  font-size: 0.9rem;
   padding: 1rem;
+  font-size: var(--font-size-semiregular);
+  cursor: pointer;
 
   color: ${(props: ILoginUIProps) => (props.isValid ? "white" : "default")};
   background: ${(props: ILoginUIProps) =>
-    props.isValid ? "#ffd600" : "default"};
+    props.isValid ? "var(--font-color-lightPeach)" : "default"};
   font-weight: ${(props: ILoginUIProps) => (props.isValid ? 600 : "default")};
 `;
 
@@ -60,20 +54,3 @@ export const ErrorMessage = styled.p`
   color: orangered;
   padding: 0.5rem;
 `;
-
-// export const LoginWithKakao = styled.button`
-//   background: #fee500;
-//   color: black;
-//   border: none;
-//   font-size: 0.9rem;
-//   padding: 1rem;
-//   font-weight: 600;
-// `;
-// export const LoginWithNaver = styled.button`
-//   background-color: rgb(3, 199, 90);
-//   color: white;
-//   border: none;
-//   font-size: 0.9rem;
-//   padding: 1rem;
-//   font-weight: 600;
-// `;

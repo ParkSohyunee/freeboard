@@ -1,6 +1,7 @@
 import * as S from "./MypageStyles";
 import Script from "next/script";
 import { IMypageUIProps } from "./Mypage.types";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function MyPageUI(props: IMypageUIProps) {
   return (
@@ -9,7 +10,7 @@ export default function MyPageUI(props: IMypageUIProps) {
       <S.Wrapper>
         <S.ProfileWrapper>
           <S.Title>내 프로필</S.Title>
-          <S.UserIcon />
+          <S.UserIcon shape="square" size={64} icon={<UserOutlined />} />
           <S.UserName>{props.data?.fetchUserLoggedIn.name}</S.UserName>
           <S.PaymentOption
             id="point"
@@ -24,14 +25,16 @@ export default function MyPageUI(props: IMypageUIProps) {
             <option value="2000">2,000</option>
             <option value="5000">5,000</option>
           </S.PaymentOption>
-          <button onClick={props.onClickPayment}>충전하기</button>
+          <S.MypageButton onClick={props.onClickPayment}>
+            충전하기
+          </S.MypageButton>
           <div>
             <img />
             <span>{props.data?.fetchUserLoggedIn.userPoint?.amount}</span>
             <span>p</span>
           </div>
           <S.MenuWrapper>
-            <S.Menu>
+            {/* <S.Menu>
               <img />
               <span>내 장터</span>
             </S.Menu>
@@ -42,7 +45,7 @@ export default function MyPageUI(props: IMypageUIProps) {
             <S.Menu>
               <img />
               <span>내 프로필</span>
-            </S.Menu>
+            </S.Menu> */}
           </S.MenuWrapper>
         </S.ProfileWrapper>
         <S.PasswordWrapper>

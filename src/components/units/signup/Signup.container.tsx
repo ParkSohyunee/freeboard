@@ -41,7 +41,7 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ISignupForm>({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -79,7 +79,7 @@ export default function SignUp() {
       <S.Title>회원정보 입력</S.Title>
       <S.InnerWrapper>
         <S.SubTitle>* 이름</S.SubTitle>
-        <S.InputName
+        <S.InputWrapper
           type="text"
           placeholder="한글 이름을 입력해주세요."
           {...register("name")}
@@ -88,7 +88,7 @@ export default function SignUp() {
       </S.InnerWrapper>
       <S.InnerWrapper>
         <S.SubTitle>* 이메일</S.SubTitle>
-        <S.InputEmail
+        <S.InputWrapper
           type="text"
           placeholder="example@email.com"
           {...register("email")}
@@ -112,7 +112,7 @@ export default function SignUp() {
           </S.InputNotice>
         </div>
       </S.InnerPasswordWrapper>
-      <S.ButtonSignUP>가입하기</S.ButtonSignUP>
+      <S.ButtonSignUP isValid={isValid}>가입하기</S.ButtonSignUP>
     </S.Wrapper>
   );
 }

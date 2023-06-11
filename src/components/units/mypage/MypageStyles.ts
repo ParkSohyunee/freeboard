@@ -1,6 +1,5 @@
-import { UserOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Button } from "antd";
+import { Avatar, Button } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -19,12 +18,9 @@ export const ProfileWrapper = styled.section`
 export const Title = styled.h2`
   margin-bottom: 1.5rem;
 `;
-export const UserIcon = styled(UserOutlined)`
-  font-size: 4.5rem;
-  background: #ffd600;
-  color: white;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+export const UserIcon = styled(Avatar)`
+  background: #eaf5cf;
+  color: var(--font-color-Grass);
 `;
 export const UserName = styled.h3`
   font-size: 1.2rem;
