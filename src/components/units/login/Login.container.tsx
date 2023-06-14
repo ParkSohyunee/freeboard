@@ -32,6 +32,7 @@ export default function Login() {
     IMutationLoginUserArgs
   >(LOGIN_USER);
 
+  // refresh 확인용 뮤테이션 => accessToken 유효기간이 5초
   const [loginUserExample] = useMutation<
     Pick<IMutation, "loginUserExample">,
     IMutationLoginUserExampleArgs
@@ -71,7 +72,6 @@ export default function Login() {
       }
       setAccessToken(accessToken); // global state
       // localStorage.setItem("accessToken", accessToken); // refreshToken 사용으로 로컬스토리지 사용 x
-      console.log(accessToken);
 
       // 3. 로그인 성공 페이지로 이동하기
       router.push("/");

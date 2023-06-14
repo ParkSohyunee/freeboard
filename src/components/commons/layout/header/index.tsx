@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { useMoveToPage } from "../../hooks/useMoveToPage";
-import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/store";
 import { Avatar, message } from "antd";
 import { IMutation } from "../../../../commons/types/generated/types";
-import { UserOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import Profile01 from "../../profile/Profile01.container";
 import { ButtonForMoveToPage } from "../../custom/customComponent.styles";
@@ -47,11 +46,13 @@ const LOGOUT_USER = gql`
 `;
 
 export default function LayoutHead() {
+  const client = useApolloClient();
+
   const { onClickMoveToPage } = useMoveToPage();
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [logoutUser] = useMutation<Pick<IMutation, "logoutUser">>(LOGOUT_USER);
-  const client = useApolloClient();
   const [isActive, setIsActive] = useState(false);
+
+  const [logoutUser] = useMutation<Pick<IMutation, "logoutUser">>(LOGOUT_USER);
 
   const onClickActive = () => {
     setIsActive((prev) => !prev);
@@ -59,13 +60,23 @@ export default function LayoutHead() {
 
   // recoil에 저장되어있는 accessToken을 없애주는 작업
   // 로그인하고 받아온 데이터들(ApolloClient에 캐시된 서버 데이터들)을 없애주는 작업
-  const onclickLogout = () => {
-    localStorage.clear();
-    setAccessToken("");
-    client.clearStore();
-    message.success({ content: "로그아웃이 완료되었습니다." });
+  const onclickLogout = async () => {
+    try {
+      // cookie에 저장되어있는 refreshToken 삭제
+      const result = await logoutUser();
 
-    console.log(accessToken);
+      if (result.data?.logoutUser) {
+        message.success({ content: "로그아웃 되었습니다." });
+        setAccessToken(""); // recoil에 저장되어있는 accessToken 삭제
+
+        // apollo-cache에 저장되어있는 유저데이터 삭제
+        await client.clearStore();
+
+        location.reload(); // 화면 새로고침
+      }
+    } catch (error) {
+      if (error instanceof Error) message.error({ content: error.message });
+    }
   };
 
   return (
