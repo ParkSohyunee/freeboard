@@ -11,6 +11,7 @@ import BoardRegisterUI from "./BoardRegister.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries";
 import { IBoardRegisterProps, IVariables } from "./BoardRegister.types";
 import { Modal, message } from "antd";
+import { FETCH_BOARDS } from "../list/BoardList.queries";
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const router = useRouter();
@@ -168,6 +169,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
               images: fileUrls, // ["", "", "강아지.jpg"]
             },
           },
+          refetchQueries: [{ query: FETCH_BOARDS }],
         });
         console.log(result);
         console.log(result.data?.createBoard);

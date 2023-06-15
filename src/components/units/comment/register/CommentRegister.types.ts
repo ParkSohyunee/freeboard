@@ -20,7 +20,7 @@ export interface IBoardCommentRegisterUIProps {
 export interface IBoardCommentRegisterProps {
   el?: IBoardComment;
   isEdit: boolean;
-  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  setIsEdit?: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IUpdateBoardCommentInputProps {

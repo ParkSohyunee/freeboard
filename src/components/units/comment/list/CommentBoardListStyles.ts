@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   width: 1200px;
   padding-top: 20px;
-  height: 128px;
   border-bottom: 1px solid lightgray;
 `;
 
