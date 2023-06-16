@@ -11,7 +11,6 @@ import {
   FETCH_USER_LOGGED_IN,
   RESET_USER_PASSWORD,
 } from "./Mypage.queries";
-// import { useRouter } from "next/router";
 import { Modal, message } from "antd";
 import { ChangeEvent, useState } from "react";
 import * as yup from "yup";
@@ -36,7 +35,6 @@ const schema = yup.object({
 });
 
 export default function Mypage() {
-  // const router = useRouter();
   const [myPassword, setMyPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -84,7 +82,6 @@ export default function Mypage() {
       Modal.warning({ content: "충전할 금액을 선택해주세요." });
       return;
     }
-    console.log(point);
 
     const IMP = window.IMP;
     IMP.init("imp49910675"); // imp06164883
@@ -102,8 +99,6 @@ export default function Mypage() {
       },
       async (rsp: any) => {
         if (rsp.success) {
-          console.log(rsp);
-
           await createPoint({
             variables: { impUid: rsp.imp_uid },
             refetchQueries: [{ query: FETCH_USER_LOGGED_IN }],
@@ -161,19 +156,3 @@ export default function Mypage() {
     />
   );
 }
-
-// {success: true,
-//   imp_uid: 'imp_011861703146',
-//   pay_method: 'card',
-//   merchant_uid: 'nobody_1682947861615',
-//   name: '포인트충전', …}
-
-// {data: {…}}
-// data: createPointTransactionOfLoading:
-// amount: 100
-// balance: 100
-// createdAt: "2023-05-01T13:32:51.964Z"
-// impUid: "imp_011861703146"
-// status: "충전"
-// __typename: "PointTransaction"
-// _id: "644fbf83aef9f000281baa29"

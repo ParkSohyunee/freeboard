@@ -87,7 +87,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       setIsActive(true);
     else setIsActive(false);
   };
-  // console.log(writer, password, title, contents);
+
   const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
     if (event.target.value !== "") {
@@ -171,12 +171,9 @@ export default function BoardRegister(props: IBoardRegisterProps) {
           },
           refetchQueries: [{ query: FETCH_BOARDS }],
         });
-        console.log(result);
-        console.log(result.data?.createBoard);
         router.push(`/boards/${result.data?.createBoard?._id}`);
       } catch (error) {
         alert(error);
-        console.log(error);
       }
     }
   };
@@ -228,13 +225,11 @@ export default function BoardRegister(props: IBoardRegisterProps) {
           updateBoardInput,
         },
       });
-      console.log(result);
       router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) {
         Modal.warning({ content: error.message });
       }
-      console.log(error);
     }
   };
 

@@ -7,7 +7,6 @@ export default function Pagination01(props: IPagination01Props) {
   const [startPage, setStartPage] = useState(1);
 
   const lastPage = props.count !== null ? Math.ceil(props.count / 10) : 0;
-  //   console.log(lastPage);
 
   const onclickPage = (event: MouseEvent<HTMLDivElement>) => {
     void props.refetch({ page: Number(event.currentTarget.id) }); // const currentPage = Number(event.currentTarget.id);

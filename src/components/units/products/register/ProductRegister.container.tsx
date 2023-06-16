@@ -38,7 +38,6 @@ const ReactQuill = dynamic(async () => await import("react-quill"), {
 
 export default function ProductRegister(props: IProductRegisterProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [fileUrls, setFileUrls] = useState<string[]>(["", "", ""]);
   // const [files, setFiles] = useState<File[]>([]);
@@ -109,8 +108,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
     onToggleModal();
     setValue("useditemAddress.address", value.address);
     trigger("useditemAddress.address");
-    console.log(value.address); // [object] 인지 확인
-    setAddress(value.address);
+    setAddress(value.address); // [object] 인지 확인
   };
 
   // 태그 삭제
@@ -120,8 +118,6 @@ export default function ProductRegister(props: IProductRegisterProps) {
   };
 
   const onclickSubmit = async (data: IProductForm) => {
-    console.log(data); // 로그
-
     try {
       const result = await createUseditem({
         variables: {
@@ -139,7 +135,6 @@ export default function ProductRegister(props: IProductRegisterProps) {
           },
         },
       });
-      // console.log(result.data?.createUseditem); // 로그
       //
       router.push(`/products/${result.data?.createUseditem._id}`);
     } catch (error) {
@@ -166,7 +161,6 @@ export default function ProductRegister(props: IProductRegisterProps) {
           },
         },
       });
-      // console.log(result);
       router.push(`/products/${result.data?.updateUseditem._id}`);
     } catch (error) {
       if (error instanceof Error) Modal.warning({ content: error.message });

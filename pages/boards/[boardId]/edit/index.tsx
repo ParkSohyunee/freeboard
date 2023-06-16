@@ -26,8 +26,6 @@ const FETCH_BOARD = gql`
 `;
 export default function BoardEditPage() {
   const router = useRouter();
-  console.log("==================");
-  console.log(router.query.boardId);
 
   // string이 아니면
   // if (typeof router.query.boardId !== "string") {
@@ -41,13 +39,9 @@ export default function BoardEditPage() {
     {
       variables: {
         boardId: String(router.query.boardId),
-        // boardId: String(router.query.boardId)
       },
     }
   );
-
-  console.log(data);
-  console.log(data?.fetchBoard.images?.length);
 
   return (
     <>{BoardRegister({ isEdit: true, data: data })}</>

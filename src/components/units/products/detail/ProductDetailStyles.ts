@@ -125,9 +125,6 @@ export const ItemContents = styled.div`
 `;
 export const Contents = styled.div`
   padding: 1rem;
-  /* .p {
-    height: 180px;
-  } */
 `;
 export const Location = styled.div`
   padding: 1rem;

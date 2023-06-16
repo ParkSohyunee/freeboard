@@ -87,9 +87,7 @@ export const ContentsInfo = styled.div`
 `;
 export const Location = styled.div`
   width: 100%;
-  // padding-bottom: 37px;
   display: flex;
-  // flex-direction: column;
   gap: 1.5rem;
 `;
 export const kakaoMap = styled.div`

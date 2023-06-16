@@ -23,7 +23,6 @@ export const getAccessToken = async (): Promise<string | undefined> => {
       Pick<IMutation, "restoreAccessToken">
     >(RESTORE_ACCESS_TOKEN);
     const newAccessToken = result.restoreAccessToken.accessToken;
-    console.log(result);
 
     return newAccessToken;
   } catch (error) {

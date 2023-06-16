@@ -20,15 +20,11 @@ import { message } from "antd";
 
 export default function BoardDetail() {
   const router = useRouter();
-  // console.log(router.query.boardId); // ... 즉, boardId 반환
 
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     { variables: { boardId: String(router.query.boardId) } }
   );
-
-  console.log(data); // undefined
-  // console.log(data?.fetchBoard.writer); // 옵셔널 체이닝
 
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,

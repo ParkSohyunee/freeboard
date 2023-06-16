@@ -23,7 +23,6 @@ export default function BoardCommentRegister(
   props: IBoardCommentRegisterProps
 ) {
   const router = useRouter();
-  // console.log(router.query.boardId);
 
   const [commentRegister] = useMutation<
     Pick<IMutation, "createBoardComment">,
@@ -52,12 +51,10 @@ export default function BoardCommentRegister(
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
   };
-  // console.log(writer, password, contents);
 
   const onChangeStar = (star: number) => {
     setStar(star);
   };
-  // console.log(star);
 
   const onClickSubmit = async () => {
     if (typeof router.query.boardId !== "string") return;
@@ -68,7 +65,7 @@ export default function BoardCommentRegister(
     if (!star) alert("별점을 눌러주세요.");
     if (writer && password && contents) {
       try {
-        const result = await commentRegister({
+        await commentRegister({
           variables: {
             createBoardCommentInput: {
               writer: writer,
@@ -85,7 +82,6 @@ export default function BoardCommentRegister(
             },
           ],
         });
-        console.log(result);
       } catch (error) {
         console.error(error);
       }
@@ -103,8 +99,6 @@ export default function BoardCommentRegister(
 
     if (!contents) {
       Modal.confirm({ content: "수정한 내용이 없습니다." });
-      console.log(password);
-
       return;
     }
     if (!password) {

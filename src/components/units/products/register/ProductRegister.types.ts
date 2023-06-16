@@ -28,14 +28,11 @@ export interface IProductForm {
 export interface IProductUIProps {
   data?: Pick<IQuery, "fetchUseditem">;
   isEdit: boolean;
-  // value: Address;
   address: string;
   tagArr: string[];
   isModalOpen: boolean;
   onToggleModal: () => void;
   ReactQuill: ComponentType<ReactQuill.ReactQuillProps>;
-  // lng: number;
-  // lat: number;
   fileUrls: string[];
   handleChange: (value: string) => void;
   handleComplete: (value: Address) => void;
