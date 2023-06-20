@@ -12,46 +12,57 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
         <S.PageTitle>게시물 {props.isEdit ? "수정" : "등록"}</S.PageTitle>
         <S.WriterInfo>
           <S.Item>
-            <S.SubTitle>작성자</S.SubTitle>
+            <S.SubTitle>* 작성자</S.SubTitle>
             <S.InputBox
+              readOnly={!!props.data?.fetchBoard.writer} // null -> false
+              id="writer"
               type="text"
               placeholder="이름을 적어주세요."
-              onChange={props.onChangeWriter}
+              onChange={props.onChangeInputs}
               defaultValue={props.data?.fetchBoard.writer ?? ""}
             ></S.InputBox>
-            <S.ErrorMessage>{props.writerError}</S.ErrorMessage>
+            <S.ErrorMessage id="writerError">
+              {props.errorMessage}
+            </S.ErrorMessage>
           </S.Item>
           <S.Item>
-            <S.SubTitle>비밀번호</S.SubTitle>
+            <S.SubTitle>* 비밀번호</S.SubTitle>
             <S.InputBox
+              id="password"
               type="password"
               placeholder="비밀번호를 입력해주세요."
-              onChange={props.onChangePassword}
+              onChange={props.onChangeInputs}
             ></S.InputBox>
-            <S.ErrorMessage>{props.pwdError}</S.ErrorMessage>
+            <S.ErrorMessage id="passwordError">
+              {props.errorMessage}
+            </S.ErrorMessage>
           </S.Item>
         </S.WriterInfo>
         <S.TitleInfo>
-          <S.SubTitle>제목</S.SubTitle>
+          <S.SubTitle>* 제목</S.SubTitle>
           <S.InputBoxTitle
+            id="title"
             type="text"
             placeholder="제목을 작성해주세요."
-            onChange={props.onChangeTitle}
+            onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.title}
           ></S.InputBoxTitle>
-          <S.ErrorMessage>{props.titleError}</S.ErrorMessage>
+          <S.ErrorMessage id="titleError">{props.errorMessage}</S.ErrorMessage>
         </S.TitleInfo>
         <S.ContentsInfo>
-          <S.SubTitle>내용</S.SubTitle>
+          <S.SubTitle>* 내용</S.SubTitle>
           <S.TextBoxContents
+            id="contents"
             placeholder="내용을 작성해주세요."
-            onChange={props.onChangeContents}
+            onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.contents}
           ></S.TextBoxContents>
-          <S.ErrorMessage>{props.contentsError}</S.ErrorMessage>
+          <S.ErrorMessage id="contentsError">
+            {props.errorMessage}
+          </S.ErrorMessage>
         </S.ContentsInfo>
         <S.Address>
-          <S.SubTitle>주소</S.SubTitle>
+          <S.SubTitle>* 주소</S.SubTitle>
           <S.Zip>
             <S.ZipCode
               readOnly
@@ -93,14 +104,18 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
           <S.ErrorMessage>{props.addressError}</S.ErrorMessage>
         </S.Address>
         <S.TitleInfo>
-          <S.SubTitle>유튜브</S.SubTitle>
+          <S.SubTitle>* 유튜브</S.SubTitle>
           <S.InputBoxTitle
+            required
+            id="youtubeUrl"
             type="text"
             placeholder="링크를 복사해주세요."
-            onChange={props.onChangeYoutubeUrl}
+            onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
           ></S.InputBoxTitle>
-          <S.ErrorMessage>{props.youtubeUrlError}</S.ErrorMessage>
+          <S.ErrorMessage id="youtubeUrlError">
+            {props.errorMessage}
+          </S.ErrorMessage>
         </S.TitleInfo>
         <S.TitleInfo>
           <S.SubTitle>사진 첨부</S.SubTitle>
