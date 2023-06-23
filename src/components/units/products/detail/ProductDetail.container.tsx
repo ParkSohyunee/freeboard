@@ -83,10 +83,9 @@ export default function ProductDetail() {
   const onClickBuyUseditem = async () => {
     if (typeof router.query.productId !== "string") return;
     try {
-      const result = await createTransaction({
+      await createTransaction({
         variables: { useritemId: router.query.productId },
       });
-      console.log(result);
       message.success({ content: "상품구매를 완료하였습니다." });
       router.push("/products");
     } catch (error) {

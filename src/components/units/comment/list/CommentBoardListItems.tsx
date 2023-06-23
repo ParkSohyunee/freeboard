@@ -36,7 +36,6 @@ export default function CommentBoardListItems(
     // const password = prompt("비밀번호를 입력해 주세요.");
 
     if (!(event.target instanceof HTMLElement)) return;
-    // console.log(myBoardCommentId);
 
     try {
       await deleteBoardComment({

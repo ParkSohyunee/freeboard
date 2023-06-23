@@ -9,111 +9,95 @@ import {
 } from "../../../../commons/types/generated/types";
 import BoardRegisterUI from "./BoardRegister.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardRegister.queries";
-import { IBoardRegisterProps, IVariables } from "./BoardRegister.types";
+import {
+  IBoardRegisterProps,
+  IVariables,
+  IinputsType,
+} from "./BoardRegister.types";
 import { Modal, message } from "antd";
 import { FETCH_BOARDS } from "../list/BoardList.queries";
 
 export default function BoardRegister(props: IBoardRegisterProps) {
   const router = useRouter();
 
-  const [MyComponent] = useMutation<
-    Pick<IMutation, "createBoard">,
-    IMutationCreateBoardArgs
-  >(CREATE_BOARD); // IMutationCreateBoardArgs: 인자타입
-  const [MyComponentUpdate] = useMutation<
-    Pick<IMutation, "updateBoard">,
-    IMutationUpdateBoardArgs
-  >(UPDATE_BOARD);
+  // prettier-ignore
+  const [MyComponent] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD);
+  // prettier-ignore
+  const [MyComponentUpdate] = useMutation<Pick<IMutation, "updateBoard">,IMutationUpdateBoardArgs>(UPDATE_BOARD);
+
+  const [inputs, setInputs] = useState<IinputsType>({
+    writer: "",
+    password: "",
+    title: "",
+    contents: "",
+    youtubeUrl: "",
+  });
 
   const [isActive, setIsActive] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
-  const [youtubeUrl, setYoutubeUrl] = useState("");
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
-
-  const [writerError, setWriterError] = useState("");
-  const [pwdError, setPwdError] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [contentsError, setContentsError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [addressError, setAddressError] = useState("");
-  const [youtubeUrlError, setYoutubeUrlError] = useState("");
 
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
-  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
-    setWriter(event.target.value);
-    if (event.target.value !== "") {
-      setWriterError("");
-    }
-    if (event.target.value && password && title && contents && youtubeUrl) {
-      setIsActive(true);
+  // ** 게시글 항목 입력 이벤트 핸들러
+  const onChangeInputs = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> // input과 textArea 함께 태그 타입 지정
+  ) => {
+    setInputs((prev) => ({
+      ...prev, // prev는 즉, ...inputs, inputs는 writer: inputs.writer, password: ...
+
+      // 객체는 key를 중복으로 쓸 수 있고, 나중에 오는 값으로 덮어씌워진다.
+      // 객체에 key 이름을 값으로 생성할 경우 => []
+      // id값으로 각 key 이름을 공통으로 묶고 리팩토링
+      [event.target.id]: event.target.value,
+    }));
+
+    const errorText: HTMLElement | null = document.getElementById(
+      `${event.target.id}Error`
+    );
+
+    if (event.target.value === "") {
+      if (errorText !== null) errorText.innerText = "빈칸을 입력해주세요.";
     } else {
-      setIsActive(false);
+      if (errorText !== null) errorText.innerText = "";
     }
-  };
-  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    if (event.target.value !== "") {
-      setPwdError("");
-    }
-    if (writer && event.target.value && title && contents && youtubeUrl) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-    if (event.target.value !== "") {
-      setTitleError("");
-    }
-    if (writer && password && event.target.value && contents && youtubeUrl)
+
+    if (
+      inputs.writer !== "" &&
+      inputs.password !== "" &&
+      inputs.title !== "" &&
+      inputs.contents !== "" &&
+      inputs.youtubeUrl !== "" &&
+      event.target.value
+    )
       setIsActive(true);
     else setIsActive(false);
   };
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContents(event.target.value);
-    if (event.target.value !== "") {
-      setContentsError("");
-    }
-    if (writer && password && title && event.target.value && youtubeUrl)
-      setIsActive(true);
-    else setIsActive(false);
-  };
-  // console.log(writer, password, title, contents);
+
+  // ** 주소입력 이벤트 핸들러
   const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
     if (event.target.value !== "") {
       setAddressError("");
     }
     if (
-      writer &&
-      password &&
-      title &&
-      contents &&
+      inputs.writer &&
+      inputs.password &&
+      inputs.title &&
+      inputs.contents &&
       event.target.value &&
-      youtubeUrl
+      inputs.youtubeUrl
     )
       setIsActive(true);
     else setIsActive(false);
   };
-  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
-    setYoutubeUrl(event.target.value);
-    if (event.target.value !== "") {
-      setYoutubeUrlError("");
-    }
-    if (writer && password && title && contents && event.target.value)
-      setIsActive(true);
-    else setIsActive(false);
-  };
 
+  // ** 이미지 업로드
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls]; // ["", "", ""]
     newFileUrls[index] = fileUrl; // 새로운 배열의 index번째에 fileUrl을 넣어줘
@@ -123,44 +107,46 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   // 만약 이미지가 있다면 배열에 넣어줘
   useEffect(() => {
     if (props.data?.fetchBoard.images)
-      // props.data?.fetchBoard.images.length
-      // Type 'Maybe<string[]> | undefined' is not an array type.
-
       // default value에 넣어줘
       setFileUrls([...props.data?.fetchBoard.images]); // ["", "", "강아지.jpg"]
 
-    // props.data가 바뀔때 실행 -> 즉 수정페이지에서 fetchBoard로 데이터를 받아올때 useEffect 실행
     // fileUrls state가 바뀌고 화면이 리렌더링 되면서 빈화면 -> 이미지 넣어진 화면으로 전환
   }, [props.data]);
 
+  // ** 주소 모달
   const onToggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
 
+  // ** 주소 이벤트 핸들러
   const handleComplete = (data: Address) => {
     onToggleModal();
     setZipcode(data.zonecode);
     setAddress(data.address);
   };
 
+  // ** 게시글 등록
   const onClickValidation = async () => {
-    if (!writer) setWriterError("작성자를 입력해주세요.");
-    if (!password) setPwdError("비밀번호를 입력해주세요.");
-    if (!title) setTitleError("제목을 입력해주세요.");
-    if (!contents) setContentsError("내용을 입력해주세요.");
-    if (!addressDetail) setAddressError("상세주소를 입력해주세요.");
-    if (!youtubeUrl) setYoutubeUrlError("유튜브 주소를 입력해주세요.");
+    for (let key in inputs) {
+      if (inputs[key] === "") {
+        message.warning({ content: "필수값을 입력해주세요." });
+        break; // forEach 사용하면 break문으로 빠져나오지 못하여 메세지가 반복됨
+      }
+    }
 
-    if (writer && password && title && contents && youtubeUrl) {
+    if (
+      isActive &&
+      inputs.writer !== "" &&
+      inputs.password !== "" &&
+      inputs.title !== "" &&
+      inputs.contents !== "" &&
+      inputs.youtubeUrl !== ""
+    ) {
       try {
         const result = await MyComponent({
           variables: {
             createBoardInput: {
-              writer,
-              password,
-              title,
-              contents,
-              youtubeUrl,
+              ...inputs,
               boardAddress: {
                 zipcode,
                 address,
@@ -171,35 +157,32 @@ export default function BoardRegister(props: IBoardRegisterProps) {
           },
           refetchQueries: [{ query: FETCH_BOARDS }],
         });
-        console.log(result);
-        console.log(result.data?.createBoard);
         router.push(`/boards/${result.data?.createBoard?._id}`);
       } catch (error) {
         alert(error);
-        console.log(error);
       }
     }
   };
 
+  // ** 게시글 수정
   const onClickUpdate = async () => {
     // 이미지가 변경되었는지 비교 (배열을 문자열로 만들어서 비교, 주소가 다르므로)
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
     const isChangeFiles = currentFiles !== defaultFiles; // true : 이미지 변경
 
-    if (!password) {
+    if (!inputs.password) {
       message.warning({ content: "비밀번호를 입력해주세요." });
       return;
-    } // return이 대괄호 밖에 쓰이면 아래 실행문을 실행하지 않음 (주의!)
-    // console.log(title); // ""
+    }
 
     if (
-      !title &&
-      !contents &&
+      !inputs.title &&
+      !inputs.contents &&
       !zipcode &&
       !address &&
       !addressDetail &&
-      !youtubeUrl &&
+      !inputs.youtubeUrl &&
       !isChangeFiles
     ) {
       message.info({ content: "수정한 내용이 없습니다." });
@@ -207,9 +190,9 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     }
 
     const updateBoardInput: IVariables = {};
-    if (title) updateBoardInput.title = title;
-    if (contents) updateBoardInput.contents = contents;
-    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
+    if (inputs.title) updateBoardInput.title = inputs.title;
+    if (inputs.contents) updateBoardInput.contents = inputs.contents;
+    if (inputs.youtubeUrl) updateBoardInput.youtubeUrl = inputs.youtubeUrl;
     if (address || zipcode || addressDetail) {
       updateBoardInput.boardAddress = {};
       if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
@@ -224,34 +207,25 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       const result = await MyComponentUpdate({
         variables: {
           boardId: router.query.boardId,
-          password,
+          password: inputs.password,
           updateBoardInput,
         },
       });
-      console.log(result);
+      message.success({ content: "수정이 완료되었습니다." });
       router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) {
         Modal.warning({ content: error.message });
       }
-      console.log(error);
     }
   };
 
   return (
     <>
       <BoardRegisterUI
-        writerError={writerError}
-        pwdError={pwdError}
-        titleError={titleError}
-        contentsError={contentsError}
+        errorMessage={errorMessage}
         addressError={addressError}
-        youtubeUrlError={youtubeUrlError}
-        onChangeWriter={onChangeWriter}
-        onChangePassword={onChangePassword}
-        onChangeTitle={onChangeTitle}
-        onChangeContents={onChangeContents}
-        onChangeYoutubeUrl={onChangeYoutubeUrl}
+        onChangeInputs={onChangeInputs}
         onChangeFileUrls={onChangeFileUrls}
         onClickValidation={onClickValidation}
         onClickUpdate={onClickUpdate}

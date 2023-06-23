@@ -23,7 +23,6 @@ export default function ProductsListUI(props: IProductsUIProps) {
                 {el.images?.length !== 0 && el.images?.[0] !== "" ? (
                   <S.BestImg
                     src={`https://storage.googleapis.com/${el.images?.[0]}`}
-                    //  onError={props.ImageError}
                   />
                 ) : (
                   <EmptyStateContainer>
@@ -69,7 +68,6 @@ export default function ProductsListUI(props: IProductsUIProps) {
                 {el.images?.length !== 0 && el.images?.[0] !== "" ? (
                   <S.ItemImg
                     src={`https://storage.googleapis.com/${el.images?.[0]}`}
-                    // onError={props.ImageError}
                   />
                 ) : (
                   <EmptyStateContainer>

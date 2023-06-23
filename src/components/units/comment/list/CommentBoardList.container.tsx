@@ -17,9 +17,7 @@ export default function BoardCommentList() {
     variables: { boardId: String(router.query.boardId) },
   });
 
-  console.log(data); // {fetchBoardComments: Array(10)}
-  console.log(data?.fetchBoardComments); // [{…}, {…}, ..., {…}]
-  console.log(data?.fetchBoardComments.length);
+  // console.log(data?.fetchBoardComments); // [{…}, {…}, ..., {…}]
 
   const onLoadMore = () => {
     // 만약 data가 없다면?

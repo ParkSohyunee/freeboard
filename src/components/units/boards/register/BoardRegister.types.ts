@@ -7,6 +7,7 @@ export interface IBoardRegisterProps {
   data?: Pick<IQuery, "fetchBoard">;
 }
 
+// 게시글 수정할 때 데이터 타입
 export interface IVariables {
   title?: string;
   contents?: string;
@@ -19,19 +20,20 @@ export interface IVariables {
   images?: string[]; // ["", "", "강아지.jpg"]
 }
 
+// 게시글 등록할 때 데이터 타입
+export interface IinputsType {
+  [key: string]: string; // index signature type 지정 => 객체[key]를 문자열 타입으로 지정해야 value에 접근 가능
+  writer: string;
+  password: string;
+  title: string;
+  contents: string;
+  youtubeUrl: string;
+}
+
 export interface IBoardRegisterUIProps {
-  writerError: string;
-  pwdError: string;
-  titleError: string;
-  contentsError: string;
-  youtubeUrlError: string;
-  addressError: string;
-  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // prettier-ignore
+  onChangeInputs: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
   onClickValidation: () => void;
   onClickUpdate: () => void;
@@ -45,8 +47,11 @@ export interface IBoardRegisterUIProps {
   address: string;
   addressDetail: string;
   fileUrls: string[];
+  errorMessage: string;
+  addressError: string;
 }
 
+// 등록, 수정하기 버튼 타입
 export interface ISubmitBtnProps {
   isActive: boolean;
 }

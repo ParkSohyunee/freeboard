@@ -17,7 +17,6 @@ export default function ProductsCommentList() {
     variables: { useditemId: String(router.query.productId) },
   });
 
-  // console.log(data);
   return (
     <>
       {data?.fetchUseditemQuestions.map((el) => (

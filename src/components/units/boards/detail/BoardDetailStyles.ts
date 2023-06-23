@@ -77,7 +77,6 @@ export const PlayerWrapper = styled.div`
   margin-bottom: 40px;
   width: 640px;
   height: 360px;
-  // position: relative;
 `;
 export const Reaction = styled.div`
   display: flex;
@@ -134,7 +133,7 @@ export const BtnStyle = styled.button`
   text-align: center;
 
   // &: hover
-  {BtnStyle}:hover {
-    background-color: #FFD600;
+  :hover {
+    background-color: #ffd600;
   }
 `;

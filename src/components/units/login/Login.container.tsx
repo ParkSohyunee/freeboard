@@ -60,7 +60,6 @@ export default function Login() {
           password: data.password,
         },
       });
-      console.log(result); // {data: {…}}
       const accessToken = result.data?.loginUserExample.accessToken;
 
       // 2. accessToken을 globalState에 저장하기

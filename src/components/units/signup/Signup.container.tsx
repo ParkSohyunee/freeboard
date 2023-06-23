@@ -48,7 +48,6 @@ export default function SignUp() {
   });
 
   const onClickSignUp = (data: ISignupForm) => {
-    console.log(data);
     try {
       createUser({
         variables: {

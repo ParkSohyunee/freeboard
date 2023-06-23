@@ -33,8 +33,6 @@ export default function Kakaomap(props: IKakaoProps) {
         // 주소-좌표 변환 객체를 생성합니다
         const geocoder = new window.kakao.maps.services.Geocoder();
 
-        // console.log(props.address);
-
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
           props.address
@@ -52,9 +50,10 @@ export default function Kakaomap(props: IKakaoProps) {
               const marker = new window.kakao.maps.Marker({
                 map: map,
                 position: coords,
+                // image: markerImage, // 마커이미지 설정
               });
 
-              //   인포윈도우로 장소에 대한 설명을 표시합니다
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
               var infowindow = new window.kakao.maps.InfoWindow({
                 content:
                   '<div style="width:150px;text-align:center;padding:6px 0;">거래 장소</div>',
@@ -66,23 +65,6 @@ export default function Kakaomap(props: IKakaoProps) {
             }
           }
         );
-
-        // // 지도를 클릭한 위치에 표출할 마커
-        // const marker = new window.kakao.maps.Marker({
-        //   position: map.getCenter(), // 지도 중심좌표에 마커를 생성
-        //   // image: markerImage, // 마커이미지 설정
-        // });
-        // marker.setMap(map); // 지도에 마커를 표시
-
-        // // 지도에 클릭 이벤트를 등록(지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출)
-        // window.kakao.maps.event.addListener(map, "click", (mouseEvent: any) => {
-        //   const latlng = mouseEvent.latLng; // 클릭한 위도, 경도 정보
-
-        //   marker.setPosition(latlng); // 마커 위치를 클릭한 위치로 옮기기
-
-        //   setLng(Math.round(latlng.getLng() * 1000000) / 1000000);
-        //   setLat(Math.round(latlng.getLat() * 1000000) / 1000000);
-        // });
       });
     };
   }, [props.address]);

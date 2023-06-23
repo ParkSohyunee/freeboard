@@ -17,7 +17,6 @@ export default function Boards() {
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
-  console.log(data?.fetchBoards); // Array
 
   // refetch이름 중복처리 -> refetchBoardsCount
   // gql - dataBoardsCount에도 변수로 search를 미리 넣어줄것
@@ -25,7 +24,6 @@ export default function Boards() {
     Pick<IQuery, "fetchBoardsCount">,
     IQueryFetchBoardsCountArgs
   >(FETCH_BOARDS_COUNT);
-  console.log(dataBoardsCount?.fetchBoardsCount); // Int
 
   const count = dataBoardsCount ? dataBoardsCount.fetchBoardsCount : 0;
 

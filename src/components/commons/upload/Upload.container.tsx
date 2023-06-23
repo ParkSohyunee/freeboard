@@ -25,17 +25,12 @@ export default function UploadFile(props: IUploadFileProps) {
   >(UPLOAD_FILE);
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = UploadValidation(event.target.files?.[0]);
-    if (!file) return;
-
-    // console.log(file); // File{}
-    // console.log(event.target.files); // FileList {0: File, length: 1}
+    const file = UploadValidation(event.target.files?.[0]); // File{}
+    if (!file) return; // event.target.files) => FileList {0: File, length: 1}
 
     try {
       const result = await uploadFile({ variables: { file } });
       props.onChangeFileUrls(String(result.data?.uploadFile.url), props.index);
-
-      //   console.log(result.data?.uploadFile.url);
     } catch (error) {
       if (error instanceof Error) {
         Modal.error({ content: error.message });

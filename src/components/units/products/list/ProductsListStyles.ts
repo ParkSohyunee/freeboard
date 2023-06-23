@@ -10,7 +10,6 @@ export const BestItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  /* tem */
   padding-bottom: 2rem;
 `;
 export const BestItemTitle = styled.h1`
