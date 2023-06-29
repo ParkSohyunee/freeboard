@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { breakPoints } from "../../../commons/styles/media";
 
 interface ISliderProps {
   el?: string[];
@@ -15,6 +16,11 @@ const ItemImage = styled.img`
   width: 480px;
   height: 480px;
   border-radius: var(--border-radius-small);
+
+  @media ${breakPoints.tablet} {
+    width: 100%;
+    height: 360px;
+  }
 `;
 
 export default function SimpleSlider(props: ISliderProps) {

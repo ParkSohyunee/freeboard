@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Avatar } from "antd";
+import { breakPoints } from "../../../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   padding: 0.5rem 0;
@@ -11,7 +12,11 @@ export const Wrapper = styled.div`
 export const CommentBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.2rem;
+
+  @media ${breakPoints.tablet} {
+    gap: 0.5rem;
+  }
 `;
 
 export const UserAvatar = styled(Avatar)`
@@ -20,14 +25,19 @@ export const UserAvatar = styled(Avatar)`
 `;
 
 export const MainWrapper = styled.div`
-  width: 70%;
+  width: 60%;
 `;
 
 export const WriterWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.2rem;
+
+  @media ${breakPoints.tablet} {
+    gap: 0.5rem;
+  }
 `;
+
 export const Writer = styled.div`
   font-weight: var(--font-weight-semibold);
 `;
@@ -42,11 +52,13 @@ export const IconBox = styled.div`
   display: flex;
   gap: 10px;
 `;
+
 export const UpdateIcon = styled.img`
   width: 18px;
   height: 18px;
   cursor: pointer;
 `;
+
 export const DeleteIcon = styled.img`
   width: 18px;
   height: 18px;

@@ -8,11 +8,13 @@ import { IMutation } from "../../../../commons/types/generated/types";
 import { useState } from "react";
 import Profile01 from "../../profile/Profile01.container";
 import { ButtonForMoveToPage } from "../../custom/customComponent.styles";
+import { breakPoints } from "../../../../commons/styles/media";
 
 const Wrapper = styled.div`
   height: 107px;
 `;
-export const InnerWrapper = styled.div`
+
+const InnerWrapper = styled.div`
   padding: 1.8rem;
   margin: auto;
   width: 1200px;
@@ -20,18 +22,26 @@ export const InnerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  white-space: nowrap;
+
+  @media ${breakPoints.tablet} {
+    width: 100%;
+  }
 `;
-export const InnerLogo = styled.div`
+
+const InnerLogo = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   cursor: pointer;
 `;
+
 const RightNavbar = styled.div`
   font-size: 1.25rem;
   font-weight: var(--font-weight-regular);
   display: flex;
   align-items: center;
 `;
+
 const UserAvatar = styled(Avatar)`
   margin-right: 0.5rem;
   background-color: #eaf5cf;

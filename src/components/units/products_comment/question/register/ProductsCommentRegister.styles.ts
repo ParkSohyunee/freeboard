@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../../commons/styles/media";
 
 export const ContentsInput = styled.textarea`
   padding: 0.5rem;
@@ -6,6 +7,10 @@ export const ContentsInput = styled.textarea`
   height: 10rem;
   border-radius: var(--border-radius-small);
   resize: none;
+
+  @media ${breakPoints.tablet} {
+    height: 5rem;
+  }
 `;
 
 export const ContentsBottom = styled.div`
@@ -22,4 +27,10 @@ export const SubmitBtn = styled.button`
   background: var(--color-dark-brown);
   border: none;
   cursor: pointer;
+
+  @media ${breakPoints.tablet} {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    font-size: 1rem;
+  }
 `;

@@ -18,7 +18,9 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
             <SimpleSlider el={props.data?.fetchUseditem.images} />
           ) : (
             <Empty
-              description={<span>이미지가 없습니다.</span>}
+              description={
+                <span style={{ fontSize: "1rem" }}>이미지가 없습니다.</span>
+              }
               imageStyle={{
                 height: "100%",
                 paddingTop: "6rem",

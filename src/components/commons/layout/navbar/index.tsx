@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
+  white-space: nowrap;
 `;
 
 export default function LayoutNavbar() {

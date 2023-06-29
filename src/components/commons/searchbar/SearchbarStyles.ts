@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../commons/styles/media";
 
 export const WrapperSearchTab = styled.div`
   margin-bottom: 30px;
@@ -29,6 +30,10 @@ export const SearchDate = styled.input`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+
+  @media screen and (${breakPoints.tablet}) {
+    display: none;
+  }
 `;
 export const SearchButton = styled.button`
   color: white;
@@ -39,4 +44,8 @@ export const SearchButton = styled.button`
   border-radius: 10px;
   background: black;
   cursor: pointer;
+
+  @media screen and (${breakPoints.tablet}) {
+    display: none;
+  }
 `;

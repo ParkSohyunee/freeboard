@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   box-sizing: border-box;
   width: 1200px;
+
+  @media screen and (${breakPoints.tablet}) {
+    width: 100%;
+  }
 `;
 
 export const Headers = styled.div`

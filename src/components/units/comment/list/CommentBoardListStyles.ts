@@ -1,9 +1,15 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   width: 1200px;
   padding-top: 20px;
   border-bottom: 1px solid lightgray;
+
+  @media screen and (${breakPoints.tablet}) {
+    width: 100vw;
+    padding: 1.5rem;
+  }
 `;
 
 export const CommentBox = styled.div`

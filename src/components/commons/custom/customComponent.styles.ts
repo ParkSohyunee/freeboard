@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../commons/styles/media";
 
 export const EmptyStateContainer = styled.div`
   width: 160px;
@@ -17,6 +18,11 @@ export const ButtonForMoveToPage = styled.button`
     border-radius: var(--border-radius-regular);
     background: var(--font-color-DeepBlue);
     color: white;
+  }
+
+  @media ${breakPoints.tablet} {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
 `;
 
