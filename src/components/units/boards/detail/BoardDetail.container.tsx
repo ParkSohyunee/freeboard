@@ -63,12 +63,22 @@ export default function BoardDetail() {
     if (typeof router.query.boardId !== "string") return;
     await likeBoard({
       variables: { boardId: router.query.boardId },
-      refetchQueries: [
-        {
+      optimisticResponse: {
+        likeBoard: Number(data?.fetchBoard.likeCount) + 1,
+      },
+      update(cache, { data }) {
+        cache.writeQuery({
           query: FETCH_BOARD,
+          data: {
+            fetchBoard: {
+              __typename: "Board",
+              _id: router.query.boardId,
+              likeCount: data?.likeBoard,
+            },
+          },
           variables: { boardId: router.query.boardId },
-        },
-      ],
+        });
+      },
     });
   };
 
@@ -76,12 +86,22 @@ export default function BoardDetail() {
     if (typeof router.query.boardId !== "string") return;
     await dislikeBoard({
       variables: { boardId: router.query.boardId },
-      refetchQueries: [
-        {
+      optimisticResponse: {
+        dislikeBoard: Number(data?.fetchBoard.dislikeCount) + 1,
+      },
+      update(cache, { data }) {
+        cache.writeQuery({
           query: FETCH_BOARD,
+          data: {
+            fetchBoard: {
+              __typename: "Board",
+              _id: router.query.boardId,
+              dislikeCount: data?.dislikeBoard,
+            },
+          },
           variables: { boardId: router.query.boardId },
-        },
-      ],
+        });
+      },
     });
   };
 
