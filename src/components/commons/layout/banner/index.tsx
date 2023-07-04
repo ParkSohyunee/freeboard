@@ -54,16 +54,16 @@ export default function LayoutBanner() {
     <Wrapper>
       <Slider {...settings}>
         <div>
-          <BannerItem src="/banner/waterpool.jpg" />
+          <BannerItem src="/banner/banner1.png" />
         </div>
         <div>
-          <BannerItem src="/banner/orange.jpg" />
+          <BannerItem src="/banner/banner2.png" />
         </div>
         <div>
-          <BannerItem src="/banner/lime.jpg" />
+          <BannerItem src="/banner/banner3.png" />
         </div>
         <div>
-          <BannerItem src="/banner/carusel.jpg" />
+          <BannerItem src="/banner/banner4.png" />
         </div>
       </Slider>
     </Wrapper>

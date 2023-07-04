@@ -48,11 +48,11 @@ export default function BoardDetail() {
       refetchQueries: [{ query: FETCH_BOARDS }],
     });
     message.success({ content: "게시물이 정상적으로 삭제되었습니다." });
-    router.push("/boards/");
+    router.push("/");
   };
 
   const onClickMoveToList = () => {
-    router.push("/boards/");
+    router.push("/");
   };
 
   const onClickMoveToEdit = () => {
