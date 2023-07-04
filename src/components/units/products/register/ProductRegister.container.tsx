@@ -23,11 +23,12 @@ const schema = yup.object({
   remarks: yup.string().required("한줄요약을 입력해주세요."),
   contents: yup.string().required("상품에 대한 상세설명을 적어주세요."),
   price: yup
-    .number()
-    .min(1000)
-    .max(1000000)
-    .required("상품가격을 입력해주세요.(최소가격: 1,000 ~ 최대가격: 1,000,000)")
-    .integer(),
+    .string()
+    .required("상품가격을 입력해주세요.")
+    .matches(
+      /^[0-9]{4,7}$/,
+      "숫자만 입력해주세요. (최소가격: 1,000 ~ 최대가격: 1,000,000)"
+    ),
 });
 
 // dynamic import => 빌드되는 시점에서 호출하지 않고 런타임 시점(이미 documnet 가 선언된 이후)에서 모듈을 호출
@@ -127,8 +128,8 @@ export default function ProductRegister(props: IProductRegisterProps) {
             price: Number(data.price),
             tags: tagArr,
             useditemAddress: {
-              address: data.useditemAddress.address,
-              addressDetail: data.useditemAddress.addressDetail,
+              address: data.useditemAddress?.address,
+              addressDetail: data.useditemAddress?.addressDetail,
             },
             images: fileUrls,
           },
@@ -153,8 +154,8 @@ export default function ProductRegister(props: IProductRegisterProps) {
             price: Number(data.price),
             tags: tagArr,
             useditemAddress: {
-              address: data.useditemAddress.address,
-              addressDetail: data.useditemAddress.addressDetail,
+              address: data.useditemAddress?.address,
+              addressDetail: data.useditemAddress?.addressDetail,
             },
             images: fileUrls,
           },

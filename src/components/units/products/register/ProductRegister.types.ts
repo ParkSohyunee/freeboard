@@ -16,10 +16,10 @@ export interface IProductRegisterProps {
 export interface IProductForm {
   name: string;
   remarks: string;
-  price: number;
+  price: string;
   contents: string;
-  tags: string;
-  useditemAddress: {
+  tags?: string[];
+  useditemAddress?: {
     address: string;
     addressDetail: string;
   };
