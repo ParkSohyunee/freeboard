@@ -16,7 +16,7 @@ export default function LayoutNavbar() {
 
   return (
     <Wrapper>
-      <ButtonForMoveToPage onClick={onClickMoveToPage("/boards")}>
+      <ButtonForMoveToPage onClick={onClickMoveToPage("/")}>
         자유 게시판
       </ButtonForMoveToPage>
       <div>|</div>
