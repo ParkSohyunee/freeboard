@@ -15,7 +15,13 @@ export default function ProductDetailUI(props: IProductDetailUIProps) {
         <S.ItemImageWrapper>
           {props.data?.fetchUseditem.images?.length !== 0 &&
           props.data?.fetchUseditem.images?.[0] !== "" ? (
-            <SimpleSlider el={props.data?.fetchUseditem.images} />
+            <SimpleSlider
+              el={
+                props.data?.fetchUseditem.images
+                  ? props.data?.fetchUseditem.images
+                  : undefined
+              }
+            />
           ) : (
             <Empty
               description={

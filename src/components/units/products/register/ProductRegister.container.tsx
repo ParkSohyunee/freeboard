@@ -23,12 +23,11 @@ const schema = yup.object({
   remarks: yup.string().required("한줄요약을 입력해주세요."),
   contents: yup.string().required("상품에 대한 상세설명을 적어주세요."),
   price: yup
-    .string()
-    .required("상품가격을 입력해주세요.")
-    .matches(
-      /^[0-9]{4,7}$/,
-      "숫자만 입력해주세요. (최소가격: 1,000 ~ 최대가격: 1,000,000)"
-    ),
+    .number()
+    .min(1000)
+    .max(1000000)
+    .required("상품가격을 입력해주세요.(최소가격: 1,000 ~ 최대가격: 1,000,000)")
+    .integer(),
 });
 
 // dynamic import => 빌드되는 시점에서 호출하지 않고 런타임 시점(이미 documnet 가 선언된 이후)에서 모듈을 호출
