@@ -6,6 +6,12 @@ Next와 React를 사용하여 자유게시판 + 중고마켓 웹사이트를 개
 
 <br/>
 
+> 🌐 배포주소 https://freeboard-liart.vercel.app/ <br/>
+> GraphQL API는 localhost의 3000번 포트만 승인되도록 서버에서 block 정책이 설정되어 있습니다. <br/>
+> 따라서, 현재 배포주소에서는 GraphQL API를 요청하지 못하여 기능이 동작하지 않습니다.
+
+<br/>
+
 ## 1. Getting Started
 
 ```
