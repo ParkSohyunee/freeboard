@@ -6,7 +6,5 @@ export interface IMypageUIProps {
   onchangeMyPassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onchangeNewPassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onchangeConfirmPassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePoint: (event: ChangeEvent<HTMLSelectElement>) => void;
-  onClickPayment: () => void;
   onClickResetPassword: () => void;
 }
