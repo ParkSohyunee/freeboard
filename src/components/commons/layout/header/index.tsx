@@ -6,9 +6,10 @@ import { accessTokenState } from "../../../../commons/store";
 import { Avatar, message } from "antd";
 import { IMutation } from "../../../../commons/types/generated/types";
 import { useState } from "react";
-import Profile01 from "../../profile/Profile01.container";
 import { ButtonForMoveToPage } from "../../custom/customComponent.styles";
 import { breakPoints } from "../../../../commons/styles/media";
+import DropdownMenu from "../../dropDownMenu/DropdownMenu.container";
+import { DownOutlined } from "@ant-design/icons";
 
 const Wrapper = styled.div`
   height: 107px;
@@ -96,10 +97,11 @@ export default function LayoutHead() {
         <RightNavbar>
           {accessToken ? (
             <>
-              {isActive && <Profile01 />}
+              {isActive && <DropdownMenu />}
               <UserAvatar onClick={onClickActive} size="large">
                 U
               </UserAvatar>
+              <DownOutlined />
               <ButtonForMoveToPage onClick={onclickLogout}>
                 로그아웃
               </ButtonForMoveToPage>

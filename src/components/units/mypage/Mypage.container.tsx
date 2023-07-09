@@ -2,22 +2,13 @@ import { useMutation, useQuery } from "@apollo/client";
 import MyPageUI from "./Mypage.presenter";
 import {
   IMutation,
-  IMutationCreatePointTransactionOfLoadingArgs,
   IMutationResetUserPasswordArgs,
   IQuery,
 } from "../../../commons/types/generated/types";
-import {
-  CREATE_POINT_TRANSACTION_OF_LOADING,
-  FETCH_USER_LOGGED_IN,
-  RESET_USER_PASSWORD,
-} from "./Mypage.queries";
-import { Modal, message } from "antd";
+import { FETCH_USER_LOGGED_IN, RESET_USER_PASSWORD } from "./Mypage.queries";
+import { message } from "antd";
 import { ChangeEvent, useState } from "react";
 import * as yup from "yup";
-
-declare const window: typeof globalThis & {
-  IMP: any;
-};
 
 const schema = yup.object({
   myPassword: yup.string().required("현재 비밀번호를 입력해 주세요."),
@@ -56,11 +47,6 @@ export default function Mypage() {
     IMutationResetUserPasswordArgs
   >(RESET_USER_PASSWORD);
 
-  const [createPoint] = useMutation<
-    Pick<IMutation, "createPointTransactionOfLoading">,
-    IMutationCreatePointTransactionOfLoadingArgs
-  >(CREATE_POINT_TRANSACTION_OF_LOADING);
-
   const onchangeMyPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setMyPassword(event.target.value);
   };
@@ -71,53 +57,6 @@ export default function Mypage() {
 
   const onchangeConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(event.target.value);
-  };
-
-  const onChangePoint = (event: ChangeEvent<HTMLSelectElement>) => {
-    setPoint(Number(event.target.value));
-  };
-
-  const onClickPayment = () => {
-    if (point === 0) {
-      Modal.warning({ content: "충전할 금액을 선택해주세요." });
-      return;
-    }
-
-    const IMP = window.IMP;
-    IMP.init("imp49910675"); // imp06164883
-
-    IMP.request_pay(
-      {
-        pg: "nice",
-        pay_method: "card",
-        // merchant_uid: , // 고유 값
-        name: "포인트충전",
-        amount: point,
-        buyer_email: data?.fetchUserLoggedIn.email,
-        buyer_name: data?.fetchUserLoggedIn.name,
-        m_redirect_url: "http://localhost:3000/login/mypage", // 모바일 결제시 돌아갈 url
-      },
-      async (rsp: any) => {
-        if (rsp.success) {
-          await createPoint({
-            variables: { impUid: rsp.imp_uid },
-            refetchQueries: [{ query: FETCH_USER_LOGGED_IN }],
-            // refetchQueries: [{ query: FETCH_USER_LOGGED_IN }],
-            // update(cache, { data }) {
-            //   cache.modify({
-            //     fields: {
-            //       fetchUserLoggedIn: (prev) => {
-            //         return [data?.createPointTransactionOfLoading, prev];
-            //       },
-            //     },
-            //   });
-            // },
-          });
-        } else {
-          Modal.info({ content: "결제가 취소되었습니다. 다시 시도해주세요." });
-        }
-      }
-    );
   };
 
   const onClickResetPassword = async () => {
@@ -150,8 +89,6 @@ export default function Mypage() {
       onchangeMyPassword={onchangeMyPassword}
       onchangeNewPassword={onchangeNewPassword}
       onchangeConfirmPassword={onchangeConfirmPassword}
-      onChangePoint={onChangePoint}
-      onClickPayment={onClickPayment}
       onClickResetPassword={onClickResetPassword}
     />
   );

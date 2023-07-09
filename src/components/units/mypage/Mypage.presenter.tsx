@@ -1,33 +1,15 @@
 import * as S from "./MypageStyles";
-import Script from "next/script";
 import { IMypageUIProps } from "./Mypage.types";
 import { UserOutlined } from "@ant-design/icons";
 
 export default function MyPageUI(props: IMypageUIProps) {
   return (
     <>
-      <Script src="https://cdn.iamport.kr/v1/iamport.js" />
       <S.Wrapper>
         <S.ProfileWrapper>
           <S.Title>내 프로필</S.Title>
           <S.UserIcon shape="square" size={64} icon={<UserOutlined />} />
           <S.UserName>{props.data?.fetchUserLoggedIn.name}</S.UserName>
-          <S.PaymentOption
-            id="point"
-            defaultValue="default"
-            onChange={props.onChangePoint}
-          >
-            <option disabled value="default">
-              포인트선택
-            </option>
-            <option value="100">100</option>
-            <option value="500">500</option>
-            <option value="2000">2,000</option>
-            <option value="5000">5,000</option>
-          </S.PaymentOption>
-          <S.MypageButton onClick={props.onClickPayment}>
-            충전하기
-          </S.MypageButton>
           <div>
             <img />
             <span>{props.data?.fetchUserLoggedIn.userPoint?.amount}</span>

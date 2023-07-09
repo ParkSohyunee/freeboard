@@ -109,12 +109,3 @@ export const MypageButton = styled(Button)`
   width: 10rem;
   height: 3rem;
 `;
-
-export const PaymentOption = styled.select`
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  padding: 0.9rem;
-  border-bottom: 1px solid black;
-  font-size: 1rem;
-`;
