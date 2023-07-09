@@ -42,7 +42,7 @@ export const ItemImageWrapper = styled.div`
 `;
 
 export const ItemInfo = styled.div`
-  width: 820px;
+  width: 480px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
