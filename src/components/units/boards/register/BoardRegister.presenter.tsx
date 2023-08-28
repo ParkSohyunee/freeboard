@@ -21,9 +21,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
               onChange={props.onChangeInputs}
               defaultValue={props.data?.fetchBoard.writer ?? ""}
             ></S.InputBox>
-            <S.ErrorMessage id="writerError">
-              {props.errorMessage}
-            </S.ErrorMessage>
+            <S.ErrorMessage>{props.writerError}</S.ErrorMessage>
           </S.Item>
           <S.Item>
             <S.SubTitle>* 비밀번호</S.SubTitle>
@@ -33,9 +31,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
               placeholder="비밀번호를 입력해주세요."
               onChange={props.onChangeInputs}
             ></S.InputBox>
-            <S.ErrorMessage id="passwordError">
-              {props.errorMessage}
-            </S.ErrorMessage>
+            <S.ErrorMessage>{props.pwdError}</S.ErrorMessage>
           </S.Item>
         </S.WriterInfo>
         <S.TitleInfo>
@@ -47,7 +43,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
             onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.title}
           ></S.InputBoxTitle>
-          <S.ErrorMessage id="titleError">{props.errorMessage}</S.ErrorMessage>
+          <S.ErrorMessage>{props.titleError}</S.ErrorMessage>
         </S.TitleInfo>
         <S.ContentsInfo>
           <S.SubTitle>* 내용</S.SubTitle>
@@ -57,9 +53,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
             onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.contents}
           ></S.TextBoxContents>
-          <S.ErrorMessage id="contentsError">
-            {props.errorMessage}
-          </S.ErrorMessage>
+          <S.ErrorMessage>{props.contentsError}</S.ErrorMessage>
         </S.ContentsInfo>
         <S.Address>
           <S.SubTitle>* 주소</S.SubTitle>
@@ -94,9 +88,10 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
             }
           ></S.InputBoxTitle>
           <S.InputBoxTitle
+            id="addressDetail"
             type="text"
             placeholder="상세주소를 입력해주세요."
-            onChange={props.onChangeAddressDetail}
+            onChange={props.onChangeInputs}
             defaultValue={
               props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
             }
@@ -113,9 +108,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
             onChange={props.onChangeInputs}
             defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
           ></S.InputBoxTitle>
-          <S.ErrorMessage id="youtubeUrlError">
-            {props.errorMessage}
-          </S.ErrorMessage>
+          <S.ErrorMessage>{props.youtubeUrlError}</S.ErrorMessage>
         </S.TitleInfo>
         <S.TitleInfo>
           <S.SubTitle>사진 첨부</S.SubTitle>

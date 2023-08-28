@@ -17,6 +17,15 @@ import {
 import { Modal, message } from "antd";
 import { FETCH_BOARDS } from "../list/BoardList.queries";
 
+const DEFAULT_VALUE = {
+  writer: "",
+  password: "",
+  title: "",
+  contents: "",
+  addressDetail: "",
+  youtubeUrl: "",
+};
+
 export default function BoardRegister(props: IBoardRegisterProps) {
   const router = useRouter();
 
@@ -25,76 +34,39 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   // prettier-ignore
   const [MyComponentUpdate] = useMutation<Pick<IMutation, "updateBoard">,IMutationUpdateBoardArgs>(UPDATE_BOARD);
 
-  const [inputs, setInputs] = useState<IinputsType>({
-    writer: "",
-    password: "",
-    title: "",
-    contents: "",
-    youtubeUrl: "",
-  });
+  const [inputs, setInputs] = useState<IinputsType>(DEFAULT_VALUE);
 
   const [isActive, setIsActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [writerError, setWriterError] = useState("");
+  const [pwdError, setPwdError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [contentsError, setContentsError] = useState("");
+  const [youtubeUrlError, setYoutubeUrlError] = useState("");
   const [addressError, setAddressError] = useState("");
 
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   // ** 게시글 항목 입력 이벤트 핸들러
   const onChangeInputs = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> // input과 textArea 함께 태그 타입 지정
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setInputs((prev) => ({
-      ...prev, // prev는 즉, ...inputs, inputs는 writer: inputs.writer, password: ...
+    setInputs((prev) => ({ ...prev, [event.target.id]: event.target.value }));
 
-      // 객체는 key를 중복으로 쓸 수 있고, 나중에 오는 값으로 덮어씌워진다.
-      // 객체에 key 이름을 값으로 생성할 경우 => []
-      // id값으로 각 key 이름을 공통으로 묶고 리팩토링
-      [event.target.id]: event.target.value,
-    }));
+    if (inputs.writer) setWriterError("");
+    if (inputs.password) setPwdError("");
+    if (inputs.title) setTitleError("");
+    if (inputs.contents) setContentsError("");
+    if (inputs.addressDetail) setAddressError("");
+    if (inputs.youtubeUrl) setYoutubeUrlError("");
 
-    const errorText: HTMLElement | null = document.getElementById(
-      `${event.target.id}Error`
-    );
-
-    if (event.target.value === "") {
-      if (errorText !== null) errorText.innerText = "빈칸을 입력해주세요.";
-    } else {
-      if (errorText !== null) errorText.innerText = "";
+    for (const key in inputs) {
+      if (inputs[key] !== "" && event.target.value) setIsActive(true);
+      else setIsActive(false);
     }
-
-    if (
-      inputs.writer !== "" &&
-      inputs.password !== "" &&
-      inputs.title !== "" &&
-      inputs.contents !== "" &&
-      inputs.youtubeUrl !== "" &&
-      event.target.value
-    )
-      setIsActive(true);
-    else setIsActive(false);
-  };
-
-  // ** 주소입력 이벤트 핸들러
-  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddressDetail(event.target.value);
-    if (event.target.value !== "") {
-      setAddressError("");
-    }
-    if (
-      inputs.writer &&
-      inputs.password &&
-      inputs.title &&
-      inputs.contents &&
-      event.target.value &&
-      inputs.youtubeUrl
-    )
-      setIsActive(true);
-    else setIsActive(false);
   };
 
   // ** 이미지 업로드
@@ -127,40 +99,38 @@ export default function BoardRegister(props: IBoardRegisterProps) {
 
   // ** 게시글 등록
   const onClickValidation = async () => {
-    for (let key in inputs) {
-      if (inputs[key] === "") {
-        message.warning({ content: "필수값을 입력해주세요." });
-        break; // forEach 사용하면 break문으로 빠져나오지 못하여 메세지가 반복됨
-      }
-    }
+    if (!inputs.writer) setWriterError("작성자를 입력해주세요.");
+    if (!inputs.password) setPwdError("비밀번호를 입력해주세요.");
+    if (!inputs.title) setTitleError("제목을 입력해주세요.");
+    if (!inputs.contents) setContentsError("내용을 입력해주세요.");
+    if (!inputs.addressDetail) setAddressError("상세주소를 입력해주세요.");
+    if (!inputs.youtubeUrl) setYoutubeUrlError("유튜브 주소를 입력해주세요.");
 
-    if (
-      isActive &&
-      inputs.writer !== "" &&
-      inputs.password !== "" &&
-      inputs.title !== "" &&
-      inputs.contents !== "" &&
-      inputs.youtubeUrl !== ""
-    ) {
-      try {
-        const result = await MyComponent({
-          variables: {
-            createBoardInput: {
-              ...inputs,
-              boardAddress: {
-                zipcode,
-                address,
-                addressDetail,
-              },
-              images: fileUrls, // ["", "", "강아지.jpg"]
+    for (const key in inputs) {
+      if (inputs[key] === "") return;
+    }
+    try {
+      const result = await MyComponent({
+        variables: {
+          createBoardInput: {
+            writer: inputs.writer,
+            password: inputs.password,
+            title: inputs.title,
+            contents: inputs.contents,
+            boardAddress: {
+              zipcode,
+              address,
+              addressDetail: inputs.addressDetail,
             },
+            youtubeUrl: inputs.youtubeUrl,
+            images: fileUrls, // ["", "", "강아지.jpg"]
           },
-          refetchQueries: [{ query: FETCH_BOARDS }],
-        });
-        router.push(`/boards/${result.data?.createBoard?._id}`);
-      } catch (error) {
-        alert(error);
-      }
+        },
+        refetchQueries: [{ query: FETCH_BOARDS }],
+      });
+      router.push(`/boards/${result.data?.createBoard?._id}`);
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -181,7 +151,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
       !inputs.contents &&
       !zipcode &&
       !address &&
-      !addressDetail &&
+      !inputs.addressDetail &&
       !inputs.youtubeUrl &&
       !isChangeFiles
     ) {
@@ -193,14 +163,15 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     if (inputs.title) updateBoardInput.title = inputs.title;
     if (inputs.contents) updateBoardInput.contents = inputs.contents;
     if (inputs.youtubeUrl) updateBoardInput.youtubeUrl = inputs.youtubeUrl;
-    if (address || zipcode || addressDetail) {
+    if (address || zipcode || inputs.addressDetail) {
       updateBoardInput.boardAddress = {};
       if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
       if (address) updateBoardInput.boardAddress.address = address;
-      if (addressDetail)
-        updateBoardInput.boardAddress.addressDetail = addressDetail;
+      if (inputs.addressDetail)
+        updateBoardInput.boardAddress.addressDetail = inputs.addressDetail;
     }
     if (isChangeFiles) updateBoardInput.images = fileUrls;
+    console.log(updateBoardInput);
 
     try {
       if (typeof router.query.boardId !== "string") return;
@@ -223,8 +194,12 @@ export default function BoardRegister(props: IBoardRegisterProps) {
   return (
     <>
       <BoardRegisterUI
-        errorMessage={errorMessage}
+        writerError={writerError}
+        pwdError={pwdError}
+        titleError={titleError}
+        contentsError={contentsError}
         addressError={addressError}
+        youtubeUrlError={youtubeUrlError}
         onChangeInputs={onChangeInputs}
         onChangeFileUrls={onChangeFileUrls}
         onClickValidation={onClickValidation}
@@ -237,8 +212,6 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         isModalOpen={isModalOpen}
         zipcode={zipcode}
         address={address}
-        addressDetail={addressDetail}
-        onChangeAddressDetail={onChangeAddressDetail}
         fileUrls={fileUrls}
       />
     </>

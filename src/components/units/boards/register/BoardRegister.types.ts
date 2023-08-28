@@ -27,13 +27,13 @@ export interface IinputsType {
   password: string;
   title: string;
   contents: string;
+  addressDetail: string;
   youtubeUrl: string;
 }
 
 export interface IBoardRegisterUIProps {
   // prettier-ignore
   onChangeInputs: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
   onClickValidation: () => void;
   onClickUpdate: () => void;
@@ -45,10 +45,13 @@ export interface IBoardRegisterUIProps {
   isModalOpen: boolean;
   zipcode: string;
   address: string;
-  addressDetail: string;
   fileUrls: string[];
-  errorMessage: string;
+  writerError: string;
+  pwdError: string;
+  titleError: string;
+  contentsError: string;
   addressError: string;
+  youtubeUrlError: string;
 }
 
 // 등록, 수정하기 버튼 타입
