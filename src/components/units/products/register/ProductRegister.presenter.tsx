@@ -133,6 +133,7 @@ export default function ProductRegisterUI(props: IProductUIProps) {
               <UploadFile
                 key={uuidv4()}
                 fileUrl={el}
+                deleteFileByIndex={props.deleteFileByIndex}
                 onChangeFileUrls={props.onChangeFileUrls}
                 index={index}
               />

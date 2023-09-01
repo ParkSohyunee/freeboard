@@ -119,6 +119,7 @@ export default function BoardRegisterUI(props: IBoardRegisterUIProps) {
                 fileUrl={el} // ex) 강아지.jpg
                 index={index}
                 onChangeFileUrls={props.onChangeFileUrls}
+                deleteFileByIndex={props.deleteFileByIndex}
               />
             ))}
           </S.Img>

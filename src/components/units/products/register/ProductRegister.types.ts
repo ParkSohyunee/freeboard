@@ -37,6 +37,7 @@ export interface IProductUIProps {
   handleChange: (value: string) => void;
   handleComplete: (value: Address) => void;
   onKeyUp: (event: any) => void;
+  deleteFileByIndex: (index: number) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
   onClickDeleteTag: (event: MouseEvent<HTMLSpanElement>) => void;
   onclickSubmit: (data: IProductForm) => void;

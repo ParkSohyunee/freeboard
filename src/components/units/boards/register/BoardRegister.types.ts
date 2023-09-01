@@ -35,6 +35,7 @@ export interface IBoardRegisterUIProps {
   // prettier-ignore
   onChangeInputs: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onChangeFileUrls: (fileUrl: string, index: number) => void;
+  deleteFileByIndex: (index: number) => void;
   onClickValidation: () => void;
   onClickUpdate: () => void;
   handleComplete: (data: Address) => void;

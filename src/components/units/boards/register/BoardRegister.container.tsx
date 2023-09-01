@@ -69,11 +69,25 @@ export default function BoardRegister(props: IBoardRegisterProps) {
     }
   };
 
+  const deleteFileByIndex = (index: number) => {
+    const result = fileUrls.filter((_, fileUrlIndex) => fileUrlIndex !== index);
+    const fileurls = [];
+    for (let i = 0; i < fileUrls.length; i++) {
+      result[i] ? fileurls.push(result[i]) : fileurls.push("");
+    }
+    setFileUrls(fileurls);
+  };
+
   // ** 이미지 업로드
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls]; // ["", "", ""]
-    newFileUrls[index] = fileUrl; // 새로운 배열의 index번째에 fileUrl을 넣어줘
-    setFileUrls(newFileUrls); // ex) ["", "", "강아지.jpg"]
+    for (let i = 0; i < newFileUrls.length; i++) {
+      if (!newFileUrls[i]) {
+        newFileUrls[i] = fileUrl;
+        break;
+      }
+    }
+    setFileUrls(newFileUrls);
   };
 
   // 만약 이미지가 있다면 배열에 넣어줘
@@ -202,6 +216,7 @@ export default function BoardRegister(props: IBoardRegisterProps) {
         youtubeUrlError={youtubeUrlError}
         onChangeInputs={onChangeInputs}
         onChangeFileUrls={onChangeFileUrls}
+        deleteFileByIndex={deleteFileByIndex}
         onClickValidation={onClickValidation}
         onClickUpdate={onClickUpdate}
         isActive={isActive}

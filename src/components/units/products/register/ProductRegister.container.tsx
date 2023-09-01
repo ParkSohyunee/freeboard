@@ -85,9 +85,23 @@ export default function ProductRegister(props: IProductRegisterProps) {
     }
   };
 
+  const deleteFileByIndex = (index: number) => {
+    const result = fileUrls.filter((_, fileUrlIndex) => fileUrlIndex !== index);
+    const fileurls = [];
+    for (let i = 0; i < fileUrls.length; i++) {
+      result[i] ? fileurls.push(result[i]) : fileurls.push("");
+    }
+    setFileUrls(fileurls);
+  };
+
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl; // 인덱스 위치에서 변경된 임시 url 저장
+    for (let i = 0; i < newFileUrls.length; i++) {
+      if (!newFileUrls[i]) {
+        newFileUrls[i] = fileUrl;
+        break;
+      }
+    }
     setFileUrls(newFileUrls);
   };
 
@@ -179,6 +193,7 @@ export default function ProductRegister(props: IProductRegisterProps) {
         handleChange={handleChange}
         handleComplete={handleComplete}
         onKeyUp={onKeyUp}
+        deleteFileByIndex={deleteFileByIndex}
         onChangeFileUrls={onChangeFileUrls}
         onClickDeleteTag={onClickDeleteTag}
         onclickSubmit={onclickSubmit}
